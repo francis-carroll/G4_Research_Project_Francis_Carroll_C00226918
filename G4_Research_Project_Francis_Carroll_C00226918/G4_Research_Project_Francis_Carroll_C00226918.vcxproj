@@ -24,6 +24,7 @@
     <ClCompile Include="src\ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ErrorLogging.h" />
     <ClInclude Include="include\Globals.h" />
     <ClInclude Include="include\LevelLoader.h" />
     <ClInclude Include="include\LevelLoaderStructs.h" />
