@@ -1,1 +1,4 @@
-#pragma once
+#ifndef GLOBALS
+#define GLOBALS
+
+#endif
