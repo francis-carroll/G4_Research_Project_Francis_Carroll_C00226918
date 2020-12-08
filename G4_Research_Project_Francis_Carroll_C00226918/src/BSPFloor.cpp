@@ -54,8 +54,8 @@ void BSPFloor::render(shared_ptr<RenderWindow> t_window)
 void BSPFloor::generateBSP()
 {
 	shared_ptr<BSPTree> bspTree = make_shared<BSPTree>();
-	bspTree->setPadding(50, 50, 50, 50);
-	bspTree->setMinRoomsize(Vector2f(50.0f, 50.0f));
+	bspTree->setPadding(MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y, MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y);
+	bspTree->setMinRoomsize(MAX_ROOM_SIZE);
 	m_bspHead = bspTree->bsp(Vector2f(10.0f, 10.0f), Vector2f(800.0f, 800.0f));
 }
 
@@ -65,6 +65,7 @@ void BSPFloor::setupRooms()
 	BSPTree::getLeafNodes(m_bspHead, leafNodes);
 	for (shared_ptr<BSPNode> node : *leafNodes)
 	{
-		m_rooms.push_back(make_shared<Room>(node->getIdentifier(), node->getNodeData()->getPosition(), node->getNodeData()->getSize(), Vector2f(0.0f,0.f)));
+		Vector2f size = Vector2f(BSPTree::randomFloat(MIN_ROOM_SIZE.x, node->getNodeData()->getSize().x), BSPTree::randomFloat(MIN_ROOM_SIZE.y, node->getNodeData()->getSize().y));
+		m_rooms.push_back(make_shared<Room>(node->getIdentifier(), node->getNodeData()->getPosition(), size, Vector2f(0.0f,0.f)));
 	}
 }
