@@ -8,6 +8,9 @@
 
 #include <queue>
 #include <random>
+#include <vector>
+
+using namespace std;
 
 enum SplitDirection {
 	Vertical, 
@@ -25,6 +28,8 @@ public:
 	static int randomInt(int t_min, int t_max);
 	static float randomFloat(float t_min, float t_max);
 	static void renderLeafNodes(RenderWindow& t_window, shared_ptr<BSPNode> t_node);
+	static void renderLeafNodes(shared_ptr<RenderWindow> t_window, shared_ptr<BSPNode> t_node);
+	static void getLeafNodes(shared_ptr<BSPNode> t_node, shared_ptr<vector<shared_ptr<BSPNode>>>);
 	void setPadding(float t_h_min, float t_h_max, float t_w_min, float t_w_max);
 	void setMinRoomsize(Vector2f t_minRoomSize);
 private:

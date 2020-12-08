@@ -23,6 +23,7 @@
     <ClCompile Include="src\BSPNode.cpp" />
     <ClCompile Include="src\BSPNodeData.cpp" />
     <ClCompile Include="src\BSPTree.cpp" />
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="include\BSPNodeData.h" />
     <ClInclude Include="include\BSPTree.h" />
     <ClInclude Include="include\ErrorLogging.h" />
+    <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Globals.h" />
     <ClInclude Include="include\LevelLoader.h" />
     <ClInclude Include="include\LevelLoaderStructs.h" />

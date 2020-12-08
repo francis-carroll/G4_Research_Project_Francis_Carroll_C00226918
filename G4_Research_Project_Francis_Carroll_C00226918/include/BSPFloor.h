@@ -14,8 +14,10 @@ public:
 	BSPFloor();
 	~BSPFloor();
 
-	void handleInput(Event& t_event);
+	void keyPressed(Event& t_event);
+	void render(shared_ptr<RenderWindow> t_window);
 private:
+
 	void generateBSP();
 	void setupRooms();
 

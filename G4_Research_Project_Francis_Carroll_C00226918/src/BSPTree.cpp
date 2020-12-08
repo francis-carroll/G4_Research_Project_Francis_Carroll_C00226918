@@ -94,6 +94,30 @@ void BSPTree::renderLeafNodes(RenderWindow& t_window, shared_ptr<BSPNode> t_node
 	}
 }
 
+void BSPTree::renderLeafNodes(shared_ptr<RenderWindow> t_window, shared_ptr<BSPNode> t_node)
+{
+	if (t_node->getLeftNode() != nullptr && t_node->getRightNode() != nullptr)
+	{
+		renderLeafNodes(t_window, t_node->getLeftNode());
+		renderLeafNodes(t_window, t_node->getRightNode());
+	}
+	else {
+		t_node->draw(t_window);
+	}
+}
+
+void BSPTree::getLeafNodes(shared_ptr<BSPNode> t_node, shared_ptr<vector<shared_ptr<BSPNode>>> t_container)
+{
+	if (t_node->getLeftNode() != nullptr && t_node->getRightNode() != nullptr)
+	{
+		getLeafNodes(t_node->getLeftNode(), t_container);
+		getLeafNodes(t_node->getRightNode(), t_container);
+	}
+	else {
+		t_container->push_back(t_node);
+	}
+}
+
 void BSPTree::setPadding(float t_h_min, float t_h_max, float t_w_min, float t_w_max)
 {
 	H_MIN = t_h_min;

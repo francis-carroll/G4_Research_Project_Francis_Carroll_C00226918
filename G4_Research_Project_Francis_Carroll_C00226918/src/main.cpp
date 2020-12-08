@@ -18,19 +18,14 @@
 #pragma comment(lib,"opengl32.lib") 
 #pragma comment(lib,"glu32.lib")
 
-#include <BSPTree.h>
+#include <Game.h>
 
 int main(int, char* argv[])
 {
 	srand((unsigned)time(nullptr));
-	RenderWindow m_window(sf::VideoMode(1000, 1000, 32), "BSP", sf::Style::Default);
 
-	
-
-	m_window.clear();
-	m_window.display();
-
-	system("PAUSE");
+	Game game = Game();
+	game.run();
 
 	return 0;
 }

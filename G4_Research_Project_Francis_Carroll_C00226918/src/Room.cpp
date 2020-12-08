@@ -30,6 +30,8 @@ RectangleShape Room::getRoom()
 void Room::setupShape()
 {
 	m_roomShape.setFillColor(Color(153, 153, 153));
+	m_roomShape.setOutlineThickness(1.0f);
+	m_roomShape.setOutlineColor(Color::Black);
 	m_roomShape.setPosition(m_position);
 	m_roomShape.setSize(m_size);
 }

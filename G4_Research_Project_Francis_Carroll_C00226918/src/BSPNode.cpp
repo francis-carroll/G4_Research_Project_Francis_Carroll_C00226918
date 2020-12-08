@@ -1,5 +1,11 @@
 #include "BSPNode.h"
 
+BSPNode::BSPNode() :
+	m_identifier(-1),
+	m_nodeData(make_shared<BSPNodeData>(Vector2f(0.0f,0.0f), Vector2f(0.0f, 0.0f)))
+{
+}
+
 BSPNode::BSPNode(int t_id, Vector2f t_position, Vector2f t_nodeSize) :
 	m_identifier(t_id),
 	m_nodeData(make_shared<BSPNodeData>(t_position, t_nodeSize))
@@ -61,6 +67,11 @@ void BSPNode::setRightNode(shared_ptr<BSPNode> t_node)
 void BSPNode::draw(RenderWindow& t_window)
 {
 	t_window.draw(m_shape);
+}
+
+void BSPNode::draw(shared_ptr<RenderWindow> t_window)
+{
+	t_window->draw(m_shape);
 }
 
 void BSPNode::setupShape()
