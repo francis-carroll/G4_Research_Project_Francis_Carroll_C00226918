@@ -22,18 +22,12 @@
 
 int main(int, char* argv[])
 {
-
 	srand((unsigned)time(nullptr));
 	RenderWindow m_window(sf::VideoMode(1000, 1000, 32), "BSP", sf::Style::Default);
 
-	//BSP Algorithm
-	BSPTree* tree = new BSPTree;
-	tree->setPadding(50, 50, 50, 50);
-	tree->setMinRoomsize(Vector2f(50.0f, 50.0f));
-	shared_ptr<BSPNode> head = tree->bsp(Vector2f(10.0f, 10.0f), Vector2f(800.0f, 800.0f));
+	
 
 	m_window.clear();
-	tree->renderLeafNodes(m_window, head);
 	m_window.display();
 
 	system("PAUSE");

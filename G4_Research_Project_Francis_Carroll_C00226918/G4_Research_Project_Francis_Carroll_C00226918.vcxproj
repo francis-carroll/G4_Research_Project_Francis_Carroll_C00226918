@@ -19,14 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BSPFloor.cpp" />
     <ClCompile Include="src\BSPNode.cpp" />
     <ClCompile Include="src\BSPNodeData.cpp" />
     <ClCompile Include="src\BSPTree.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\Room.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\BSPFloor.h" />
     <ClInclude Include="include\BSPNode.h" />
     <ClInclude Include="include\BSPNodeData.h" />
     <ClInclude Include="include\BSPTree.h" />
@@ -35,6 +38,7 @@
     <ClInclude Include="include\LevelLoader.h" />
     <ClInclude Include="include\LevelLoaderStructs.h" />
     <ClInclude Include="include\ResourceManager.h" />
+    <ClInclude Include="include\Room.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

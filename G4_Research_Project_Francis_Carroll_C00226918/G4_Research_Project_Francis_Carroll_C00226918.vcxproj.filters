@@ -48,6 +48,12 @@
     <ClCompile Include="src\BSPNodeData.cpp">
       <Filter>Source Files\BSP</Filter>
     </ClCompile>
+    <ClCompile Include="src\Room.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BSPFloor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ErrorLogging.h">
@@ -73,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="include\BSPNodeData.h">
       <Filter>Header Files\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BSPFloor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Room.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
