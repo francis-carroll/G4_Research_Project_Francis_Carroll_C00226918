@@ -13,6 +13,7 @@ public:
 	~Room();
 
 	RectangleShape getRoom();
+	Vector2f getCenter();
 private:
 	void setupShape();
 

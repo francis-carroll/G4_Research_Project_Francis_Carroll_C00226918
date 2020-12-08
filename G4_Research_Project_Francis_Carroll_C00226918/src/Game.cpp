@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game() : 
-	m_window(make_shared<RenderWindow>(sf::VideoMode(1000, 1000, 32), "G4 Project", sf::Style::Default)), 
+	m_window(make_shared<RenderWindow>(sf::VideoMode(820, 820, 32), "G4 Project", sf::Style::Default)), 
 	m_bspFloor(make_shared<BSPFloor>())
 {
 }

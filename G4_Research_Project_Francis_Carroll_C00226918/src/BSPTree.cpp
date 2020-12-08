@@ -118,6 +118,11 @@ void BSPTree::getLeafNodes(shared_ptr<BSPNode> t_node, shared_ptr<vector<shared_
 	}
 }
 
+float BSPTree::getDistance(Vector2f t_vector1, Vector2f t_vector2)
+{
+	return sqrt(pow(t_vector1.x - t_vector2.x, 2.0f) + pow(t_vector1.y - t_vector2.y, 2.0f));
+}
+
 void BSPTree::setPadding(float t_h_min, float t_h_max, float t_w_min, float t_w_max)
 {
 	H_MIN = t_h_min;

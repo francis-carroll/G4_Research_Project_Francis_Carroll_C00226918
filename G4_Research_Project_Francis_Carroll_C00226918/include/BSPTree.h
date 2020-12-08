@@ -30,6 +30,7 @@ public:
 	static void renderLeafNodes(RenderWindow& t_window, shared_ptr<BSPNode> t_node);
 	static void renderLeafNodes(shared_ptr<RenderWindow> t_window, shared_ptr<BSPNode> t_node);
 	static void getLeafNodes(shared_ptr<BSPNode> t_node, shared_ptr<vector<shared_ptr<BSPNode>>>);
+	static float getDistance(Vector2f t_vector1, Vector2f t_vector2);
 	void setPadding(float t_h_min, float t_h_max, float t_w_min, float t_w_max);
 	void setMinRoomsize(Vector2f t_minRoomSize);
 private:

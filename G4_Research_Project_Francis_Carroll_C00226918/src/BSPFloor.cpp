@@ -3,10 +3,12 @@
 BSPFloor::BSPFloor() : 
 	m_renderBSP(true),
 	m_renderRooms(true),
-	m_bspHead(make_shared<BSPNode>(0,Vector2f(0.0f,0.0f), Vector2f(0.0f, 0.0f)))
+	m_bspHead(make_shared<BSPNode>(0,Vector2f(0.0f,0.0f), Vector2f(0.0f, 0.0f))), 
+	m_corridors(vector<VertexArray>())
 {
 	generateBSP();
 	setupRooms();
+	setupCorridors();
 }
 
 BSPFloor::~BSPFloor()
@@ -49,6 +51,11 @@ void BSPFloor::render(shared_ptr<RenderWindow> t_window)
 			t_window->draw(room->getRoom());
 		}
 	}
+
+	for (VertexArray v : m_corridors)
+	{
+		t_window->draw(v);
+	}
 }
 
 void BSPFloor::generateBSP()
@@ -65,9 +72,33 @@ void BSPFloor::setupRooms()
 	BSPTree::getLeafNodes(m_bspHead, leafNodes);
 	for (shared_ptr<BSPNode> node : *leafNodes)
 	{
-		Vector2f size = Vector2f(BSPTree::randomFloat(MIN_ROOM_SIZE.x, node->getNodeData()->getSize().x - ROOM_PADDING), BSPTree::randomFloat(MIN_ROOM_SIZE.y, node->getNodeData()->getSize().y - ROOM_PADDING));
-		Vector2f position = Vector2f(BSPTree::randomFloat(node->getNodeData()->getPosition().x + NODE_PADDING, node->getNodeData()->getPosition().x + (node->getNodeData()->getSize().x - size.x) - NODE_PADDING),
-									 BSPTree::randomFloat(node->getNodeData()->getPosition().y + NODE_PADDING, node->getNodeData()->getPosition().y + (node->getNodeData()->getSize().y - size.y) - NODE_PADDING));
+		Vector2f size = Vector2f(BSPTree::randomFloat(MIN_ROOM_SIZE.x, node->getNodeData()->getSize().x - ROOM_SIZE_PADDING), BSPTree::randomFloat(MIN_ROOM_SIZE.y, node->getNodeData()->getSize().y - ROOM_SIZE_PADDING));
+		Vector2f position = Vector2f(BSPTree::randomFloat(node->getNodeData()->getPosition().x + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().x + (node->getNodeData()->getSize().x - size.x) - ROOM_POSITION_PADDING),
+									 BSPTree::randomFloat(node->getNodeData()->getPosition().y + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().y + (node->getNodeData()->getSize().y - size.y) - ROOM_POSITION_PADDING));
 		m_rooms.push_back(make_shared<Room>(node->getIdentifier(), position, size, Vector2f(0.0f,0.f)));
+	}
+}
+
+void BSPFloor::setupCorridors()
+{
+	for (shared_ptr<Room> room : m_rooms)
+	{
+		for (shared_ptr<Room> room2 : m_rooms)
+		{
+			if (room != room2)
+			{
+				float distance = BSPTree::getDistance(room->getCenter(), room2->getCenter());
+
+				if (distance < ROOM_DISTANCE) 
+				{
+					VertexArray line = VertexArray(LinesStrip, 2);
+					line[0].position = room->getCenter();
+					line[1].position = room2->getCenter();
+					line[0].color = Color::Black;
+					line[1].color = Color::Blue;
+					m_corridors.push_back(line);
+				}
+			}
+		}
 	}
 }
