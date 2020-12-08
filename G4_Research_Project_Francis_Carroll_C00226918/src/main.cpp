@@ -28,7 +28,7 @@ int main(int, char* argv[])
 
 	//BSP Algorithm
 	BSPTree* tree = new BSPTree;
-	tree->setPadding(31, 30, 30, 30);
+	tree->setPadding(50, 50, 50, 50);
 	tree->setMinRoomsize(Vector2f(50.0f, 50.0f));
 	shared_ptr<BSPNode> head = tree->bsp(Vector2f(10.0f, 10.0f), Vector2f(800.0f, 800.0f));
 
