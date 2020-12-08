@@ -3,6 +3,7 @@
 BSPFloor::BSPFloor() : 
 	m_renderBSP(true),
 	m_renderRooms(true),
+	m_renderCorridors(true),
 	m_bspHead(make_shared<BSPNode>(0,Vector2f(0.0f,0.0f), Vector2f(0.0f, 0.0f))), 
 	m_corridors(vector<VertexArray>())
 {
@@ -25,6 +26,11 @@ void BSPFloor::toggleBSP()
 	m_renderBSP = (m_renderBSP + 1) % 2;
 }
 
+void BSPFloor::toggleCorridors()
+{
+	m_renderCorridors = (m_renderCorridors + 1) % 2;
+}
+
 void BSPFloor::keyPressed(Event& t_event)
 {
 	if (t_event.key.code == Keyboard::R)
@@ -34,6 +40,10 @@ void BSPFloor::keyPressed(Event& t_event)
 	else if (t_event.key.code == Keyboard::B)
 	{
 		toggleBSP();
+	}
+	else if (t_event.key.code == Keyboard::C)
+	{
+		toggleCorridors();
 	}
 }
 
@@ -52,9 +62,12 @@ void BSPFloor::render(shared_ptr<RenderWindow> t_window)
 		}
 	}
 
-	for (VertexArray v : m_corridors)
+	if (m_renderCorridors)
 	{
-		t_window->draw(v);
+		for (VertexArray v : m_corridors)
+		{
+			t_window->draw(v);
+		}
 	}
 }
 

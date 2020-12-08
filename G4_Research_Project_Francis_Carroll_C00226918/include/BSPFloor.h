@@ -29,6 +29,7 @@ private:
 
 	void toggleRooms();
 	void toggleBSP();
+	void toggleCorridors();
 
 	vector<shared_ptr<Room>> m_rooms;
 	shared_ptr<BSPNode> m_bspHead;
@@ -36,4 +37,5 @@ private:
 
 	bool m_renderRooms;
 	bool m_renderBSP;
+	bool m_renderCorridors;
 };
