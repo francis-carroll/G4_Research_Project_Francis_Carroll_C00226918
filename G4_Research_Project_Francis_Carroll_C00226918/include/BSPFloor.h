@@ -17,6 +17,8 @@ public:
 	void keyPressed(Event& t_event);
 	void render(shared_ptr<RenderWindow> t_window);
 private:
+	const float ROOM_PADDING = 20.0f;
+	const float NODE_PADDING = 5.0f;
 	const Vector2f MAX_ROOM_SIZE = Vector2f(50.0f, 50.0f);
 	const Vector2f MIN_ROOM_SIZE = Vector2f(30.0f, 30.0f);
 
