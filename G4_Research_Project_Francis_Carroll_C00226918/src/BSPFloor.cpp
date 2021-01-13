@@ -44,28 +44,32 @@ bool BSPFloor::checkRoomPosition(shared_ptr<Door> t_door1, shared_ptr<Door> t_do
 	{
 		if (t_door1->getDirection() == DoorDirection::North)
 		{
-			if (t_door1->getPosition().y > t_door2->getPosition().y + 10)
+			if (t_door1->getPosition().y > t_door2->getPosition().y + ROOM_CORRIDOR_OFFSET &&
+				t_door1->getPosition().x < t_door2->getPosition().x + ROOM_CORRIDOR_OFFSET_HW && t_door1->getPosition().x > t_door2->getPosition().x - ROOM_CORRIDOR_OFFSET_HW)
 			{
 				return true;
 			}
 		}
 		else if (t_door1->getDirection() == DoorDirection::South)
 		{
-			if (t_door1->getPosition().y + 10 < t_door2->getPosition().y)
+			if (t_door1->getPosition().y + ROOM_CORRIDOR_OFFSET < t_door2->getPosition().y &&
+				t_door1->getPosition().x  + ROOM_CORRIDOR_OFFSET_HW > t_door2->getPosition().x && t_door1->getPosition().x - ROOM_CORRIDOR_OFFSET_HW < t_door2->getPosition().x)
 			{
 				return true;
 			}
 		}
 		else if (t_door1->getDirection() == DoorDirection::East)
 		{
-			if (t_door1->getPosition().x + 10< t_door2->getPosition().x)
+			if (t_door1->getPosition().x + ROOM_CORRIDOR_OFFSET< t_door2->getPosition().x &&
+				t_door1->getPosition().y + ROOM_CORRIDOR_OFFSET_HW > t_door2->getPosition().y && t_door1->getPosition().y - ROOM_CORRIDOR_OFFSET_HW < t_door2->getPosition().y)
 			{
 				return true;
 			}
 		}
 		else if (t_door1->getDirection() == DoorDirection::West)
 		{
-			if (t_door1->getPosition().x > t_door2->getPosition().x + 10)
+			if (t_door1->getPosition().x > t_door2->getPosition().x + ROOM_CORRIDOR_OFFSET &&
+				t_door1->getPosition().y < t_door2->getPosition().y + ROOM_CORRIDOR_OFFSET_HW && t_door1->getPosition().y > t_door2->getPosition().y - ROOM_CORRIDOR_OFFSET_HW)
 			{
 				return true;
 			}
@@ -159,9 +163,9 @@ void BSPFloor::setupCorridors()
 							{
 								float distance = BSPTree::getDistance(connected->getPosition(), connected2->getPosition());
 
-								if (distance < ROOM_DISTANCE)
+								if (distance < bestDistance)
 								{
-									if (distance < bestDistance)
+									if (distance < ROOM_DISTANCE)
 									{
 										bestDistance = distance;
 										bestRoom = room;

@@ -22,7 +22,9 @@ private:
 	const float ROOM_POSITION_PADDING = 2.0f;
 	const Vector2f MAX_ROOM_SIZE = Vector2f(50.0f, 50.0f);
 	const Vector2f MIN_ROOM_SIZE = Vector2f(10.0f, 10.0f);
-	const float ROOM_DISTANCE = 85.0f;
+	const float ROOM_DISTANCE = 50.0f;
+	const float ROOM_CORRIDOR_OFFSET = 7.0f;
+	const float ROOM_CORRIDOR_OFFSET_HW = 45.0f;
 
 	void generateBSP();
 	void setupRooms();
