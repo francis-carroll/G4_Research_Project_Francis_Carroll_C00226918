@@ -8,35 +8,40 @@ BSPTree::~BSPTree()
 {
 }
 
-shared_ptr<BSPNode> BSPTree::bsp(Vector2f t_graphPosition, Vector2f t_graphSize)
+shared_ptr<BSPNode> BSPTree::bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth)
 {
-	return split(make_shared<BSPNodeData>(t_graphPosition, t_graphSize));
+	return split(make_shared<BSPNodeData>(t_graphPosition, t_graphSize), t_graphDepth);
 }
 
-shared_ptr<BSPNode> BSPTree::split(shared_ptr<BSPNodeData> t_node)
+shared_ptr<BSPNode> BSPTree::split(shared_ptr<BSPNodeData> t_node, int t_current)
 {
-	shared_ptr<BSPNode> root = make_shared<BSPNode>(0, *t_node);
+	shared_ptr<BSPNode> root = make_shared<BSPNode>(m_nodeCount, *t_node);
+	m_nodeCount++;
 	shared_ptr<pair<BSPNodeData, BSPNodeData>> temp = nullptr;
 
-	if (t_node->getSize().y > MIN_ROOM_SIZE.y *2.0f && t_node->getSize().x <= MIN_ROOM_SIZE.x * 2.0f)
+	if (t_current > 0)
 	{
-		temp = randomSplit(t_node, 1);
+		if (t_node->getSize().y > MIN_ROOM_SIZE.y * 2.0f && t_node->getSize().x <= MIN_ROOM_SIZE.x * 2.0f)
+		{
+			temp = randomSplit(t_node, 1);
+		}
+		else if (t_node->getSize().x > MIN_ROOM_SIZE.x * 2.0f && t_node->getSize().y <= MIN_ROOM_SIZE.y * 2.0f)
+		{
+			//if the node is wider split it vertically
+			temp = randomSplit(t_node, 0);
+		}
+		else if (t_node->getSize().x > MIN_ROOM_SIZE.x * 2.0f && t_node->getSize().y > MIN_ROOM_SIZE.y * 2.0f) {
+			temp = randomSplit(t_node, randomInt(0, 1));
+		}
+		//if the room wasnt split, dont split its neighbour
+		if (temp != nullptr)
+		{
+			root->setLeftNode(split(make_shared<BSPNodeData>(temp->first), t_current - 1));
+			root->setRightNode(split(make_shared<BSPNodeData>(temp->second), t_current - 1));
+		}
+		return root;
 	}
-	else if (t_node->getSize().x > MIN_ROOM_SIZE.x * 2.0f  && t_node->getSize().y <= MIN_ROOM_SIZE.y * 2.0f)
-	{
-		//if the node is wider split it vertically
-		temp = randomSplit(t_node, 0);
-	}
-	else if(t_node->getSize().x > MIN_ROOM_SIZE.x * 2.0f && t_node->getSize().y > MIN_ROOM_SIZE.y * 2.0f){
-		temp = randomSplit(t_node, randomInt(0, 1));
-	}
-	//if the room wasnt split, dont split its neighbour
-	if (temp != nullptr)
-	{
-		root->setLeftNode(split(make_shared<BSPNodeData>(temp->first)));
-		root->setRightNode(split(make_shared<BSPNodeData>(temp->second)));
-	}
-	return root;
+	return nullptr;
 }
 
 shared_ptr<pair<BSPNodeData, BSPNodeData>> BSPTree::randomSplit(shared_ptr<BSPNodeData> t_node, int t_direction)

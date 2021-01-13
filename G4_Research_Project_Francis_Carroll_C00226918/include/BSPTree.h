@@ -22,8 +22,8 @@ class BSPTree
 public:
 	BSPTree();
 	~BSPTree();
-	shared_ptr<BSPNode> bsp(Vector2f t_graphPosition, Vector2f t_graphSize);
-	shared_ptr<BSPNode> split(shared_ptr<BSPNodeData> t_node);
+	shared_ptr<BSPNode> bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth);
+	shared_ptr<BSPNode> split(shared_ptr<BSPNodeData> t_node, int t_current);
 	shared_ptr<pair<BSPNodeData, BSPNodeData>> randomSplit(shared_ptr<BSPNodeData> t_node, int t_direction);
 	static int randomInt(int t_min, int t_max);
 	static float randomFloat(float t_min, float t_max);
@@ -40,5 +40,7 @@ private:
 	float W_MAX = 30;
 
 	Vector2f MIN_ROOM_SIZE = Vector2f(50.0f, 50.0f);
+
+	int m_nodeCount = 0;
 };
 

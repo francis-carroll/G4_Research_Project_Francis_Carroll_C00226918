@@ -2,8 +2,8 @@
 
 BSPFloor::BSPFloor() : 
 	m_renderBSP(true),
-	m_renderRooms(true),
-	m_renderCorridors(true),
+	m_renderRooms(false),
+	m_renderCorridors(false),
 	m_bspHead(make_shared<BSPNode>(0,Vector2f(0.0f,0.0f), Vector2f(0.0f, 0.0f))), 
 	m_corridors(vector<VertexArray>())
 {
@@ -29,6 +29,49 @@ void BSPFloor::toggleBSP()
 void BSPFloor::toggleCorridors()
 {
 	m_renderCorridors = (m_renderCorridors + 1) % 2;
+}
+
+bool BSPFloor::checkRoomPosition(shared_ptr<Door> t_door1, shared_ptr<Door> t_door2)
+{
+	/*connected->getDirection() != DoorDirection::North || connected2->getDirection() != DoorDirection::North &&
+	connected->getDirection() != DoorDirection::South || connected2->getDirection() != DoorDirection::South &&
+	connected->getDirection() != DoorDirection::West || connected2->getDirection() != DoorDirection::West &&
+	connected->getDirection() != DoorDirection::East || connected2->getDirection() != DoorDirection::East*/
+	if (t_door1->getDirection() == DoorDirection::North && t_door2->getDirection() == DoorDirection::South ||
+		t_door1->getDirection() == DoorDirection::West && t_door2->getDirection() == DoorDirection::East ||
+		t_door1->getDirection() == DoorDirection::South && t_door2->getDirection() == DoorDirection::North ||
+		t_door1->getDirection() == DoorDirection::East && t_door2->getDirection() == DoorDirection::West)
+	{
+		if (t_door1->getDirection() == DoorDirection::North)
+		{
+			if (t_door1->getPosition().y > t_door2->getPosition().y + 10)
+			{
+				return true;
+			}
+		}
+		else if (t_door1->getDirection() == DoorDirection::South)
+		{
+			if (t_door1->getPosition().y + 10 < t_door2->getPosition().y)
+			{
+				return true;
+			}
+		}
+		else if (t_door1->getDirection() == DoorDirection::East)
+		{
+			if (t_door1->getPosition().x + 10< t_door2->getPosition().x)
+			{
+				return true;
+			}
+		}
+		else if (t_door1->getDirection() == DoorDirection::West)
+		{
+			if (t_door1->getPosition().x > t_door2->getPosition().x + 10)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void BSPFloor::keyPressed(Event& t_event)
@@ -76,7 +119,7 @@ void BSPFloor::generateBSP()
 	shared_ptr<BSPTree> bspTree = make_shared<BSPTree>();
 	bspTree->setPadding(MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y, MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y);
 	bspTree->setMinRoomsize(MAX_ROOM_SIZE);
-	m_bspHead = bspTree->bsp(Vector2f(10.0f, 10.0f), Vector2f(800.0f, 800.0f));
+	m_bspHead = bspTree->bsp(Vector2f(10.0f, 10.0f), Vector2f(800.0f, 800.0f), 20);
 }
 
 void BSPFloor::setupRooms()
@@ -94,23 +137,63 @@ void BSPFloor::setupRooms()
 
 void BSPFloor::setupCorridors()
 {
+	shared_ptr<Room> bestRoom;
+	shared_ptr<Room> bestRoom2;
+	shared_ptr<Door> bestVec;
+	shared_ptr<Door> bestVec2;
+	float bestDistance = 1000000;
+
 	for (shared_ptr<Room> room : m_rooms)
 	{
-		for (shared_ptr<Room> room2 : m_rooms)
+		for (shared_ptr<Door> connected : room->getDoorNodes())
 		{
-			if (room != room2)
-			{
-				float distance = BSPTree::getDistance(room->getCenter(), room2->getCenter());
-
-				if (distance < ROOM_DISTANCE) 
+			if(!connected->getMarked())
+			{ 
+				for (shared_ptr<Room> room2 : m_rooms)
 				{
+					for (shared_ptr<Door> connected2 : room2->getDoorNodes())
+					{
+						if (room != room2 && !connected2->getMarked())
+						{
+							if (checkRoomPosition(connected, connected2))
+							{
+								float distance = BSPTree::getDistance(connected->getPosition(), connected2->getPosition());
+
+								if (distance < ROOM_DISTANCE)
+								{
+									if (distance < bestDistance)
+									{
+										bestDistance = distance;
+										bestRoom = room;
+										bestRoom2 = room2;
+										bestVec = connected;
+										bestVec2 = connected2;
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				/*bestRoom->addConnectedRoom(bestRoom2);
+				bestRoom2->addConnectedRoom(bestRoom);*/
+				if (bestRoom != nullptr && bestRoom2 != nullptr)
+				{
+					bestVec->setMarked(true);
+					bestVec2->setMarked(true);
 					VertexArray line = VertexArray(LinesStrip, 2);
-					line[0].position = room->getCenter();
-					line[1].position = room2->getCenter();
+					line[0].position = bestVec->getPosition();
+					line[1].position = bestVec2->getPosition();
 					line[0].color = Color::Black;
 					line[1].color = Color::Blue;
 					m_corridors.push_back(line);
 				}
+
+				bestDistance = 100000;
+				bestRoom = nullptr;
+				bestRoom2 = nullptr;
+				bestVec = nullptr;
+				bestVec2 = nullptr;
 			}
 		}
 	}

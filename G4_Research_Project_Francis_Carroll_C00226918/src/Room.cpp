@@ -1,4 +1,4 @@
-#include "..\include\Room.h"
+#include "Room.h"
 
 Room::Room() : 
 	m_id(0),
@@ -22,6 +22,11 @@ Room::~Room()
 {
 }
 
+void Room::addConnectedRoom(shared_ptr<Room> t_room)
+{
+	m_connectedRooms.push_back(t_room);
+}
+
 RectangleShape Room::getRoom()
 {
 	return m_roomShape;
@@ -32,6 +37,21 @@ Vector2f Room::getCenter()
 	return m_center;
 }
 
+int Room::getID()
+{
+	return m_id;
+}
+
+vector<shared_ptr<Room>> Room::getConnectedRoom()
+{
+	return m_connectedRooms;
+}
+
+vector<shared_ptr<Door>> Room::getDoorNodes()
+{
+	return m_doorNodes;
+}
+
 void Room::setupShape()
 {
 	m_roomShape.setFillColor(Color(153, 153, 153));
@@ -39,4 +59,9 @@ void Room::setupShape()
 	m_roomShape.setOutlineColor(Color::Black);
 	m_roomShape.setPosition(m_position);
 	m_roomShape.setSize(m_size);
+
+	m_doorNodes.push_back(make_shared<Door>(DoorDirection::North, Vector2f(m_position.x + (m_size.x / 2.0f), m_position.y)));
+	m_doorNodes.push_back(make_shared<Door>(DoorDirection::West, Vector2f(m_position.x, m_position.y + (m_size.y / 2.0f))));
+	m_doorNodes.push_back(make_shared<Door>(DoorDirection::East, Vector2f(m_position.x + m_size.x, m_position.y + (m_size.y / 2.0f))));
+	m_doorNodes.push_back(make_shared<Door>(DoorDirection::South, Vector2f(m_position.x + (m_size.x / 2.0f), m_position.y + m_size.y)));
 }
