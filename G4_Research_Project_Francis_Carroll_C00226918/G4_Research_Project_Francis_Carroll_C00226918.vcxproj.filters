@@ -28,6 +28,12 @@
     <Filter Include="Source Files\ResourceManagement">
       <UniqueIdentifier>{87d5f1eb-da79-4cef-b915-d19b7b406509}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Room">
+      <UniqueIdentifier>{90c69ee6-7974-439d-98f3-6c9abbec30b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Room">
+      <UniqueIdentifier>{93133132-e9a0-45c5-9db6-1e851a27b7b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -48,24 +54,21 @@
     <ClCompile Include="src\BSPNodeData.cpp">
       <Filter>Source Files\BSP</Filter>
     </ClCompile>
-    <ClCompile Include="src\Room.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BSPFloor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Door.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\BSPFloor.cpp">
+      <Filter>Source Files\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Room.cpp">
+      <Filter>Source Files\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Door.cpp">
+      <Filter>Source Files\Room</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ErrorLogging.h">
-      <Filter>Header Files\Globals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Globals.h">
       <Filter>Header Files\Globals</Filter>
     </ClInclude>
     <ClInclude Include="include\ResourceManager.h">
@@ -86,20 +89,20 @@
     <ClInclude Include="include\BSPNodeData.h">
       <Filter>Header Files\BSP</Filter>
     </ClInclude>
-    <ClInclude Include="include\BSPFloor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Room.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Door.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\BSPFloor.h">
+      <Filter>Header Files\BSP</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\Room.h">
+      <Filter>Header Files\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Door.h">
+      <Filter>Header Files\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Globals.h">
+      <Filter>Header Files\Globals</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

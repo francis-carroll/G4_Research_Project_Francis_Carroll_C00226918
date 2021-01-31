@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Door.cpp" />
     <ClCompile Include="src\BSPFloor.cpp" />
     <ClCompile Include="src\BSPNode.cpp" />
     <ClCompile Include="src\BSPNodeData.cpp" />
     <ClCompile Include="src\BSPTree.cpp" />
+    <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -31,12 +31,11 @@
     <ClCompile Include="src\Room.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Door.h" />
-    <ClInclude Include="Globals.h" />
     <ClInclude Include="include\BSPFloor.h" />
     <ClInclude Include="include\BSPNode.h" />
     <ClInclude Include="include\BSPNodeData.h" />
     <ClInclude Include="include\BSPTree.h" />
+    <ClInclude Include="include\Door.h" />
     <ClInclude Include="include\ErrorLogging.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Globals.h" />
