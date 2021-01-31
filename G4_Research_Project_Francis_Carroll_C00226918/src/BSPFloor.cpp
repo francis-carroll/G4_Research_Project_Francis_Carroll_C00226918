@@ -123,7 +123,7 @@ void BSPFloor::generateBSP()
 	shared_ptr<BSPTree> bspTree = make_shared<BSPTree>();
 	bspTree->setPadding(MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y, MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y);
 	bspTree->setMinRoomsize(MAX_ROOM_SIZE);
-	m_bspHead = bspTree->bsp(Vector2f(10.0f, 10.0f), Vector2f(800.0f, 800.0f), 20);
+	m_bspHead = bspTree->bsp(Vector2f(10.0f, 10.0f), Vector2f(800.0f, 800.0f), 8);
 }
 
 void BSPFloor::setupRooms()

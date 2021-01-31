@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Corridor.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="src\BSPFloor.cpp" />
     <ClCompile Include="src\BSPNode.cpp" />
@@ -32,7 +31,6 @@
     <ClCompile Include="src\Room.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Corridor.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="include\BSPFloor.h" />

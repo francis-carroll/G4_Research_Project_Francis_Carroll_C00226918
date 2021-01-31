@@ -19,6 +19,7 @@
 #pragma comment(lib,"glu32.lib")
 
 #include <Game.h>
+#include <ErrorLogging.h>
 
 int main(int, char* argv[])
 {
