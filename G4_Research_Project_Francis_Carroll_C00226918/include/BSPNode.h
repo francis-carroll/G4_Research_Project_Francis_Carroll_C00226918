@@ -7,6 +7,9 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// Node used in the BSP algorithm
+/// </summary>
 class BSPNode
 {
 public:
@@ -27,8 +30,7 @@ public:
 	void setLeftNode(shared_ptr<BSPNode> t_node);
 	void setRightNode(shared_ptr<BSPNode> t_node);
 
-	void draw(RenderWindow& t_window);
-	void draw(shared_ptr<RenderWindow> t_window);
+	void render(shared_ptr<RenderWindow> t_window);
 private:
 	int m_identifier;
 	shared_ptr<BSPNodeData> m_nodeData;

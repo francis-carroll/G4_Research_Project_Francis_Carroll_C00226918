@@ -64,16 +64,14 @@ void BSPNode::setRightNode(shared_ptr<BSPNode> t_node)
 	m_rightNode = t_node;
 }
 
-void BSPNode::draw(RenderWindow& t_window)
-{
-	t_window.draw(m_shape);
-}
-
-void BSPNode::draw(shared_ptr<RenderWindow> t_window)
+void BSPNode::render(shared_ptr<RenderWindow> t_window)
 {
 	t_window->draw(m_shape);
 }
 
+/// <summary>
+/// sets up the bsp nodes shape
+/// </summary>
 void BSPNode::setupShape()
 {
 	m_shape.setPosition(m_nodeData->getPosition());

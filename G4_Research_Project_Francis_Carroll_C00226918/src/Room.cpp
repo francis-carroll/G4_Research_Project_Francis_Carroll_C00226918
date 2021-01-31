@@ -22,6 +22,10 @@ Room::~Room()
 {
 }
 
+/// <summary>
+/// Add a connected room to this room
+/// </summary>
+/// <param name="t_room"></param>
 void Room::addConnectedRoom(shared_ptr<Room> t_room)
 {
 	m_connectedRooms.push_back(t_room);
@@ -52,6 +56,9 @@ vector<shared_ptr<Door>> Room::getDoorNodes()
 	return m_doorNodes;
 }
 
+/// <summary>
+/// sets up the visual for the room shape
+/// </summary>
 void Room::setupShape()
 {
 	m_roomShape.setFillColor(Color(153, 153, 153));

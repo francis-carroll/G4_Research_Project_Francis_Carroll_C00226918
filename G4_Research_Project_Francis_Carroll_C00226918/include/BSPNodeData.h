@@ -5,6 +5,9 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// data that is stored in every node
+/// </summary>
 class BSPNodeData
 {
 public:
@@ -20,4 +23,3 @@ private:
 	Vector2f m_position;
 	Vector2f m_nodeSize;
 };
-

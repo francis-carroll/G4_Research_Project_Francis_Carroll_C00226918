@@ -16,3 +16,8 @@ static sf::Vector2f normalise(sf::Vector2f t_vector) {
 		return t_vector;
 	}
 }
+
+static void toggleBool(bool& t_bool)
+{
+	t_bool = (t_bool + 1) % 2;
+}

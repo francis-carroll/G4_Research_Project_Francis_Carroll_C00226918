@@ -20,6 +20,7 @@
 
 #include <Game.h>
 #include <ErrorLogging.h>
+#include <LevelLoader.h>
 
 int main(int, char* argv[])
 {

@@ -16,6 +16,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "LevelLoaderStructs.h"
+#include "ErrorLogging.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ class LevelLoader
 public:
 	LevelLoader() = default;
 
-	static void load(int nr, shared_ptr<LevelData> level);
+	static void load(string t_filename, shared_ptr<BSPData> t_data);
 };
 
 #endif

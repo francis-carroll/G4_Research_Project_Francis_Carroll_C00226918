@@ -1,0 +1,11 @@
+bsp:
+    room_size_padding: 20
+    room_position_padding: 2
+    max_room_size: {x: 50, y: 50}
+    min_room_size: {x: 10, y: 10}
+    bsp_starting_position: {x: 10, y: 10}
+    room_connection_offset: 7
+    room_connection_offset_hw: 45
+    room_connection_distance: 85
+    bsp_area_size: {x : 800.0, y: 800.0}
+    bsp_depth: 20

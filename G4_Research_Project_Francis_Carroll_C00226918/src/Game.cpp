@@ -1,15 +1,20 @@
 #include "Game.h"
 
 Game::Game() : 
-	m_window(make_shared<RenderWindow>(sf::VideoMode(820, 820, 32), "G4 Project", sf::Style::Default)), 
-	m_bspFloor(make_shared<BSPFloor>())
+	m_window(make_shared<RenderWindow>(sf::VideoMode(820, 820, 32), "G4 Project", sf::Style::Default))
 {
+	shared_ptr<BSPData> bspData = make_shared<BSPData>();
+	LevelLoader::load("bsp", bspData);
+	m_bspFloor = make_shared<BSPFloor>(bspData);
 }
 
 Game::~Game()
 {
 }
 
+/// <summary>
+/// Game loop which runs at 60 fps
+/// </summary>
 void Game::run()
 {
 	Clock clock;
@@ -19,21 +24,30 @@ void Game::run()
 	while (m_window->isOpen())
 	{
 		processEvents();
-		timeSinceLastUpdate += clock.restart();
-		while (timeSinceLastUpdate > timePerFrame)
+		timeSinceLastUpdate += clock.getElapsedTime();
+
+		if (timeSinceLastUpdate > timePerFrame)
 		{
-			timeSinceLastUpdate -= timePerFrame;
 			processEvents();
 			update(timePerFrame);
+			timeSinceLastUpdate -= timePerFrame;
+			clock.restart();
 		}
 		render();
 	}
 }
 
+/// <summary>
+/// Updates the application
+/// </summary>
+/// <param name="t_deltaTime">time since last frame</param>
 void Game::update(Time t_deltaTime)
 {
 }
 
+/// <summary>
+/// renders all entities within the application
+/// </summary>
 void Game::render()
 {
 	m_window->clear(Color::White);
@@ -43,6 +57,9 @@ void Game::render()
 	m_window->display();
 }
 
+/// <summary>
+/// Processes events in the application
+/// </summary>
 void Game::processEvents()
 {
 	Event event;
@@ -52,29 +69,41 @@ void Game::processEvents()
 	}
 }
 
-void Game::handleInput(Event& event)
+/// <summary>
+/// Handles ecternal input
+/// </summary>
+/// <param name="t_event">ref to event</param>
+void Game::handleInput(Event& t_event)
 {
-	if (event.type == Event::Closed)
+	if (t_event.type == Event::Closed)
 	{
 		m_window->close();
 	}
 
-	if (event.type == Event::KeyPressed)
+	if (t_event.type == Event::KeyPressed)
 	{
-		keyPresses(event);
+		keyInput(t_event);
 	}
 
-	if (event.type == Event::MouseButtonPressed)
+	if (t_event.type == Event::MouseButtonPressed)
 	{
-		mousePresses(event);
+		mouseInput(t_event);
 	}
 }
 
-void Game::keyPresses(Event& event)
+/// <summary>
+/// Handles keyboard input
+/// </summary>
+/// <param name="t_event">ref to event</param>
+void Game::keyInput(Event& t_event)
 {
-	m_bspFloor->keyPressed(event);
+	m_bspFloor->keyInput(t_event);
 }
 
-void Game::mousePresses(Event& event)
+/// <summary>
+/// handles mouse input
+/// </summary>
+/// <param name="t_event">ref to event</param>
+void Game::mouseInput(Event& t_event)
 {
 }

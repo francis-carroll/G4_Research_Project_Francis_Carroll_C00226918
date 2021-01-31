@@ -5,34 +5,39 @@
 #include <Room.h>
 #include <BSPTree.h>
 #include <Globals.h>
+#include <LevelLoader.h>
 
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// Contains the rooms, corridors and BSP splitting
+/// </summary>
 class BSPFloor
 {
 public:
-	BSPFloor();
+	BSPFloor(shared_ptr<BSPData> t_bspData);
 	~BSPFloor();
 
-	void keyPressed(Event& t_event);
+	void keyInput(Event& t_event);
 	void render(shared_ptr<RenderWindow> t_window);
 private:
-	const float ROOM_SIZE_PADDING = 20.0f;
-	const float ROOM_POSITION_PADDING = 2.0f;
-	const Vector2f MAX_ROOM_SIZE = Vector2f(50.0f, 50.0f);
-	const Vector2f MIN_ROOM_SIZE = Vector2f(10.0f, 10.0f);
-	const float ROOM_DISTANCE = 85.0f;
-	const float ROOM_CORRIDOR_OFFSET = 7.0f;
-	const float ROOM_CORRIDOR_OFFSET_HW = 45.0f;
+	float ROOM_SIZE_PADDING;
+	float ROOM_POSITION_PADDING;
+	Vector2f MAX_ROOM_SIZE;
+	Vector2f MIN_ROOM_SIZE;
+	Vector2f BSP_STARTING_POSITION;
+	float ROOM_CONNECTION_DISTANCE;
+	float ROOM_CONNECTION_OFFSET;
+	float ROOM_CONNECTION_OFFSET_HW;
+	Vector2f BSP_AREA_SIZE;
+	int BSP_DEPTH;
 
 	void generateBSP();
 	void setupRooms();
 	void setupCorridors();
+	void loadData();
 
-	void toggleRooms();
-	void toggleBSP();
-	void toggleCorridors();
 	bool checkRoomPosition(shared_ptr<Door> t_door1, shared_ptr<Door> t_door2);
 
 	vector<shared_ptr<Room>> m_rooms;
@@ -42,4 +47,5 @@ private:
 	bool m_renderRooms;
 	bool m_renderBSP;
 	bool m_renderCorridors;
+	shared_ptr<BSPData> m_bspData;
 };

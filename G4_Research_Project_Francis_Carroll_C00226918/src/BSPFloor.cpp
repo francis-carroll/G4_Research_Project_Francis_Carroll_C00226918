@@ -1,12 +1,14 @@
 #include "BSPFloor.h"
 
-BSPFloor::BSPFloor() : 
+BSPFloor::BSPFloor(shared_ptr<BSPData> t_bspData) :
+	m_bspData(t_bspData),
 	m_renderBSP(true),
 	m_renderRooms(false),
 	m_renderCorridors(false),
 	m_bspHead(make_shared<BSPNode>(0,Vector2f(0.0f,0.0f), Vector2f(0.0f, 0.0f))), 
 	m_corridors(vector<VertexArray>())
 {
+	loadData();
 	generateBSP();
 	setupRooms();
 	setupCorridors();
@@ -16,21 +18,12 @@ BSPFloor::~BSPFloor()
 {
 }
 
-void BSPFloor::toggleRooms()
-{
-	m_renderRooms = (m_renderRooms + 1) % 2;
-}
-
-void BSPFloor::toggleBSP()
-{
-	m_renderBSP = (m_renderBSP + 1) % 2;
-}
-
-void BSPFloor::toggleCorridors()
-{
-	m_renderCorridors = (m_renderCorridors + 1) % 2;
-}
-
+/// <summary>
+/// Checks if the room is the correct location and position in relation to the current door
+/// </summary>
+/// <param name="t_door1"></param>
+/// <param name="t_door2"></param>
+/// <returns>true, if the door is in the correct location</returns>
 bool BSPFloor::checkRoomPosition(shared_ptr<Door> t_door1, shared_ptr<Door> t_door2)
 {
 	/*connected->getDirection() != DoorDirection::North || connected2->getDirection() != DoorDirection::North &&
@@ -44,32 +37,32 @@ bool BSPFloor::checkRoomPosition(shared_ptr<Door> t_door1, shared_ptr<Door> t_do
 	{
 		if (t_door1->getDirection() == DoorDirection::North)
 		{
-			if (t_door1->getPosition().y > t_door2->getPosition().y + ROOM_CORRIDOR_OFFSET &&
-				t_door1->getPosition().x < t_door2->getPosition().x + ROOM_CORRIDOR_OFFSET_HW && t_door1->getPosition().x > t_door2->getPosition().x - ROOM_CORRIDOR_OFFSET_HW)
+			if (t_door1->getPosition().y > t_door2->getPosition().y + ROOM_CONNECTION_OFFSET &&
+				t_door1->getPosition().x < t_door2->getPosition().x + ROOM_CONNECTION_OFFSET_HW && t_door1->getPosition().x > t_door2->getPosition().x - ROOM_CONNECTION_OFFSET_HW)
 			{
 				return true;
 			}
 		}
 		else if (t_door1->getDirection() == DoorDirection::South)
 		{
-			if (t_door1->getPosition().y + ROOM_CORRIDOR_OFFSET < t_door2->getPosition().y &&
-				t_door1->getPosition().x  + ROOM_CORRIDOR_OFFSET_HW > t_door2->getPosition().x && t_door1->getPosition().x - ROOM_CORRIDOR_OFFSET_HW < t_door2->getPosition().x)
+			if (t_door1->getPosition().y + ROOM_CONNECTION_OFFSET < t_door2->getPosition().y &&
+				t_door1->getPosition().x  + ROOM_CONNECTION_OFFSET_HW > t_door2->getPosition().x && t_door1->getPosition().x - ROOM_CONNECTION_OFFSET_HW < t_door2->getPosition().x)
 			{
 				return true;
 			}
 		}
 		else if (t_door1->getDirection() == DoorDirection::East)
 		{
-			if (t_door1->getPosition().x + ROOM_CORRIDOR_OFFSET< t_door2->getPosition().x &&
-				t_door1->getPosition().y + ROOM_CORRIDOR_OFFSET_HW > t_door2->getPosition().y && t_door1->getPosition().y - ROOM_CORRIDOR_OFFSET_HW < t_door2->getPosition().y)
+			if (t_door1->getPosition().x + ROOM_CONNECTION_OFFSET< t_door2->getPosition().x &&
+				t_door1->getPosition().y + ROOM_CONNECTION_OFFSET_HW > t_door2->getPosition().y && t_door1->getPosition().y - ROOM_CONNECTION_OFFSET_HW < t_door2->getPosition().y)
 			{
 				return true;
 			}
 		}
 		else if (t_door1->getDirection() == DoorDirection::West)
 		{
-			if (t_door1->getPosition().x > t_door2->getPosition().x + ROOM_CORRIDOR_OFFSET &&
-				t_door1->getPosition().y < t_door2->getPosition().y + ROOM_CORRIDOR_OFFSET_HW && t_door1->getPosition().y > t_door2->getPosition().y - ROOM_CORRIDOR_OFFSET_HW)
+			if (t_door1->getPosition().x > t_door2->getPosition().x + ROOM_CONNECTION_OFFSET &&
+				t_door1->getPosition().y < t_door2->getPosition().y + ROOM_CONNECTION_OFFSET_HW && t_door1->getPosition().y > t_door2->getPosition().y - ROOM_CONNECTION_OFFSET_HW)
 			{
 				return true;
 			}
@@ -78,27 +71,35 @@ bool BSPFloor::checkRoomPosition(shared_ptr<Door> t_door1, shared_ptr<Door> t_do
 	return false;
 }
 
-void BSPFloor::keyPressed(Event& t_event)
+/// <summary>
+/// Handles keyboard input for the BSP floor
+/// </summary>
+/// <param name="t_event"></param>
+void BSPFloor::keyInput(Event& t_event)
 {
 	if (t_event.key.code == Keyboard::R)
 	{
-		toggleRooms();
+		toggleBool(m_renderRooms);
 	}
 	else if (t_event.key.code == Keyboard::B)
 	{
-		toggleBSP();
+		toggleBool(m_renderBSP);
 	}
 	else if (t_event.key.code == Keyboard::C)
 	{
-		toggleCorridors();
+		toggleBool(m_renderCorridors);
 	}
 }
 
+/// <summary>
+/// Renders the bsp floor
+/// </summary>
+/// <param name="t_window"></param>
 void BSPFloor::render(shared_ptr<RenderWindow> t_window)
 {
 	if (m_renderBSP)
 	{
-		BSPTree::renderLeafNodes(*t_window, m_bspHead);
+		BSPTree::renderLeafNodes(t_window, m_bspHead);
 	}
 
 	if (m_renderRooms)
@@ -118,14 +119,20 @@ void BSPFloor::render(shared_ptr<RenderWindow> t_window)
 	}
 }
 
+/// <summary>
+/// Executes the bsp algorithm and saves the root node
+/// </summary>
 void BSPFloor::generateBSP()
 {
 	shared_ptr<BSPTree> bspTree = make_shared<BSPTree>();
 	bspTree->setPadding(MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y, MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y);
 	bspTree->setMinRoomsize(MAX_ROOM_SIZE);
-	m_bspHead = bspTree->bsp(Vector2f(10.0f, 10.0f), Vector2f(800.0f, 800.0f), 8);
+	m_bspHead = bspTree->bsp(BSP_STARTING_POSITION,BSP_AREA_SIZE, BSP_DEPTH);
 }
 
+/// <summary>
+/// Generates the rooms based on the BSP Nodes
+/// </summary>
 void BSPFloor::setupRooms()
 {
 	shared_ptr<vector<shared_ptr<BSPNode>>> leafNodes = make_shared<vector<shared_ptr<BSPNode>>>();
@@ -135,10 +142,13 @@ void BSPFloor::setupRooms()
 		Vector2f size = Vector2f(BSPTree::randomFloat(MIN_ROOM_SIZE.x, node->getNodeData()->getSize().x - ROOM_SIZE_PADDING), BSPTree::randomFloat(MIN_ROOM_SIZE.y, node->getNodeData()->getSize().y - ROOM_SIZE_PADDING));
 		Vector2f position = Vector2f(BSPTree::randomFloat(node->getNodeData()->getPosition().x + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().x + (node->getNodeData()->getSize().x - size.x) - ROOM_POSITION_PADDING),
 									 BSPTree::randomFloat(node->getNodeData()->getPosition().y + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().y + (node->getNodeData()->getSize().y - size.y) - ROOM_POSITION_PADDING));
-		m_rooms.push_back(make_shared<Room>(node->getIdentifier(), position, size, Vector2f(0.0f,0.f)));
+		m_rooms.push_back(make_shared<Room>(node->getIdentifier(), position, size, Vector2f(0.0f,0.0f)));
 	}
 }
 
+/// <summary>
+/// Generates the corridors from each of the rooms
+/// </summary>
 void BSPFloor::setupCorridors()
 {
 	shared_ptr<Room> bestRoom;
@@ -165,7 +175,7 @@ void BSPFloor::setupCorridors()
 
 								if (distance < bestDistance)
 								{
-									if (distance < ROOM_DISTANCE)
+									if (distance < ROOM_CONNECTION_DISTANCE)
 									{
 										bestDistance = distance;
 										bestRoom = room;
@@ -201,4 +211,21 @@ void BSPFloor::setupCorridors()
 			}
 		}
 	}
+}
+
+/// <summary>
+/// loads the bsp data from yaml
+/// </summary>
+void BSPFloor::loadData()
+{
+	ROOM_SIZE_PADDING = m_bspData->m_bsp->m_roomPadding;
+	ROOM_POSITION_PADDING = m_bspData->m_bsp->m_roomPositionPadding;
+	MAX_ROOM_SIZE = m_bspData->m_bsp->m_maxRoomSize;
+	MIN_ROOM_SIZE = m_bspData->m_bsp->m_minRoomSize;
+	ROOM_CONNECTION_OFFSET = m_bspData->m_bsp->m_roomConnectionOffset;
+	ROOM_CONNECTION_OFFSET_HW = m_bspData->m_bsp->m_roomConnectionOffsetHW;
+	ROOM_CONNECTION_DISTANCE = m_bspData->m_bsp->m_roomConnectionDistance;
+	BSP_AREA_SIZE = m_bspData->m_bsp->m_bspAreaSize;
+	BSP_DEPTH = m_bspData->m_bsp->m_bspDepth;
+	BSP_STARTING_POSITION = m_bspData->m_bsp->m_bspStartingPosition;
 }

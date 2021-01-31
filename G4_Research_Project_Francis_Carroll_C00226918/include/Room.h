@@ -7,6 +7,9 @@ class Door;
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// visual room that is generated in the algorithms
+/// </summary>
 class Room
 {
 public:

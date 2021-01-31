@@ -4,15 +4,25 @@
 #include <string>
 
 using namespace std;
+using namespace sf;
 
-struct PlayerData
+struct BSP
 {
-	string m_playerSpriteFile;
+	float m_roomPadding;
+	float m_roomPositionPadding;
+	Vector2f m_maxRoomSize;
+	Vector2f m_minRoomSize;
+	Vector2f m_bspStartingPosition;
+	float m_roomConnectionDistance;
+	float m_roomConnectionOffset;
+	float m_roomConnectionOffsetHW;
+	int m_bspDepth;
+	Vector2f m_bspAreaSize;
 };
 
-struct LevelData
+struct BSPData
 {
-	//shared_ptr<PlayerData> m_player = make_shared<PlayerData>();
+	shared_ptr<BSP> m_bsp = make_shared<BSP>();
 };
 
 #endif

@@ -13,14 +13,14 @@ using namespace sf;
 class ResourceManager
 {
 public:
-	static void loadResources(shared_ptr<LevelData> t_data);
+	static void loadResources(shared_ptr<BSPData> t_data);
 	static shared_ptr<thor::ResourceHolder<Texture, string>> m_textureHolder;
 	static shared_ptr < thor::ResourceHolder<Font, string>> m_fontHolder;
 	static shared_ptr < thor::ResourceHolder<SoundBuffer, string>> m_audioHolder;
 private:
-	static void loadTextures(shared_ptr<LevelData> t_data);
-	static void loadAudio(shared_ptr<LevelData> t_data);
-	static void loadFonts(shared_ptr<LevelData> t_data);
+	static void loadTextures(shared_ptr<BSPData> t_data);
+	static void loadAudio(shared_ptr<BSPData> t_data);
+	static void loadFonts(shared_ptr<BSPData> t_data);
 };
 
 #endif

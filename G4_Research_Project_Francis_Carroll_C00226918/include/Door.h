@@ -2,11 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <Room.h>
-
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// Direction a door can face
+/// </summary>
 enum class DoorDirection
 {
 	North, 
@@ -15,6 +16,9 @@ enum class DoorDirection
 	West
 };
 
+/// <summary>
+/// Door class keeps refernce to the direction and position of the door
+/// </summary>
 class Door
 {
 public:

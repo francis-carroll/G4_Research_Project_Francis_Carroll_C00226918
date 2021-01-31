@@ -8,11 +8,24 @@ BSPTree::~BSPTree()
 {
 }
 
+/// <summary>
+/// Return the root node to the BSP tree
+/// </summary>
+/// <param name="t_graphPosition"></param>
+/// <param name="t_graphSize"></param>
+/// <param name="t_graphDepth"></param>
+/// <returns>shared_ptr<BSPNode></returns>
 shared_ptr<BSPNode> BSPTree::bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth)
 {
 	return split(make_shared<BSPNodeData>(t_graphPosition, t_graphSize), t_graphDepth);
 }
 
+/// <summary>
+/// Splits a node and retruns two children nodes if it is possible
+/// </summary>
+/// <param name="t_node"></param>
+/// <param name="t_current"></param>
+/// <returns>shared_ptr<BSPNode></returns>
 shared_ptr<BSPNode> BSPTree::split(shared_ptr<BSPNodeData> t_node, int t_current)
 {
 	shared_ptr<BSPNode> root = make_shared<BSPNode>(m_nodeCount, *t_node);
@@ -44,6 +57,12 @@ shared_ptr<BSPNode> BSPTree::split(shared_ptr<BSPNodeData> t_node, int t_current
 	return nullptr;
 }
 
+/// <summary>
+/// Splits the node randomily 
+/// </summary>
+/// <param name="t_node"></param>
+/// <param name="t_direction"></param>
+/// <returns></returns>
 shared_ptr<pair<BSPNodeData, BSPNodeData>> BSPTree::randomSplit(shared_ptr<BSPNodeData> t_node, int t_direction)
 {
 	BSPNodeData node1; BSPNodeData node2;
@@ -68,6 +87,12 @@ shared_ptr<pair<BSPNodeData, BSPNodeData>> BSPTree::randomSplit(shared_ptr<BSPNo
 	return make_shared<pair<BSPNodeData, BSPNodeData>>(node1, node2);
 }
 
+/// <summary>
+/// generates a random integer between the t_min and t_max
+/// </summary>
+/// <param name="t_min"></param>
+/// <param name="t_max"></param>
+/// <returns>int</returns>
 int BSPTree::randomInt(int t_min, int t_max)
 {
 	if (t_max > t_min) {
@@ -76,6 +101,12 @@ int BSPTree::randomInt(int t_min, int t_max)
 	return 1;
 }
 
+/// <summary>
+/// generates a random float between t_min and t_max
+/// </summary>
+/// <param name="t_min"></param>
+/// <param name="t_max"></param>
+/// <returns></returns>
 float BSPTree::randomFloat(float t_min, float t_max)
 {
 	if (t_min < t_max)
@@ -87,18 +118,11 @@ float BSPTree::randomFloat(float t_min, float t_max)
 	}
 }
 
-void BSPTree::renderLeafNodes(RenderWindow& t_window, shared_ptr<BSPNode> t_node)
-{
-	if (t_node->getLeftNode() != nullptr && t_node->getRightNode() != nullptr)
-	{
-		renderLeafNodes(t_window, t_node->getLeftNode());
-		renderLeafNodes(t_window, t_node->getRightNode());
-	}
-	else {
-		t_node->draw(t_window);
-	}
-}
-
+/// <summary>
+/// renders all the leaf nodes of a node
+/// </summary>
+/// <param name="t_window"></param>
+/// <param name="t_node"></param>
 void BSPTree::renderLeafNodes(shared_ptr<RenderWindow> t_window, shared_ptr<BSPNode> t_node)
 {
 	if (t_node->getLeftNode() != nullptr && t_node->getRightNode() != nullptr)
@@ -107,10 +131,15 @@ void BSPTree::renderLeafNodes(shared_ptr<RenderWindow> t_window, shared_ptr<BSPN
 		renderLeafNodes(t_window, t_node->getRightNode());
 	}
 	else {
-		t_node->draw(t_window);
+		t_node->render(t_window);
 	}
 }
 
+/// <summary>
+/// returns all the leaf nodes of a node
+/// </summary>
+/// <param name="t_node"></param>
+/// <param name="t_container"></param>
 void BSPTree::getLeafNodes(shared_ptr<BSPNode> t_node, shared_ptr<vector<shared_ptr<BSPNode>>> t_container)
 {
 	if (t_node->getLeftNode() != nullptr && t_node->getRightNode() != nullptr)
@@ -123,11 +152,16 @@ void BSPTree::getLeafNodes(shared_ptr<BSPNode> t_node, shared_ptr<vector<shared_
 	}
 }
 
+/// <summary>
+/// returns the distnace between two vectors
+/// </summary>
+/// <param name="t_vector1"></param>
+/// <param name="t_vector2"></param>
+/// <returns></returns>
 float BSPTree::getDistance(Vector2f t_vector1, Vector2f t_vector2)
 {
 	return sqrt(pow(t_vector1.x - t_vector2.x, 2.0f) + pow(t_vector1.y - t_vector2.y, 2.0f));
 }
-
 void BSPTree::setPadding(float t_h_min, float t_h_max, float t_w_min, float t_w_max)
 {
 	H_MIN = t_h_min;
