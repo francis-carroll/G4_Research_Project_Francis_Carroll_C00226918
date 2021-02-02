@@ -136,9 +136,9 @@ void BSPFloor::setupRooms()
 	BSPTree::getLeafNodes(m_bspHead, leafNodes);
 	for (shared_ptr<BSPNode> node : *leafNodes)
 	{
-		Vector2f size = Vector2f(BSPTree::randomFloat(MIN_ROOM_SIZE.x, node->getNodeData()->getSize().x - ROOM_SIZE_PADDING), BSPTree::randomFloat(MIN_ROOM_SIZE.y, node->getNodeData()->getSize().y - ROOM_SIZE_PADDING));
-		Vector2f position = Vector2f(BSPTree::randomFloat(node->getNodeData()->getPosition().x + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().x + (node->getNodeData()->getSize().x - size.x) - ROOM_POSITION_PADDING),
-									 BSPTree::randomFloat(node->getNodeData()->getPosition().y + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().y + (node->getNodeData()->getSize().y - size.y) - ROOM_POSITION_PADDING));
+		Vector2f size = Vector2f(randomFloat(MIN_ROOM_SIZE.x, node->getNodeData()->getSize().x - ROOM_SIZE_PADDING), randomFloat(MIN_ROOM_SIZE.y, node->getNodeData()->getSize().y - ROOM_SIZE_PADDING));
+		Vector2f position = Vector2f(randomFloat(node->getNodeData()->getPosition().x + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().x + (node->getNodeData()->getSize().x - size.x) - ROOM_POSITION_PADDING),
+									 randomFloat(node->getNodeData()->getPosition().y + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().y + (node->getNodeData()->getSize().y - size.y) - ROOM_POSITION_PADDING));
 		m_rooms.push_back(make_shared<Room>(node->getIdentifier(), position, size, Vector2f(0.0f,0.0f)));
 	}
 }

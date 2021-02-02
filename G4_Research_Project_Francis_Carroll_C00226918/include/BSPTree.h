@@ -6,6 +6,7 @@
 #include <BSPNode.h>
 #include <BSPNodeData.h>
 #include <LevelLoader.h>
+#include <Globals.h>
 
 #include <queue>
 #include <random>
@@ -33,8 +34,6 @@ public:
 	shared_ptr<BSPNode> bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth);
 	shared_ptr<BSPNode> split(shared_ptr<BSPNodeData> t_node, int t_current);
 	shared_ptr<pair<BSPNodeData, BSPNodeData>> randomSplit(shared_ptr<BSPNodeData> t_node, int t_direction);
-	static int randomInt(int t_min, int t_max);
-	static float randomFloat(float t_min, float t_max);
 	static void renderLeafNodes(shared_ptr<RenderWindow> t_window, shared_ptr<BSPNode> t_node);
 
 	//getters

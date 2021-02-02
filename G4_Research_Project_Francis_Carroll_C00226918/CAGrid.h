@@ -22,6 +22,8 @@ private:
 	Vector2f m_size;
 	Vector2f m_cellCount;
 
+	float m_chanceToBecomeWall;
+
 	shared_ptr<vector<shared_ptr<CACell>>> m_cells;
 };
 

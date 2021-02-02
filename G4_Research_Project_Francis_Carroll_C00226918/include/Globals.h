@@ -21,3 +21,22 @@ static void toggleBool(bool& t_bool)
 {
 	t_bool = (t_bool + 1) % 2;
 }
+
+static int randomInt(int t_min, int t_max)
+{
+	if (t_max > t_min) {
+		return (rand() % (t_max - t_min + 1)) + t_min;
+	}
+	return 1;
+}
+
+static float randomFloat(float t_min, float t_max)
+{
+	if (t_min < t_max)
+	{
+		float random = (static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
+
+		float range = t_max - t_min;
+		return (random * range) + t_min;
+	}
+}

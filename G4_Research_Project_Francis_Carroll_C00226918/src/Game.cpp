@@ -6,7 +6,7 @@ Game::Game() :
 	shared_ptr<BSPData> bspData = make_shared<BSPData>();
 	LevelLoader::load("bsp", bspData);
 	m_bspFloor = make_shared<BSPFloor>(bspData);
-	m_caGrid = make_shared<CAGrid>(Vector2f(10.0f,10.0f), Vector2f(800.0f,800.f), Vector2f(100.0f,100.0f));
+	m_caGrid = make_shared<CAGrid>(Vector2f(10.0f,10.0f), Vector2f(800.0f,800.f), Vector2f(200.0f,200.0f));
 }
 
 Game::~Game()

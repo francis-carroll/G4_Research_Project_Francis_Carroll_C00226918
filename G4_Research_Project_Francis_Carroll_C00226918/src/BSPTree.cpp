@@ -90,37 +90,6 @@ shared_ptr<pair<BSPNodeData, BSPNodeData>> BSPTree::randomSplit(shared_ptr<BSPNo
 }
 
 /// <summary>
-/// generates a random integer between the t_min and t_max
-/// </summary>
-/// <param name="t_min"></param>
-/// <param name="t_max"></param>
-/// <returns>int</returns>
-int BSPTree::randomInt(int t_min, int t_max)
-{
-	if (t_max > t_min) {
-		return (rand() % (t_max - t_min + 1)) + t_min;
-	}
-	return 1;
-}
-
-/// <summary>
-/// generates a random float between t_min and t_max
-/// </summary>
-/// <param name="t_min"></param>
-/// <param name="t_max"></param>
-/// <returns></returns>
-float BSPTree::randomFloat(float t_min, float t_max)
-{
-	if (t_min < t_max)
-	{
-		float random = (static_cast<float>(rand()) / static_cast<float>(RAND_MAX));
-
-		float range = t_max - t_min;
-		return (random * range) + t_min;
-	}
-}
-
-/// <summary>
 /// renders all the leaf nodes of a node
 /// </summary>
 /// <param name="t_window"></param>

@@ -17,11 +17,13 @@ class CACell
 {
 public:
 	CACell(Vector2f t_position, Vector2f t_size);
+	CACell(Vector2f t_position, Vector2f t_size, CellState t_state);
 	~CACell();
 
 	void render(shared_ptr<RenderWindow> t_window);
 private:
 	void setup();
+	void setupColor();
 
 	Vector2f m_position;
 	Vector2f m_size;

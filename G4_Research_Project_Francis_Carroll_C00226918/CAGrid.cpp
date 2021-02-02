@@ -4,7 +4,8 @@ CAGrid::CAGrid(Vector2f t_position, Vector2f t_size, Vector2f t_gridRowColCount)
 	m_cells(make_shared<vector<shared_ptr<CACell>>>()),
 	m_position(t_position),
 	m_size(t_size),
-	m_cellCount(t_gridRowColCount)
+	m_cellCount(t_gridRowColCount),
+	m_chanceToBecomeWall(0.45f)
 {
 	splitGrid();
 }
@@ -30,7 +31,10 @@ void CAGrid::splitGrid()
 	{
 		for (int j = 0; j < m_cellCount.y; j++)
 		{
-			m_cells->push_back(make_shared<CACell>(Vector2f((i * row) + m_position.x, (j * col) + m_position.y), Vector2f(row, col)));
+			if(randomFloat(0, 1) < m_chanceToBecomeWall)
+				m_cells->push_back(make_shared<CACell>(Vector2f((i * row) + m_position.x, (j * col) + m_position.y), Vector2f(row, col), CellState::Wall));
+			else
+				m_cells->push_back(make_shared<CACell>(Vector2f((i * row) + m_position.x, (j * col) + m_position.y), Vector2f(row, col), CellState::None));
 		}
 	}
 }
