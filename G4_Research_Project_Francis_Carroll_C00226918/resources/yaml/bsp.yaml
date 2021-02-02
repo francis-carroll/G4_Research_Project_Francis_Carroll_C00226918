@@ -12,4 +12,4 @@ bsp:
     render_rooms: true
     render_bsp: false
     render_corridors: true
-    height_width_maximum: {hm: 30, hw: 30, wm: 30, ww: 30}
+    height_width_maximum: { hm: 30, hw: 30, wm: 30, ww: 30 }

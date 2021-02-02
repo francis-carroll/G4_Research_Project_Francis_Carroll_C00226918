@@ -34,6 +34,12 @@
     <Filter Include="Header Files\Room">
       <UniqueIdentifier>{93133132-e9a0-45c5-9db6-1e851a27b7b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\CA">
+      <UniqueIdentifier>{51ec6932-1dd7-46f8-bc33-e1e802a90d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CA">
+      <UniqueIdentifier>{4f3854a8-8ef8-4b13-aa21-2de5a5cebac9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -65,6 +71,15 @@
     </ClCompile>
     <ClCompile Include="src\Door.cpp">
       <Filter>Source Files\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="CA.cpp">
+      <Filter>Source Files\CA</Filter>
+    </ClCompile>
+    <ClCompile Include="CACell.cpp">
+      <Filter>Source Files\CA</Filter>
+    </ClCompile>
+    <ClCompile Include="CAGrid.cpp">
+      <Filter>Source Files\CA</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +118,15 @@
     </ClInclude>
     <ClInclude Include="include\Globals.h">
       <Filter>Header Files\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="CA.h">
+      <Filter>Header Files\CA</Filter>
+    </ClInclude>
+    <ClInclude Include="CACell.h">
+      <Filter>Header Files\CA</Filter>
+    </ClInclude>
+    <ClInclude Include="CAGrid.h">
+      <Filter>Header Files\CA</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
