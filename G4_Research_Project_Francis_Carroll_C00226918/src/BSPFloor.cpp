@@ -2,9 +2,6 @@
 
 BSPFloor::BSPFloor(shared_ptr<BSPData> t_bspData) :
 	m_bspData(t_bspData),
-	m_renderBSP(true),
-	m_renderRooms(false),
-	m_renderCorridors(false),
 	m_bspHead(make_shared<BSPNode>(0,Vector2f(0.0f,0.0f), Vector2f(0.0f, 0.0f))), 
 	m_corridors(vector<VertexArray>())
 {
@@ -124,7 +121,7 @@ void BSPFloor::render(shared_ptr<RenderWindow> t_window)
 /// </summary>
 void BSPFloor::generateBSP()
 {
-	shared_ptr<BSPTree> bspTree = make_shared<BSPTree>();
+	shared_ptr<BSPTree> bspTree = make_shared<BSPTree>(m_bspData);
 	bspTree->setPadding(MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y, MAX_ROOM_SIZE.x, MAX_ROOM_SIZE.y);
 	bspTree->setMinRoomsize(MAX_ROOM_SIZE);
 	m_bspHead = bspTree->bsp(BSP_STARTING_POSITION,BSP_AREA_SIZE, BSP_DEPTH);
@@ -228,4 +225,8 @@ void BSPFloor::loadData()
 	BSP_AREA_SIZE = m_bspData->m_bsp->m_bspAreaSize;
 	BSP_DEPTH = m_bspData->m_bsp->m_bspDepth;
 	BSP_STARTING_POSITION = m_bspData->m_bsp->m_bspStartingPosition;
+
+	m_renderBSP = m_bspData->m_bsp->m_renderBSP;
+	m_renderCorridors = m_bspData->m_bsp->m_renderCorridor;
+	m_renderRooms = m_bspData->m_bsp->m_renderRooms;
 }

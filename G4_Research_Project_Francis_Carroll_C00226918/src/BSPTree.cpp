@@ -1,7 +1,9 @@
 #include "BSPTree.h"
 
-BSPTree::BSPTree()
+BSPTree::BSPTree(shared_ptr<BSPData> t_bspData) : 
+	m_bspData(t_bspData)
 {
+	loadData();
 }
 
 BSPTree::~BSPTree()
@@ -173,4 +175,12 @@ void BSPTree::setPadding(float t_h_min, float t_h_max, float t_w_min, float t_w_
 void BSPTree::setMinRoomsize(Vector2f t_minRoomSize)
 {
 	MIN_ROOM_SIZE = t_minRoomSize;
+}
+
+void BSPTree::loadData()
+{
+	H_MIN = m_bspData->m_bsp->m_heightConstraint.x;
+	H_MAX = m_bspData->m_bsp->m_heightConstraint.y;
+	W_MAX = m_bspData->m_bsp->m_widthConstraint.x;
+	W_MIN = m_bspData->m_bsp->m_widthConstraint.y;
 }

@@ -18,6 +18,11 @@ struct BSP
 	float m_roomConnectionOffsetHW;
 	int m_bspDepth;
 	Vector2f m_bspAreaSize;
+	bool m_renderRooms;
+	bool m_renderBSP;
+	bool m_renderCorridor;
+	Vector2f m_heightConstraint;
+	Vector2f m_widthConstraint;
 };
 
 struct BSPData

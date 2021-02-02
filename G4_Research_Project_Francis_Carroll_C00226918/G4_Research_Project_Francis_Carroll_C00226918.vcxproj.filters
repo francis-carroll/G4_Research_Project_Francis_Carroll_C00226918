@@ -105,4 +105,9 @@
       <Filter>Header Files\Globals</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\yaml\bsp.yaml">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

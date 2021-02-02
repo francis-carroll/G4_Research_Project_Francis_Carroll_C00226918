@@ -9,3 +9,7 @@ bsp:
     room_connection_distance: 85
     bsp_area_size: {x : 800.0, y: 800.0}
     bsp_depth: 20
+    render_rooms: true
+    render_bsp: false
+    render_corridors: true
+    height_width_maximum: {hm: 30, hw: 30, wm: 30, ww: 30}

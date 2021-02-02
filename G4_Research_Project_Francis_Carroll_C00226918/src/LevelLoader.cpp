@@ -25,6 +25,17 @@ void operator >> (const YAML::Node& t_bspNode, shared_ptr<BSP> t_bsp)
 	t_bsp->m_bspAreaSize.y = t_bspNode["bsp_area_size"]["y"].as<float>();
 
 	t_bsp->m_bspDepth = t_bspNode["bsp_depth"].as<float>();
+
+	t_bsp->m_renderBSP = t_bspNode["render_bsp"].as<bool>();
+
+	t_bsp->m_renderCorridor = t_bspNode["render_corridors"].as<bool>();
+
+	t_bsp->m_renderRooms = t_bspNode["render_rooms"].as<bool>();
+
+	t_bsp->m_heightConstraint.x = t_bspNode["height_width_maximum"]["hm"].as<float>();
+	t_bsp->m_heightConstraint.y = t_bspNode["height_width_maximum"]["hw"].as<float>();
+	t_bsp->m_widthConstraint.x = t_bspNode["height_width_maximum"]["wm"].as<float>();
+	t_bsp->m_widthConstraint.y = t_bspNode["height_width_maximum"]["ww"].as<float>();
 }
 
 void operator >> (const YAML::Node& levelNode, shared_ptr<BSPData> level)

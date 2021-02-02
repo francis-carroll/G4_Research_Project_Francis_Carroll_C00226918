@@ -5,6 +5,7 @@
 
 #include <BSPNode.h>
 #include <BSPNodeData.h>
+#include <LevelLoader.h>
 
 #include <queue>
 #include <random>
@@ -26,7 +27,7 @@ enum SplitDirection {
 class BSPTree
 {
 public:
-	BSPTree();
+	BSPTree(shared_ptr<BSPData> t_bspData);
 	~BSPTree();
 
 	shared_ptr<BSPNode> bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth);
@@ -44,13 +45,16 @@ public:
 	void setPadding(float t_h_min, float t_h_max, float t_w_min, float t_w_max);
 	void setMinRoomsize(Vector2f t_minRoomSize);
 private:
-	float H_MIN = 30;
-	float H_MAX = 30;
-	float W_MIN = 30;
-	float W_MAX = 30;
+	void loadData();
+
+	float H_MIN;
+	float H_MAX;
+	float W_MIN;
+	float W_MAX;
 
 	Vector2f MIN_ROOM_SIZE;
 
 	int m_nodeCount = 0;
+	shared_ptr<BSPData> m_bspData;
 };
 
