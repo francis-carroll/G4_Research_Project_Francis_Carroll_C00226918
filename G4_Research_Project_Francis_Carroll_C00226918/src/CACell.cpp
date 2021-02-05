@@ -33,8 +33,6 @@ void CACell::setup()
 {
 	m_cell->setPosition(m_position);
 	m_cell->setSize(m_size);
-	m_cell->setOutlineColor(Color::Black);
-	m_cell->setOutlineThickness(1.0f);
 }
 
 void CACell::setupColor()
