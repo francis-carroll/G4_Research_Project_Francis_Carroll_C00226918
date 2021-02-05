@@ -38,12 +38,71 @@ void operator >> (const YAML::Node& t_bspNode, shared_ptr<BSP> t_bsp)
 	t_bsp->m_widthConstraint.y = t_bspNode["height_width_maximum"]["ww"].as<float>();
 }
 
+void operator >> (const YAML::Node& t_caNode, shared_ptr<CAS> t_ca)
+{
+	t_ca->m_chanceToBecomeWall = t_caNode["chance_to_become_wall"].as<float>();
+
+	t_ca->m_caStartingPosition.x = t_caNode["ca_starting_position"]["x"].as<float>();
+	t_ca->m_caStartingPosition.y = t_caNode["ca_starting_position"]["y"].as<float>();
+
+	t_ca->m_caGridSize.x = t_caNode["ca_grid_size"]["x"].as<float>();
+	t_ca->m_caGridSize.y = t_caNode["ca_grid_size"]["y"].as<float>();
+
+	t_ca->m_cellCount.x = t_caNode["ca_cell_count"]["row"].as<float>();
+	t_ca->m_cellCount.y = t_caNode["ca_cell_count"]["col"].as<float>();
+
+	t_ca->m_floorToWallConversion = t_caNode["floor_to_wall_conversion"].as<float>();
+
+	t_ca->m_wallToFloorConversion = t_caNode["wall_to_floor_conversion"].as<float>();
+
+	t_ca->m_iterations = t_caNode["iterations"].as<float>();
+}
+
 void operator >> (const YAML::Node& levelNode, shared_ptr<BSPData> level)
 {
 	levelNode["bsp"] >> level->m_bsp;
 }
 
+void operator >> (const YAML::Node& levelNode, shared_ptr<CAData> level)
+{
+	levelNode["ca"] >> level->m_ca;
+}
+
 void LevelLoader::load(string t_filename, shared_ptr<BSPData> t_data)
+{
+	std::stringstream ss;
+	ss << ".\\resources\\yaml\\";
+	ss << t_filename;
+	ss << ".yaml";
+
+	try
+	{
+		YAML::Node baseNode = YAML::LoadFile(ss.str());
+		if (baseNode.IsNull())
+		{
+			std::string message("File: " + ss.str() + " not found");
+			Error::logError(message);
+			throw std::exception(message.c_str());
+		}
+		baseNode >> t_data;
+	}
+	catch (YAML::ParserException& e)
+	{
+		std::string message(e.what());
+		message = "YAML Parser Error: " + message;
+		Error::logError(message);
+		throw std::exception(message.c_str());
+	}
+	catch (std::exception& e)
+	{
+		std::string message(e.what());
+		message = "Unexpected Error: " + message;
+		Error::logError(message);
+		throw std::exception(message.c_str());
+	}
+}
+
+void LevelLoader::load(string t_filename, shared_ptr<CAData> t_data)
 {
 	std::stringstream ss;
 	ss << ".\\resources\\yaml\\";

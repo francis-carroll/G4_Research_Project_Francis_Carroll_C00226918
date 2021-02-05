@@ -1,10 +1,13 @@
 #include "CA.h"
 
-CA::CA(int t_iterations)
+CA::CA(shared_ptr<CAData> t_caData) : 
+	m_caData(t_caData)
 {
-	m_caGrid = make_shared<CAGrid>(Vector2f(10.0f, 10.0f), Vector2f(800.0f, 800.f), Vector2f(500.0f, 500.0f));
+	m_caGrid = make_shared<CAGrid>(m_caData, m_caData->m_ca->m_caStartingPosition, m_caData->m_ca->m_caGridSize, m_caData->m_ca->m_cellCount);
 	m_tempStates = make_shared<vector<CellState>>();
-	m_iterations = t_iterations;
+	m_iterations = m_caData->m_ca->m_iterations;
+	FLOOR_TO_WALL_CONVERSION = m_caData->m_ca->m_floorToWallConversion;
+	WALL_TO_FLOOR_CONVERSION = m_caData->m_ca->m_wallToFloorConversion;
 	iterate();
 }
 

@@ -30,4 +30,20 @@ struct BSPData
 	shared_ptr<BSP> m_bsp = make_shared<BSP>();
 };
 
+struct CAS
+{
+	float m_chanceToBecomeWall;
+	Vector2f m_caStartingPosition;
+	Vector2f m_caGridSize;
+	Vector2f m_cellCount;
+	int m_floorToWallConversion;
+	int m_wallToFloorConversion;
+	int m_iterations;
+};
+
+struct CAData
+{
+	shared_ptr<CAS> m_ca = make_shared<CAS>();
+};
+
 #endif

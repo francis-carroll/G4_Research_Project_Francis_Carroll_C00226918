@@ -26,6 +26,7 @@ public:
 	LevelLoader() = default;
 
 	static void load(string t_filename, shared_ptr<BSPData> t_data);
+	static void load(string t_filename, shared_ptr<CAData> t_data);
 };
 
 #endif

@@ -1,12 +1,13 @@
 #include "CAGrid.h"
 
-CAGrid::CAGrid(Vector2f t_position, Vector2f t_size, Vector2f t_gridRowColCount) :
+CAGrid::CAGrid(shared_ptr<CAData> t_caData, Vector2f t_position, Vector2f t_size, Vector2f t_gridRowColCount) :
 	m_cells(make_shared<vector<shared_ptr<CACell>>>()),
 	m_position(t_position),
 	m_size(t_size),
 	m_cellCount(t_gridRowColCount),
-	m_chanceToBecomeWall(0.45f)
+	m_caData(t_caData)
 {
+	m_chanceToBecomeWall = m_caData->m_ca->m_chanceToBecomeWall;
 	splitGrid();
 	calculateNeighbours();
 }

@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\yaml\bsp.yaml" />
+    <None Include="resources\yaml\ca.yaml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

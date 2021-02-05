@@ -104,9 +104,6 @@
     <ClInclude Include="include\BSPNodeData.h">
       <Filter>Header Files\BSP</Filter>
     </ClInclude>
-    <ClInclude Include="include\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\BSPFloor.h">
       <Filter>Header Files\BSP</Filter>
     </ClInclude>
@@ -128,9 +125,15 @@
     <ClInclude Include="include\CAGrid.h">
       <Filter>Header Files\CA</Filter>
     </ClInclude>
+    <ClInclude Include="include\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\yaml\bsp.yaml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\yaml\ca.yaml">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

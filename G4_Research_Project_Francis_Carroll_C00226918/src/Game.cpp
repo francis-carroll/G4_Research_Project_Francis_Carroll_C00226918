@@ -6,7 +6,10 @@ Game::Game() :
 	shared_ptr<BSPData> bspData = make_shared<BSPData>();
 	LevelLoader::load("bsp", bspData);
 	m_bspFloor = make_shared<BSPFloor>(bspData);
-	m_caGrid = make_shared<CA>();
+
+	shared_ptr<CAData> caData = make_shared<CAData>();
+	LevelLoader::load("ca", caData);
+	m_caGrid = make_shared<CA>(caData);
 }
 
 Game::~Game()

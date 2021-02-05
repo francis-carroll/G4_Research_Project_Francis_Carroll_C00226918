@@ -4,6 +4,7 @@
 
 #include <Globals.h>
 #include <CACell.h>
+#include <LevelLoader.h>
 
 using namespace std;
 using namespace sf;
@@ -11,7 +12,7 @@ using namespace sf;
 class CAGrid
 {
 public:
-	CAGrid(Vector2f t_position, Vector2f t_size, Vector2f t_gridRowColCount);
+	CAGrid(shared_ptr<CAData> t_caData, Vector2f t_position, Vector2f t_size, Vector2f t_gridRowColCount);
 	~CAGrid();
 
 	void render(shared_ptr<RenderWindow> t_window);
@@ -32,5 +33,6 @@ private:
 	float m_chanceToBecomeWall;
 
 	shared_ptr<vector<shared_ptr<CACell>>> m_cells;
+	shared_ptr<CAData> m_caData;
 };
 

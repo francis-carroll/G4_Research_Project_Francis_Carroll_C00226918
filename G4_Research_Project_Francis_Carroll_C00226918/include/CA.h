@@ -4,6 +4,7 @@
 
 #include <Globals.h>
 #include <CAGrid.h>
+#include <LevelLoader.h>
 
 using namespace std;
 using namespace sf;
@@ -11,7 +12,7 @@ using namespace sf;
 class CA
 {
 public:
-	CA(int t_iterations = 0);
+	CA(shared_ptr<CAData> t_caData);
 	~CA();
 
 	void render(shared_ptr<RenderWindow> t_window);
@@ -27,5 +28,6 @@ private:
 
 	shared_ptr<vector<CellState>> m_tempStates;
 	shared_ptr<CAGrid> m_caGrid;
+	shared_ptr<CAData> m_caData;
 };
 
