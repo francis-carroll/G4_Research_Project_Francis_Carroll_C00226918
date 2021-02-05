@@ -72,13 +72,13 @@
     <ClCompile Include="src\Door.cpp">
       <Filter>Source Files\Room</Filter>
     </ClCompile>
-    <ClCompile Include="CA.cpp">
+    <ClCompile Include="src\CA.cpp">
       <Filter>Source Files\CA</Filter>
     </ClCompile>
-    <ClCompile Include="CACell.cpp">
+    <ClCompile Include="src\CACell.cpp">
       <Filter>Source Files\CA</Filter>
     </ClCompile>
-    <ClCompile Include="CAGrid.cpp">
+    <ClCompile Include="src\CAGrid.cpp">
       <Filter>Source Files\CA</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,13 +119,13 @@
     <ClInclude Include="include\Globals.h">
       <Filter>Header Files\Globals</Filter>
     </ClInclude>
-    <ClInclude Include="CA.h">
+    <ClInclude Include="include\CA.h">
       <Filter>Header Files\CA</Filter>
     </ClInclude>
-    <ClInclude Include="CACell.h">
+    <ClInclude Include="include\CACell.h">
       <Filter>Header Files\CA</Filter>
     </ClInclude>
-    <ClInclude Include="CAGrid.h">
+    <ClInclude Include="include\CAGrid.h">
       <Filter>Header Files\CA</Filter>
     </ClInclude>
   </ItemGroup>

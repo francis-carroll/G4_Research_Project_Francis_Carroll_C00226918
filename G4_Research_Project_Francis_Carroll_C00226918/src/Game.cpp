@@ -6,7 +6,7 @@ Game::Game() :
 	shared_ptr<BSPData> bspData = make_shared<BSPData>();
 	LevelLoader::load("bsp", bspData);
 	m_bspFloor = make_shared<BSPFloor>(bspData);
-	m_caGrid = make_shared<CAGrid>(Vector2f(10.0f,10.0f), Vector2f(800.0f,800.f), Vector2f(500.0f,500.0f));
+	m_caGrid = make_shared<CA>();
 }
 
 Game::~Game()
@@ -100,6 +100,7 @@ void Game::handleInput(Event& t_event)
 void Game::keyInput(Event& t_event)
 {
 	m_bspFloor->keyInput(t_event);
+	m_caGrid->keyPresses(t_event);
 }
 
 /// <summary>

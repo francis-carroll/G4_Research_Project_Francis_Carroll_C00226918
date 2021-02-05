@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <BSPFloor.h>
-#include <CAGrid.h>
+#include <CA.h>
 
 using namespace std;
 using namespace sf;
@@ -27,5 +27,5 @@ private:
 
 	shared_ptr<RenderWindow> m_window;
 	shared_ptr<BSPFloor> m_bspFloor;
-	shared_ptr<CAGrid> m_caGrid;
+	shared_ptr<CA> m_caGrid;
 };

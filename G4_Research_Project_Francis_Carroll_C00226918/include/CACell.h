@@ -16,18 +16,28 @@ enum class CellState
 class CACell
 {
 public:
-	CACell(Vector2f t_position, Vector2f t_size);
-	CACell(Vector2f t_position, Vector2f t_size, CellState t_state);
+	CACell(int t_id, Vector2f t_position, Vector2f t_size);
+	CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state);
 	~CACell();
 
 	void render(shared_ptr<RenderWindow> t_window);
+
+	void addNeighbour(shared_ptr<CACell> t_cell);
+
+	void setCellState(CellState t_state);
+	void setupColor();
+
+	int getID();
+	CellState getCellState();
+	shared_ptr<vector<shared_ptr<CACell>>> getNeighbours();
 private:
 	void setup();
-	void setupColor();
 
 	Vector2f m_position;
 	Vector2f m_size;
+	int m_id;
 
 	shared_ptr<RectangleShape> m_cell;
-	shared_ptr<CellState> m_cellState;
+	CellState m_cellState;
+	shared_ptr<vector<shared_ptr<CACell>>> m_neighbours;
 };

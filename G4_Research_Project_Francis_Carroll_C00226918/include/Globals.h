@@ -39,4 +39,5 @@ static float randomFloat(float t_min, float t_max)
 		float range = t_max - t_min;
 		return (random * range) + t_min;
 	}
+	return t_min;
 }

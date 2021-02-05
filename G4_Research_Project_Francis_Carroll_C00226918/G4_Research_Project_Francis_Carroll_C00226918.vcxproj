@@ -19,13 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CA.cpp" />
-    <ClCompile Include="CACell.cpp" />
-    <ClCompile Include="CAGrid.cpp" />
     <ClCompile Include="src\BSPFloor.cpp" />
     <ClCompile Include="src\BSPNode.cpp" />
     <ClCompile Include="src\BSPNodeData.cpp" />
     <ClCompile Include="src\BSPTree.cpp" />
+    <ClCompile Include="src\CA.cpp" />
+    <ClCompile Include="src\CACell.cpp" />
+    <ClCompile Include="src\CAGrid.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
@@ -34,13 +34,13 @@
     <ClCompile Include="src\Room.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CA.h" />
-    <ClInclude Include="CACell.h" />
-    <ClInclude Include="CAGrid.h" />
     <ClInclude Include="include\BSPFloor.h" />
     <ClInclude Include="include\BSPNode.h" />
     <ClInclude Include="include\BSPNodeData.h" />
     <ClInclude Include="include\BSPTree.h" />
+    <ClInclude Include="include\CA.h" />
+    <ClInclude Include="include\CACell.h" />
+    <ClInclude Include="include\CAGrid.h" />
     <ClInclude Include="include\Door.h" />
     <ClInclude Include="include\ErrorLogging.h" />
     <ClInclude Include="include\Game.h" />
