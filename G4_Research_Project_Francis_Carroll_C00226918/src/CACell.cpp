@@ -4,9 +4,11 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size) :
 	m_cell(make_shared<RectangleShape>()),
 	m_position(t_position),
 	m_size(t_size),
-	m_cellState(CellState(CellState::None)), 
+	m_cellState(CellState(CellState::Floor)), 
 	m_id(t_id),
-	m_neighbours(make_shared<vector<shared_ptr<CACell>>>())
+	m_mooreNeighbours(make_shared<vector<shared_ptr<CACell>>>()),
+	m_vonNeumannNeighbours(make_shared<vector<shared_ptr<CACell>>>()),
+	m_fillType(-1)
 {
 	setup();
 	setupColor();
@@ -18,7 +20,9 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state
 	m_size(t_size),
 	m_cellState(CellState(t_state)),
 	m_id(t_id),
-	m_neighbours(make_shared<vector<shared_ptr<CACell>>>())
+	m_mooreNeighbours(make_shared<vector<shared_ptr<CACell>>>()),
+	m_vonNeumannNeighbours(make_shared<vector<shared_ptr<CACell>>>()),
+	m_fillType(-1)
 {
 	setup();
 	setupColor();
@@ -35,7 +39,12 @@ void CACell::render(shared_ptr<RenderWindow> t_window)
 
 void CACell::addNeighbour(shared_ptr<CACell> t_cell)
 {
-	m_neighbours->push_back(t_cell);
+	m_mooreNeighbours->push_back(t_cell);
+}
+
+void CACell::addVonNeighbour(shared_ptr<CACell> t_cell)
+{
+	m_vonNeumannNeighbours->push_back(t_cell);
 }
 
 void CACell::setCellState(CellState t_state)
@@ -55,7 +64,17 @@ CellState CACell::getCellState()
 
 shared_ptr<vector<shared_ptr<CACell>>> CACell::getNeighbours()
 {
-	return m_neighbours;
+	return m_mooreNeighbours;
+}
+
+shared_ptr<vector<shared_ptr<CACell>>> CACell::getVonNeighbours()
+{
+	return m_vonNeumannNeighbours;
+}
+
+int CACell::getFillType()
+{
+	return m_fillType;
 }
 
 void CACell::setup()
@@ -66,8 +85,18 @@ void CACell::setup()
 
 void CACell::setupColor()
 {
-	if(m_cellState == CellState::None)
+	if(m_cellState == CellState::Floor)
 		m_cell->setFillColor(Color::White);
 	else
-		m_cell->setFillColor(Color::Green);
+		m_cell->setFillColor(Color::Black);
+}
+
+void CACell::setupFloodColor(shared_ptr<vector<Color>> t_colors)
+{
+	m_cell->setFillColor(t_colors->at(m_fillType));
+}
+
+void CACell::setFillType(int t_fillType)
+{
+	m_fillType = t_fillType;
 }

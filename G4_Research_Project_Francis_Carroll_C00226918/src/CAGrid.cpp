@@ -5,11 +5,13 @@ CAGrid::CAGrid(shared_ptr<CAData> t_caData, Vector2f t_position, Vector2f t_size
 	m_position(t_position),
 	m_size(t_size),
 	m_cellCount(t_gridRowColCount),
-	m_caData(t_caData)
+	m_caData(t_caData),
+	m_bestDirection({ 3,5,1,7 })
 {
 	m_chanceToBecomeWall = m_caData->m_ca->m_chanceToBecomeWall;
 	splitGrid();
-	calculateNeighbours();
+	calculateMooreNeighbours();
+	calculateVonNeumannNeighbours();
 }
 
 CAGrid::~CAGrid()
@@ -56,12 +58,12 @@ void CAGrid::splitGrid()
 			if(randomFloat(0, 1) < m_chanceToBecomeWall)
 				m_cells->push_back(make_shared<CACell>(getIndex(i, j) , Vector2f((i * col) + m_position.x, (j * row) + m_position.y), Vector2f(col, row), CellState::Wall));
 			else
-				m_cells->push_back(make_shared<CACell>(getIndex(i, j), Vector2f((i * col) + m_position.x, (j * row) + m_position.y), Vector2f(col, row), CellState::None));
+				m_cells->push_back(make_shared<CACell>(getIndex(i, j), Vector2f((i * col) + m_position.x, (j * row) + m_position.y), Vector2f(col, row), CellState::Floor));
 		}
 	}
 }
 
-void CAGrid::calculateNeighbours()
+void CAGrid::calculateMooreNeighbours()
 {
 	for (shared_ptr<CACell> cell : *m_cells) {
 		//for each direction of the node
@@ -80,6 +82,28 @@ void CAGrid::calculateNeighbours()
 				int nodeIndex = getIndex(neighbourRow, neighbourCol);
 				//add the neighbour
 				cell->addNeighbour(m_cells->at(nodeIndex));
+			}
+		}
+	}
+}
+
+void CAGrid::calculateVonNeumannNeighbours()
+{
+	for (shared_ptr<CACell> cell : *m_cells) {
+		//for each direction of the node
+		for (int d : m_bestDirection) {
+
+			Vector2i temp = getRowCol(cell->getID());
+			int neighbourRow = temp.x + ((d % 3) - 1); //calculates neighbour rows
+			int neighbourCol = temp.y + ((d / 3) - 1); //calculates neighbour columns
+
+			//if the neighbor row or col is outside the boundry, skip
+			if (neighbourRow >= 0 && neighbourRow < m_cellCount.x &&
+				neighbourCol >= 0 && neighbourCol < m_cellCount.y)
+			{
+				int nodeIndex = getIndex(neighbourRow, neighbourCol);
+				//add the neighbour
+				cell->addVonNeighbour(m_cells->at(nodeIndex));
 			}
 		}
 	}

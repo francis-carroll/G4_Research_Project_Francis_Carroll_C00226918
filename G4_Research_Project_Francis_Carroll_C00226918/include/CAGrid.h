@@ -24,7 +24,8 @@ public:
 	shared_ptr<vector<shared_ptr<CACell>>> getCells();
 private:
 	void splitGrid();
-	void calculateNeighbours();
+	void calculateMooreNeighbours();
+	void calculateVonNeumannNeighbours();
 
 	Vector2f m_position;
 	Vector2f m_size;
@@ -34,5 +35,6 @@ private:
 
 	shared_ptr<vector<shared_ptr<CACell>>> m_cells;
 	shared_ptr<CAData> m_caData;
+	vector<int> m_bestDirection;
 };
 

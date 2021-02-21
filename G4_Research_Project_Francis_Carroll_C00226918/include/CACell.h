@@ -9,7 +9,7 @@ using namespace sf;
 
 enum class CellState
 {
-	None, 
+	Floor, 
 	Wall
 };
 
@@ -23,21 +23,28 @@ public:
 	void render(shared_ptr<RenderWindow> t_window);
 
 	void addNeighbour(shared_ptr<CACell> t_cell);
+	void addVonNeighbour(shared_ptr<CACell> t_cell);
 
 	void setCellState(CellState t_state);
 	void setupColor();
+	void setupFloodColor(shared_ptr<vector<Color>> t_colors);
+	void setFillType(int t_fillType);
 
 	int getID();
 	CellState getCellState();
 	shared_ptr<vector<shared_ptr<CACell>>> getNeighbours();
+	shared_ptr<vector<shared_ptr<CACell>>> getVonNeighbours();
+	int getFillType();
 private:
 	void setup();
 
 	Vector2f m_position;
 	Vector2f m_size;
 	int m_id;
+	int m_fillType;
 
 	shared_ptr<RectangleShape> m_cell;
 	CellState m_cellState;
-	shared_ptr<vector<shared_ptr<CACell>>> m_neighbours;
+	shared_ptr<vector<shared_ptr<CACell>>> m_mooreNeighbours;
+	shared_ptr<vector<shared_ptr<CACell>>> m_vonNeumannNeighbours;
 };

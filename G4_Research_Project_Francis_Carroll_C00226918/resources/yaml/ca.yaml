@@ -2,7 +2,7 @@ ca:
     chance_to_become_wall: 0.45
     ca_starting_position: {x: 10, y: 10}
     ca_grid_size: {x: 800, y: 800}
-    ca_cell_count: {row: 100, col: 100}
+    ca_cell_count: {row: 75, col: 75}
     wall_to_floor_conversion: 3
     floor_to_wall_conversion: 4
-    iterations: 0
+    iterations: 12
