@@ -13,6 +13,6 @@ public:
 	~Credits();
 	void update(Time t_dt);
 	void render(shared_ptr<RenderWindow> t_window);
-	void handleKeyInput(Event t_event);
-	void handleMouseInput(Event t_event);
+	void handleKeyInput(Event& t_event);
+	void handleMouseInput(Event& t_event);
 };

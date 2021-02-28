@@ -16,10 +16,10 @@ void Credits::render(shared_ptr<RenderWindow> t_window)
 {
 }
 
-void Credits::handleKeyInput(Event t_event)
+void Credits::handleKeyInput(Event& t_event)
 {
 }
 
-void Credits::handleMouseInput(Event t_event)
+void Credits::handleMouseInput(Event& t_event)
 {
 }

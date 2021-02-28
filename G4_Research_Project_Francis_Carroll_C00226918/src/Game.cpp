@@ -124,7 +124,7 @@ void Game::handleInput(Event& t_event)
 		keyInput(t_event);
 	}
 
-	if (t_event.type == Event::MouseButtonPressed)
+	if (t_event.type == Event::MouseButtonPressed || t_event.type == Event::MouseMoved)
 	{
 		mouseInput(t_event);
 	}
@@ -181,7 +181,7 @@ void Game::mouseInput(Event& t_event)
 		m_intro->handleMouseInput(t_event);
 		break;
 	case Scene::MainMenu:
-		m_menu->handleMouseInput(t_event);
+		m_menu->handleMouseInput(t_event, m_window);
 		break;
 	case Scene::Credits:
 		m_credits->handleMouseInput(t_event);

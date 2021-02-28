@@ -46,6 +46,12 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{8bd2f45b-0b71-496e-a9ae-1529cb6a1a44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{26ed9931-ddc5-4638-b75f-7e0d2d8c8b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{21ce0fed-14dd-46bc-968e-466538ff6c02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -101,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="src\CAScreen.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Button.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="include\BSPScreen.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Button.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

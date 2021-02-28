@@ -20,11 +20,11 @@ void CAScreen::render(shared_ptr<RenderWindow> t_window)
 	m_caGrid->render(t_window);
 }
 
-void CAScreen::handleKeyInput(Event t_event)
+void CAScreen::handleKeyInput(Event& t_event)
 {
 	m_caGrid->keyPresses(t_event);
 }
 
-void CAScreen::handleMouseInput(Event t_event)
+void CAScreen::handleMouseInput(Event& t_event)
 {
 }

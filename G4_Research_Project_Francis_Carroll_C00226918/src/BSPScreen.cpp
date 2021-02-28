@@ -20,11 +20,11 @@ void BSPScreen::render(shared_ptr<RenderWindow> t_window)
 	m_bspFloor->render(t_window);
 }
 
-void BSPScreen::handleKeyInput(Event t_event)
+void BSPScreen::handleKeyInput(Event& t_event)
 {
 	m_bspFloor->keyInput(t_event);
 }
 
-void BSPScreen::handleMouseInput(Event t_event)
+void BSPScreen::handleMouseInput(Event& t_event)
 {
 }

@@ -17,10 +17,10 @@ void Intro::render(shared_ptr<RenderWindow> t_window)
 {
 }
 
-void Intro::handleKeyInput(Event t_event)
+void Intro::handleKeyInput(Event& t_event)
 {
 }
 
-void Intro::handleMouseInput(Event t_event)
+void Intro::handleMouseInput(Event& t_event)
 {
 }
