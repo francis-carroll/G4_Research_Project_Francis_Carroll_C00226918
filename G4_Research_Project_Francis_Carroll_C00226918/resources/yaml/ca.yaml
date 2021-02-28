@@ -1,8 +1,10 @@
 ca:
-    chance_to_become_wall: 0.45
+    chance_to_become_wall: 0.43
     ca_starting_position: {x: 10, y: 10}
     ca_grid_size: {x: 800, y: 800}
-    ca_cell_count: {row: 75, col: 75}
+    ca_cell_count: {row: 200, col: 200}
     wall_to_floor_conversion: 3
     floor_to_wall_conversion: 4
     iterations: 12
+    max_cave_size: 200
+    recursive_depth: 2000

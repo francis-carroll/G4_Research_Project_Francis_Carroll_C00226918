@@ -39,6 +39,8 @@ struct CAS
 	int m_floorToWallConversion;
 	int m_wallToFloorConversion;
 	int m_iterations;
+	int m_recursiveDepth;
+	int m_maxCaveSize;
 };
 
 struct CAData

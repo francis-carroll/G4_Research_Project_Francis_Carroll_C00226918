@@ -17,6 +17,11 @@ static sf::Vector2f normalise(sf::Vector2f t_vector) {
 	}
 }
 
+static float directDistance(sf::Vector2f t_vector1, sf::Vector2f t_vector2)
+{
+	return (t_vector2.x - t_vector1.x) + (t_vector2.y - t_vector1.y);
+}
+
 static void toggleBool(bool& t_bool)
 {
 	t_bool = (t_bool + 1) % 2;

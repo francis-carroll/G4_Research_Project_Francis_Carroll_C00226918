@@ -56,6 +56,10 @@ void operator >> (const YAML::Node& t_caNode, shared_ptr<CAS> t_ca)
 	t_ca->m_wallToFloorConversion = t_caNode["wall_to_floor_conversion"].as<float>();
 
 	t_ca->m_iterations = t_caNode["iterations"].as<float>();
+
+	t_ca->m_maxCaveSize = t_caNode["max_cave_size"].as<int>();
+
+	t_ca->m_recursiveDepth = t_caNode["recursive_depth"].as<int>();
 }
 
 void operator >> (const YAML::Node& levelNode, shared_ptr<BSPData> level)

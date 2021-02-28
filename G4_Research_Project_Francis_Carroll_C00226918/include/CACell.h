@@ -29,12 +29,19 @@ public:
 	void setupColor();
 	void setupFloodColor(shared_ptr<vector<Color>> t_colors);
 	void setFillType(int t_fillType);
+	void setMarked(bool t_marked);
 
 	int getID();
 	CellState getCellState();
 	shared_ptr<vector<shared_ptr<CACell>>> getNeighbours();
 	shared_ptr<vector<shared_ptr<CACell>>> getVonNeighbours();
 	int getFillType();
+	Vector2f getPosition();
+	bool getMarked();
+
+	float path;
+	float heuristic;
+	shared_ptr<CACell> previous;
 private:
 	void setup();
 
@@ -42,6 +49,7 @@ private:
 	Vector2f m_size;
 	int m_id;
 	int m_fillType;
+	bool m_marked;
 
 	shared_ptr<RectangleShape> m_cell;
 	CellState m_cellState;
