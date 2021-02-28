@@ -2,8 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <BSPFloor.h>
-#include <CA.h>
+#include <Intro.h>
+#include <MainMenu.h>
+#include <Credits.h>
+#include <BSPScreen.h>
+#include <CAScreen.h>
 
 using namespace std;
 using namespace sf;
@@ -22,10 +25,15 @@ public:
 	void processEvents();
 	void handleInput(Event& t_event);
 private:
+	void initialiseScenes();
 	void keyInput(Event& t_event);
 	void mouseInput(Event& t_event);
 
 	shared_ptr<RenderWindow> m_window;
-	shared_ptr<BSPFloor> m_bspFloor;
-	shared_ptr<CA> m_caGrid;
+
+	shared_ptr<Intro> m_intro;
+	shared_ptr<MainMenu> m_menu;
+	shared_ptr<Credits> m_credits;
+	shared_ptr<BSPScreen> m_bsp;
+	shared_ptr<CAScreen> m_ca;
 };

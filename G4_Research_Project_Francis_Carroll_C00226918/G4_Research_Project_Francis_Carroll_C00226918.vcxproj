@@ -22,14 +22,19 @@
     <ClCompile Include="src\BSPFloor.cpp" />
     <ClCompile Include="src\BSPNode.cpp" />
     <ClCompile Include="src\BSPNodeData.cpp" />
+    <ClCompile Include="src\BSPScreen.cpp" />
     <ClCompile Include="src\BSPTree.cpp" />
     <ClCompile Include="src\CA.cpp" />
     <ClCompile Include="src\CACell.cpp" />
     <ClCompile Include="src\CAGrid.cpp" />
+    <ClCompile Include="src\CAScreen.cpp" />
+    <ClCompile Include="src\Credits.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Intro.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Room.cpp" />
   </ItemGroup>
@@ -37,16 +42,21 @@
     <ClInclude Include="include\BSPFloor.h" />
     <ClInclude Include="include\BSPNode.h" />
     <ClInclude Include="include\BSPNodeData.h" />
+    <ClInclude Include="include\BSPScreen.h" />
     <ClInclude Include="include\BSPTree.h" />
     <ClInclude Include="include\CA.h" />
     <ClInclude Include="include\CACell.h" />
     <ClInclude Include="include\CAGrid.h" />
+    <ClInclude Include="include\CAScreen.h" />
+    <ClInclude Include="include\Credits.h" />
     <ClInclude Include="include\Door.h" />
     <ClInclude Include="include\ErrorLogging.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Globals.h" />
+    <ClInclude Include="include\Intro.h" />
     <ClInclude Include="include\LevelLoader.h" />
     <ClInclude Include="include\LevelLoaderStructs.h" />
+    <ClInclude Include="include\MainMenu.h" />
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\Room.h" />
   </ItemGroup>

@@ -61,12 +61,13 @@ void CA::initialIterate()
 
 void CA::iterate()
 {
-	for (shared_ptr<CACell> c : *m_caGrid->getCells())
+	shared_ptr<vector<shared_ptr<CACell>>> grid = m_caGrid->getCells();
+	for (shared_ptr<CACell> c : *grid)
 	{
 		m_tempStates->push_back(applyRules(c));
 	}
 
-	for (shared_ptr<CACell> c : *m_caGrid->getCells())
+	for (shared_ptr<CACell> c : *grid)
 	{
 		c->setCellState(m_tempStates->at(c->getID()));
 		c->setupColor();
@@ -78,7 +79,8 @@ CellState CA::applyRules(shared_ptr<CACell> t_current)
 {
 	int wall = 0;
 	int floor = 0;
-	for (shared_ptr<CACell> cell : *t_current->getNeighbours())
+	shared_ptr<vector<shared_ptr<CACell>>> neighbours = t_current->getNeighbours();
+	for (shared_ptr<CACell> cell : *neighbours)
 	{
 		if (cell->getCellState() == CellState::Floor)
 		{
@@ -155,7 +157,7 @@ shared_ptr<vector<shared_ptr<CACell>>> CA::findLargestCavern()
 
 	for (shared_ptr<vector<shared_ptr<CACell>>> cave : *m_caverns)
 	{
-		if (maximum < cave->size())
+		if (maximum < (int)cave->size())
 		{
 			maximum = cave->size();
 			largest = cave;
@@ -170,7 +172,7 @@ void CA::removeSmallCaverns()
 	shared_ptr<vector<shared_ptr<CACell>>> largest = findLargestCavern();
 	for (shared_ptr<vector<shared_ptr<CACell>>> c : *m_caverns)
 	{
-		if (largest != c && c->size() < m_maxCaveSize)
+		if (largest != c && (int)c->size() < m_maxCaveSize)
 		{
 			for (shared_ptr<CACell> cell : *c)
 			{
@@ -197,7 +199,7 @@ void CA::astar(shared_ptr<CACell> t_origin, shared_ptr<CACell> t_destination)
 
 	//reset
 	t_origin->path = 0;
-	t_origin->heuristic = calculateHeuristicCost(t_origin, t_destination);
+	t_origin->heuristic = (float)calculateHeuristicCost(t_origin, t_destination);
 
 	while (open.size() > 0)
 	{
@@ -221,10 +223,10 @@ void CA::astar(shared_ptr<CACell> t_origin, shared_ptr<CACell> t_destination)
 			{
 				if (c == neighbour) continue;
 			}
-			int gCost = lowest->path + calculateHeuristicCost(lowest, t_destination);
+			float gCost = lowest->path + calculateHeuristicCost(lowest, t_destination);
 			if (gCost < neighbour->path)
 			{
-				neighbour->heuristic = calculateHeuristicCost(neighbour, t_destination);
+				neighbour->heuristic = (float)calculateHeuristicCost(neighbour, t_destination);
 				neighbour->path = gCost;
 				neighbour->previous = lowest;
 
@@ -269,8 +271,8 @@ void CA::connectCaverns()
 
 int CA::calculateHeuristicCost(shared_ptr<CACell> t_from, shared_ptr<CACell> t_to)
 {
-	int x = abs(t_from->getPosition().x - t_to->getPosition().x);
-	int y = abs(t_from->getPosition().y - t_to->getPosition().y);
+	int x = (int)abs(t_from->getPosition().x - t_to->getPosition().x);
+	int y = (int)abs(t_from->getPosition().y - t_to->getPosition().y);
 
 	int remaining = abs(x - y);
 

@@ -46,3 +46,14 @@ static float randomFloat(float t_min, float t_max)
 	}
 	return t_min;
 }
+
+enum class Scene
+{
+	Intro,
+	MainMenu,
+	Credits,
+	CA,
+	BSP
+};
+
+extern enum Scene s_scene;

@@ -24,7 +24,7 @@ void operator >> (const YAML::Node& t_bspNode, shared_ptr<BSP> t_bsp)
 	t_bsp->m_bspAreaSize.x = t_bspNode["bsp_area_size"]["x"].as<float>();
 	t_bsp->m_bspAreaSize.y = t_bspNode["bsp_area_size"]["y"].as<float>();
 
-	t_bsp->m_bspDepth = t_bspNode["bsp_depth"].as<float>();
+	t_bsp->m_bspDepth = t_bspNode["bsp_depth"].as<int>();
 
 	t_bsp->m_renderBSP = t_bspNode["render_bsp"].as<bool>();
 
@@ -51,11 +51,11 @@ void operator >> (const YAML::Node& t_caNode, shared_ptr<CAS> t_ca)
 	t_ca->m_cellCount.x = t_caNode["ca_cell_count"]["row"].as<float>();
 	t_ca->m_cellCount.y = t_caNode["ca_cell_count"]["col"].as<float>();
 
-	t_ca->m_floorToWallConversion = t_caNode["floor_to_wall_conversion"].as<float>();
+	t_ca->m_floorToWallConversion = t_caNode["floor_to_wall_conversion"].as<int>();
 
-	t_ca->m_wallToFloorConversion = t_caNode["wall_to_floor_conversion"].as<float>();
+	t_ca->m_wallToFloorConversion = t_caNode["wall_to_floor_conversion"].as<int>();
 
-	t_ca->m_iterations = t_caNode["iterations"].as<float>();
+	t_ca->m_iterations = t_caNode["iterations"].as<int>();
 
 	t_ca->m_maxCaveSize = t_caNode["max_cave_size"].as<int>();
 

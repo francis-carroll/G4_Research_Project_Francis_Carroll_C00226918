@@ -25,8 +25,8 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state
 	m_vonNeumannNeighbours(make_shared<vector<shared_ptr<CACell>>>()),
 	m_fillType(-1),
 	m_marked(false),
-	path(INT32_MAX),
-	heuristic(INT32_MAX)
+	path(100000.0f),
+	heuristic(100000.0f)
 {
 	setup();
 	setupColor();
