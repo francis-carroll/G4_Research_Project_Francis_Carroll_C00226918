@@ -4,6 +4,7 @@
 #include <Globals.h>
 #include <CA.h>
 #include <LevelLoader.h>
+#include <chrono>
 
 using namespace std;
 using namespace sf;

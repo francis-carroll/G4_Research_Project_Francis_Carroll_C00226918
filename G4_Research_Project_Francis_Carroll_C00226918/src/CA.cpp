@@ -1,14 +1,21 @@
 #include "CA.h"
 
-CA::CA(shared_ptr<CAData> t_caData) : 
+CA::CA(shared_ptr<CAData> t_caData) :
 	m_caData(t_caData),
 	m_colors(make_shared<vector<Color>>()),
 	m_cavernCount(0),
 	m_caverns(make_shared<vector<shared_ptr<vector<shared_ptr<CACell>>>>>()),
-	m_tempStates(make_shared<vector<CellState>>())
+	m_tempStates(make_shared<vector<CellState>>()),
+	m_renderCavern(false)
 {
 	loadConstants();
 	initialIterate();
+	auto start = chrono::steady_clock::now();
+	processCA();
+	removeSmallCaverns();
+	auto end = chrono::steady_clock::now();
+	auto seconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+	s_ca_runtime_post = seconds.count() / 1000.0f;
 }
 
 CA::~CA()
@@ -22,23 +29,11 @@ void CA::render(shared_ptr<RenderWindow> t_window)
 
 void CA::keyPresses(Event& t_event)
 {
-	if (t_event.key.code == Keyboard::I)
-	{
-		iterate();
-	}
-	if (t_event.key.code == Keyboard::P)
-	{
-		processCA();
-	}
 	if (t_event.key.code == Keyboard::R)
 	{
-		processCA();
-		removeSmallCaverns();
+		toggleBool(m_renderCavern);
+		setupColors(m_renderCavern);
 	}
-	/*if (t_event.key.code == Keyboard::C)
-	{
-		connectCaverns();
-	}*/
 }
 
 void CA::loadConstants()
@@ -117,16 +112,6 @@ void CA::processCA()
 
 	//generates colors for cavern
 	generateColorsForCaves(temp);
-
-	//sets the caves colors
-	shared_ptr<vector<shared_ptr<CACell>>> grid2 = m_caGrid->getCells();
-	for (shared_ptr<CACell> c : *grid2)
-	{
-		if (c->getCellState() == CellState::Floor && c->getFillType() != -1)
-		{
-			c->setupFloodColor(m_colors);
-		}
-	}
 }
 
 void CA::floodFill(shared_ptr<CACell> t_cell, int t_fillID, int t_depth)
@@ -302,4 +287,45 @@ void CA::generateColorsForCaves(int t_max)
 		m_colors->push_back(Color(rand() % 255, rand() % 255, rand() % 255));
 	}
 	m_cavernCount = t_max;
+}
+
+void CA::setupColors(bool t_bool)
+{
+	if (t_bool)
+	{
+		//sets the caves colors
+		shared_ptr<vector<shared_ptr<CACell>>> grid = m_caGrid->getCells();
+		for (shared_ptr<CACell> c : *grid)
+		{
+			if (c->getCellState() == CellState::Floor && c->getFillType() != -1)
+			{
+				c->setupFloodColor(m_colors);
+			}
+		}
+	}
+	else
+	{
+		shared_ptr<vector<shared_ptr<CACell>>> grid2 = m_caGrid->getCells();
+		for (shared_ptr<CACell> c : *grid2)
+		{
+			if (c->getCellState() == CellState::Floor)
+			{
+				c->setupColor();
+			}
+		}
+	}
+}
+
+void CA::resetGrid()
+{
+	setupColors(false);
+	m_caverns->clear();
+	shared_ptr<vector<shared_ptr<CACell>>> grid = m_caGrid->getCells();
+	for (shared_ptr<CACell> c : *grid)
+	{
+		if (c->getCellState() == CellState::Floor)
+		{
+			c->setFillType(-1);
+		}
+	}
 }

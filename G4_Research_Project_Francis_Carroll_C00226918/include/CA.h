@@ -7,6 +7,7 @@
 #include <LevelLoader.h>
 #include <Windows.h>
 #include <queue>
+#include <chrono>
 
 using namespace std;
 using namespace sf;
@@ -44,6 +45,8 @@ private:
 	int calculateHeuristicCost(shared_ptr<CACell> t_from, shared_ptr<CACell> t_to);
 	void processQueue();
 	void generateColorsForCaves(int t_max);
+	void setupColors(bool t_bool);
+	void resetGrid();
 
 	int WALL_TO_FLOOR_CONVERSION;
 	int FLOOR_TO_WALL_CONVERSION;
@@ -51,6 +54,8 @@ private:
 	int m_cavernCount;
 	int m_recursiveDepth;
 	int m_maxCaveSize;
+
+	bool m_renderCavern;
 
 	shared_ptr<vector<CellState>> m_tempStates;
 	shared_ptr<CAGrid> m_caGrid;
