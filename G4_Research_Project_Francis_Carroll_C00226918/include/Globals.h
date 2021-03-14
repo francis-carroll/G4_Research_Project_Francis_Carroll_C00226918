@@ -60,3 +60,5 @@ extern enum Scene s_scene;
 
 extern float s_ca_runtime_core;
 extern float s_ca_runtime_post;
+extern float s_bsp_runtime_core;
+extern float s_bsp_runtime_post;

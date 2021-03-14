@@ -6,6 +6,7 @@
 #include <BSPTree.h>
 #include <Globals.h>
 #include <LevelLoader.h>
+#include <chrono>
 
 using namespace std;
 using namespace sf;

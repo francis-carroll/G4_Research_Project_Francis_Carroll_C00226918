@@ -7,8 +7,12 @@ BSPFloor::BSPFloor(shared_ptr<BSPData> t_bspData) :
 {
 	loadData();
 	generateBSP();
+	auto start = chrono::steady_clock::now();
 	setupRooms();
 	setupCorridors();
+	auto end = chrono::steady_clock::now();
+	auto seconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+	s_bsp_runtime_post = seconds.count() / 1000.0f;
 }
 
 BSPFloor::~BSPFloor()
