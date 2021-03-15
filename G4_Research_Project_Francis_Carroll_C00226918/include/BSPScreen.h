@@ -5,6 +5,7 @@
 #include <LevelLoader.h>
 #include <BSPFloor.h>
 #include <chrono>
+#include <Key.h>
 
 using namespace std;
 using namespace sf;
@@ -20,4 +21,5 @@ public:
 	void handleMouseInput(Event& t_event);
 private:
 	shared_ptr<BSPFloor> m_bspFloor;
+	shared_ptr<Key> m_key;
 };

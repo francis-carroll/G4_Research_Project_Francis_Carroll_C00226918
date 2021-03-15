@@ -33,6 +33,7 @@
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Intro.cpp" />
+    <ClCompile Include="src\Key.cpp" />
     <ClCompile Include="src\LevelLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Globals.h" />
     <ClInclude Include="include\Intro.h" />
+    <ClInclude Include="include\Key.h" />
     <ClInclude Include="include\LevelLoader.h" />
     <ClInclude Include="include\LevelLoaderStructs.h" />
     <ClInclude Include="include\MainMenu.h" />

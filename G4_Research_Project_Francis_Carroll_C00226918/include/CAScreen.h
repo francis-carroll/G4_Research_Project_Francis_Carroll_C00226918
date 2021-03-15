@@ -5,6 +5,7 @@
 #include <CA.h>
 #include <LevelLoader.h>
 #include <chrono>
+#include <Key.h>
 
 using namespace std;
 using namespace sf;
@@ -20,4 +21,5 @@ public:
 	void handleMouseInput(Event& t_event);
 private:
 	shared_ptr<CA> m_caGrid;
+	shared_ptr<Key> m_key;
 };
