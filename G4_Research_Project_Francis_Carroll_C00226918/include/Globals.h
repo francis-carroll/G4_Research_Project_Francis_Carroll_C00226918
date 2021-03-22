@@ -56,6 +56,9 @@ enum class Scene
 	BSP
 };
 
+static const int SCREEN_WIDTH = 820;
+static const int SCREEN_HEIGHT = 820;
+
 extern enum Scene s_scene;
 
 extern float s_ca_runtime_core;

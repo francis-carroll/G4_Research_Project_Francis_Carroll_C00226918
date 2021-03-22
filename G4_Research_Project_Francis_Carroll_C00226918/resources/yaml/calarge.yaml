@@ -5,6 +5,6 @@ ca: #add comments on recommended values
     ca_cell_count: {row: 500, col: 500} #the amount of row and cols in the grid, optimal value is 50-200
     wall_to_floor_conversion: 3 #the rate of conversion used in the CA algorithm, optimal value is 3
     floor_to_wall_conversion: 4 #the rate of conversion used in the CA algorithm, optimal value is 4
-    iterations: 2 #the amount of iterations CA executes, optimal value 10-15
+    iterations: 10 #the amount of iterations CA executes, optimal value 10-15
     max_cave_size: 200 #the largest cave that will appear on the CA result, this is dependent on the ca_cell_count value.
     recursive_depth: 2000 #any number higher than 2500 and the application will crash due to stack overflow, optimal value 2000

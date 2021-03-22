@@ -114,6 +114,9 @@
     <ClCompile Include="src\Key.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\AnalyticDataDisplay.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ErrorLogging.h">
@@ -180,6 +183,9 @@
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="include\Key.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AnalyticDataDisplay.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AnalyticDataDisplay.cpp" />
     <ClCompile Include="src\BSPFloor.cpp" />
     <ClCompile Include="src\BSPNode.cpp" />
     <ClCompile Include="src\BSPNodeData.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="src\Room.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AnalyticDataDisplay.h" />
     <ClInclude Include="include\BSPFloor.h" />
     <ClInclude Include="include\BSPNode.h" />
     <ClInclude Include="include\BSPNodeData.h" />

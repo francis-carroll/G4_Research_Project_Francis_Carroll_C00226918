@@ -1,0 +1,10 @@
+ca: #add comments on recommended values
+    chance_to_become_wall: 0.43 #optimal value for wall chance is 0.38 to 0.43
+    ca_starting_position: {x: 10, y: 10} #the starting position of the visual graph, this is dependent on the application window size
+    ca_grid_size: {x: 800, y: 800} #the total size of the visual graph, this is dependent on the application window size
+    ca_cell_count: {row: 100, col: 100} #the amount of row and cols in the grid, optimal value is 50-200
+    wall_to_floor_conversion: 3 #the rate of conversion used in the CA algorithm, optimal value is 3
+    floor_to_wall_conversion: 4 #the rate of conversion used in the CA algorithm, optimal value is 4
+    iterations: 10 #the amount of iterations CA executes, optimal value 10-15
+    max_cave_size: 200 #the largest cave that will appear on the CA result, this is dependent on the ca_cell_count value.
+    recursive_depth: 2000 #any number higher than 2500 and the application will crash due to stack overflow, optimal value 2000
