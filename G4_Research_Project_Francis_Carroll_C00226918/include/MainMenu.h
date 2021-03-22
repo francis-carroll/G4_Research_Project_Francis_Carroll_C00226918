@@ -10,7 +10,8 @@ using namespace sf;
 enum class ButtonPressed
 {
 	BSP,
-	CA
+	CA,
+	Comparitive
 };
 
 class MainMenu

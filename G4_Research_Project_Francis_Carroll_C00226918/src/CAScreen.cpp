@@ -74,7 +74,7 @@ void CAScreen::instanciateCA(string& t_message, string t_filename, string t_size
 	auto startSmall = chrono::steady_clock::now();
 	shared_ptr<CAData> caData = make_shared<CAData>();
 	LevelLoader::load(t_filename, caData);
-	make_shared<CA>(caData);
+	CA* temp = new CA(caData);
 	auto endSmall = chrono::steady_clock::now();
 	auto smallSeconds = std::chrono::duration_cast<std::chrono::milliseconds>(endSmall - startSmall);
 	s_ca_runtime_core = smallSeconds.count() / 1000.0f;
@@ -82,4 +82,5 @@ void CAScreen::instanciateCA(string& t_message, string t_filename, string t_size
 	t_message += "CA " + t_size + "\nRuntime - " + to_string(s_ca_runtime_core + s_ca_runtime_post) +
 		" seconds\n	Core Runtime - \n		" + to_string(s_ca_runtime_core) +
 		" seconds\n	Post Processing Runtime - \n		" + to_string(s_ca_runtime_post) + " seconds\n\n";
+	delete temp;
 }

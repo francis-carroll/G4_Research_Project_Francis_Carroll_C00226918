@@ -17,10 +17,17 @@ void AnalyticDataDisplay::setString(string t_string)
 	m_text.setString(m_content);
 }
 
+void AnalyticDataDisplay::setString2(string t_string)
+{
+	m_content2 = t_string;
+	m_text2.setString(m_content2);
+}
+
 void AnalyticDataDisplay::render(shared_ptr<RenderWindow> t_window)
 {
 	t_window->draw(m_bg);
 	t_window->draw(m_text);
+	t_window->draw(m_text2);
 	m_button.render(t_window);
 }
 
@@ -52,4 +59,9 @@ void AnalyticDataDisplay::setup()
 	m_text.setCharacterSize(20);
 	m_text.setPosition(m_position + Vector2f(10.0f, 10.0f));
 	m_text.setString(m_content);
+
+	m_text2.setFont(m_font);
+	m_text2.setCharacterSize(20);
+	m_text2.setPosition(m_position + Vector2f(10.0f + SCREEN_WIDTH / 2.0f, 10.0f));
+	m_text2.setString(m_content2);
 }

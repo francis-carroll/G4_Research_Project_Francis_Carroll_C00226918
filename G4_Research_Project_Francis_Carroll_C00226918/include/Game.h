@@ -7,6 +7,7 @@
 #include <Credits.h>
 #include <BSPScreen.h>
 #include <CAScreen.h>
+#include <CompartiveAnalysis.h>
 
 using namespace std;
 using namespace sf;
@@ -36,4 +37,5 @@ private:
 	shared_ptr<Credits> m_credits;
 	shared_ptr<BSPScreen> m_bsp;
 	shared_ptr<CAScreen> m_ca;
+	shared_ptr<ComparitiveAnalysis> m_comparitive;
 };

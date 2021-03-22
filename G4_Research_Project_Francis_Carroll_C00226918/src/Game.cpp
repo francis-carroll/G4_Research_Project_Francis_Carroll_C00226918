@@ -60,6 +60,9 @@ void Game::update(Time t_deltaTime)
 	case Scene::CA:
 		m_ca->update(t_deltaTime);
 		break;
+	case Scene::ComparitiveAnalysis:
+		m_comparitive->update(t_deltaTime);
+		break;
 	default:
 		break;
 	}
@@ -88,6 +91,9 @@ void Game::render()
 		break;
 	case Scene::CA:
 		m_ca->render(m_window);
+		break;
+	case Scene::ComparitiveAnalysis:
+		m_comparitive->render(m_window);
 		break;
 	default:
 		break;
@@ -137,6 +143,7 @@ void Game::initialiseScenes()
 	m_credits = make_shared<Credits>();
 	m_bsp = make_shared<BSPScreen>();
 	m_ca = make_shared<CAScreen>();
+	m_comparitive = make_shared<ComparitiveAnalysis>();
 }
 
 /// <summary>
@@ -161,6 +168,9 @@ void Game::keyInput(Event& t_event)
 		break;
 	case Scene::CA:
 		m_ca->handleKeyInput(t_event);
+		break;
+	case Scene::ComparitiveAnalysis:
+		m_comparitive->handleKeyInput(t_event);
 		break;
 	default:
 		break;
@@ -189,6 +199,9 @@ void Game::mouseInput(Event& t_event)
 		break;
 	case Scene::CA:
 		m_ca->handleMouseInput(t_event, m_window);
+		break;
+	case Scene::ComparitiveAnalysis:
+		m_comparitive->handleMouseInput(t_event, m_window);
 		break;
 	default:
 		break;

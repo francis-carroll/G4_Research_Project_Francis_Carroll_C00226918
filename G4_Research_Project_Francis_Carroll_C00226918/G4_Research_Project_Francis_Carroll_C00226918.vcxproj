@@ -30,6 +30,7 @@
     <ClCompile Include="src\CACell.cpp" />
     <ClCompile Include="src\CAGrid.cpp" />
     <ClCompile Include="src\CAScreen.cpp" />
+    <ClCompile Include="src\CompartiveAnalysis.cpp" />
     <ClCompile Include="src\Credits.cpp" />
     <ClCompile Include="src\Door.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="include\CACell.h" />
     <ClInclude Include="include\CAGrid.h" />
     <ClInclude Include="include\CAScreen.h" />
+    <ClInclude Include="include\CompartiveAnalysis.h" />
     <ClInclude Include="include\Credits.h" />
     <ClInclude Include="include\Door.h" />
     <ClInclude Include="include\ErrorLogging.h" />

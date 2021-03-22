@@ -74,12 +74,13 @@ void BSPScreen::instanciateBSP(string& t_message, string t_filename, string t_si
 	auto startSmall = chrono::steady_clock::now();
 	shared_ptr<BSPData> bspData = make_shared<BSPData>();
 	LevelLoader::load(t_filename, bspData);
-	make_shared<BSPFloor>(bspData);
+	BSPFloor* temp = new BSPFloor(bspData);
 	auto endSmall = chrono::steady_clock::now();
 	auto smallSeconds = std::chrono::duration_cast<std::chrono::milliseconds>(endSmall - startSmall);
 	s_bsp_runtime_core = smallSeconds.count() / 1000.0f;
 	s_bsp_runtime_core -= s_bsp_runtime_post;
-	t_message += "CA " + t_size + "\nRuntime - " + to_string(s_bsp_runtime_core + s_bsp_runtime_post) +
+	t_message += "BSP " + t_size + "\nRuntime - " + to_string(s_bsp_runtime_core + s_bsp_runtime_post) +
 		" seconds\n	Core Runtime - \n		" + to_string(s_bsp_runtime_core) +
 		" seconds\n	Post Processing Runtime - \n		" + to_string(s_bsp_runtime_post) + " seconds\n\n";
+	delete temp;
 }

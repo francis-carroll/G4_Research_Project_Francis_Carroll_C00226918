@@ -15,6 +15,7 @@ public:
 	~AnalyticDataDisplay();
 
 	void setString(string t_string);
+	void setString2(string t_string);
 	void render(shared_ptr<RenderWindow> t_window);
 	void handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_window);
 	void update(Time t_dt);
@@ -24,7 +25,9 @@ private:
 	Vector2f m_position;
 	RectangleShape m_bg;
 	Text m_text;
+	Text m_text2;
 	Font m_font;
 	string m_content;
+	string m_content2;
 	Button m_button;
 };

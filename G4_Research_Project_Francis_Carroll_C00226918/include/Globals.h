@@ -53,7 +53,8 @@ enum class Scene
 	MainMenu,
 	Credits,
 	CA,
-	BSP
+	BSP,
+	ComparitiveAnalysis
 };
 
 static const int SCREEN_WIDTH = 820;

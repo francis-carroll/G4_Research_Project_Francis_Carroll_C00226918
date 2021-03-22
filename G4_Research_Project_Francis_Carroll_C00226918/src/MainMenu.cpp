@@ -22,6 +22,12 @@ void MainMenu::update(Time t_dt)
 		s_scene = Scene::CA;
 		m_buttons[(int)ButtonPressed::CA]->setButtonState(ButtonState::None);
 	}
+
+	if (m_buttons[(int)ButtonPressed::Comparitive]->getButtonState() == ButtonState::Clicked)
+	{
+		s_scene = Scene::ComparitiveAnalysis;
+		m_buttons[(int)ButtonPressed::Comparitive]->setButtonState(ButtonState::None);
+	}
 }
 
 void MainMenu::render(shared_ptr<RenderWindow> t_window)
@@ -46,6 +52,7 @@ void MainMenu::handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_windo
 
 void MainMenu::sceneSetup()
 {
-	m_buttons.push_back(make_shared<Button>(Vector2f(100.0f, 100.0f), "BSP"));
-	m_buttons.push_back(make_shared<Button>(Vector2f(100.0f, 200.0f), "CA"));
+	m_buttons.push_back(make_shared<Button>(Vector2f(300.0f, 100.0f), "BSP"));
+	m_buttons.push_back(make_shared<Button>(Vector2f(300.0f, 200.0f), "CA"));
+	m_buttons.push_back(make_shared<Button>(Vector2f(300.0f, 300.0f), "Comparitive Analysis"));
 }
