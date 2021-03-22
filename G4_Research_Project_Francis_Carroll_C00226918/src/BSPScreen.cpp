@@ -19,6 +19,10 @@ BSPScreen::~BSPScreen()
 
 void BSPScreen::update(Time t_dt)
 {
+	if (m_analytics)
+	{
+		m_dataDisplay->update(t_dt);
+	}
 }
 
 void BSPScreen::render(shared_ptr<RenderWindow> t_window)
@@ -57,8 +61,12 @@ void BSPScreen::handleKeyInput(Event& t_event)
 	}
 }
 
-void BSPScreen::handleMouseInput(Event& t_event)
+void BSPScreen::handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_window)
 {
+	if(m_analytics)
+	{
+		m_dataDisplay->handleMouseInput(t_event, t_window);
+	}
 }
 
 void BSPScreen::instanciateBSP(string& t_message, string t_filename, string t_size)

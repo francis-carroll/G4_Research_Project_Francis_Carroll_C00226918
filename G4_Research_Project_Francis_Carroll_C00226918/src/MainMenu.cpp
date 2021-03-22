@@ -12,10 +12,16 @@ MainMenu::~MainMenu()
 void MainMenu::update(Time t_dt)
 {
 	if (m_buttons[(int)ButtonPressed::BSP]->getButtonState() == ButtonState::Clicked)
+	{
 		s_scene = Scene::BSP;
+		m_buttons[(int)ButtonPressed::BSP]->setButtonState(ButtonState::None);
+	}
 
 	if (m_buttons[(int)ButtonPressed::CA]->getButtonState() == ButtonState::Clicked)
+	{
 		s_scene = Scene::CA;
+		m_buttons[(int)ButtonPressed::CA]->setButtonState(ButtonState::None);
+	}
 }
 
 void MainMenu::render(shared_ptr<RenderWindow> t_window)

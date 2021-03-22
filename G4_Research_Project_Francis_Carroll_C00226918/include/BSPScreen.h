@@ -19,7 +19,7 @@ public:
 	void update(Time t_dt);
 	void render(shared_ptr<RenderWindow> t_window);
 	void handleKeyInput(Event& t_event);
-	void handleMouseInput(Event& t_event);
+	void handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_window);
 private:
 	void instanciateBSP(string& t_message, string t_filename, string t_size);
 

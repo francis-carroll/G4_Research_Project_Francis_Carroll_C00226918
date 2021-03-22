@@ -23,6 +23,7 @@ public:
 	void handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_window);
 
 	ButtonState getButtonState();
+	void setButtonState(ButtonState t_state);
 private:
 	void setup();
 	bool collision(shared_ptr<RenderWindow> t_window);

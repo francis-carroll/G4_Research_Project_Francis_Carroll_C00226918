@@ -34,6 +34,11 @@ ButtonState Button::getButtonState()
 	return m_state;
 }
 
+void Button::setButtonState(ButtonState t_state)
+{
+	m_state = t_state;
+}
+
 void Button::setup()
 {
 	if (!m_font.loadFromFile("resources/fonts/default.ttf")) { cout << "Error loading font" << endl; }

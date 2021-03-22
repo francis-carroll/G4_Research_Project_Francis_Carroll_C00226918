@@ -165,8 +165,6 @@ void Game::keyInput(Event& t_event)
 	default:
 		break;
 	}
-	//m_bspFloor->keyInput(t_event);
-	//m_caGrid->keyPresses(t_event);
 }
 
 /// <summary>
@@ -187,10 +185,10 @@ void Game::mouseInput(Event& t_event)
 		m_credits->handleMouseInput(t_event);
 		break;
 	case Scene::BSP:
-		m_bsp->handleMouseInput(t_event);
+		m_bsp->handleMouseInput(t_event, m_window);
 		break;
 	case Scene::CA:
-		m_ca->handleMouseInput(t_event);
+		m_ca->handleMouseInput(t_event, m_window);
 		break;
 	default:
 		break;
