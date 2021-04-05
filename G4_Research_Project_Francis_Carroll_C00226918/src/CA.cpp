@@ -11,8 +11,8 @@ CA::CA(CAData* t_caData) :
 	m_renderCavern(false)
 {
 	loadConstants();
-	auto start = chrono::steady_clock::now();
 	initialIterate();
+	auto start = chrono::steady_clock::now();
 	processCA();
 	removeSmallCaverns();
 	//connectCaverns();
@@ -80,7 +80,7 @@ void CA::iterate()
 	for (CACell* c : *grid)
 	{
 		c->setCellState(m_tempStates->at(c->getID()));
-		c->setupColor();
+		c->getColor();
 	}
 	m_tempStates->clear();
 }
@@ -183,7 +183,7 @@ void CA::removeSmallCaverns()
 			for (CACell* cell : *c)
 			{
 				cell->setCellState(CellState::Wall);
-				cell->setupColor();
+				cell->getColor();
 			}
 			temp->push_back(c);
 		}
@@ -314,7 +314,7 @@ void CA::setupColors(bool t_bool)
 		{
 			if (c->getCellState() == CellState::Floor)
 			{
-				c->setupColor();
+				c->getColor();
 			}
 		}
 	}

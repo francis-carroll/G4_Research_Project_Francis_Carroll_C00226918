@@ -31,13 +31,13 @@ public:
 	BSPTree(BSPData* t_bspData);
 	~BSPTree();
 
-	shared_ptr<BSPNode> bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth);
-	shared_ptr<BSPNode> split(shared_ptr<BSPNodeData> t_node, int t_current);
-	shared_ptr<pair<BSPNodeData, BSPNodeData>> randomSplit(shared_ptr<BSPNodeData> t_node, int t_direction);
-	static void renderLeafNodes(shared_ptr<RenderWindow> t_window, shared_ptr<BSPNode> t_node);
+	BSPNode* bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth);
+	BSPNode* split(BSPNodeData* t_node, int t_current);
+	pair<BSPNodeData, BSPNodeData>* randomSplit(BSPNodeData* t_node, int t_direction);
+	static void renderLeafNodes(shared_ptr<RenderWindow> t_window, BSPNode* t_node);
 
 	//getters
-	static void getLeafNodes(shared_ptr<BSPNode> t_node, shared_ptr<vector<shared_ptr<BSPNode>>>);
+	static void getLeafNodes(BSPNode* t_node, vector<BSPNode*>* t_container);
 	static float getDistance(Vector2f t_vector1, Vector2f t_vector2);
 
 	//setters

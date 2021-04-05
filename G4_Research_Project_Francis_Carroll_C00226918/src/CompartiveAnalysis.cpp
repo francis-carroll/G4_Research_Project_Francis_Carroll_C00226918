@@ -1,23 +1,28 @@
 #include "CompartiveAnalysis.h"
 
 ComparitiveAnalysis::ComparitiveAnalysis() : 
-	m_dataDisplay(AnalyticDataDisplay(Vector2f(10.0f,10.0f)))
+	m_dataDisplay(new AnalyticDataDisplay(Vector2f(10.0f,10.0f)))
 {
-	sceneSetup();
 }
 
 ComparitiveAnalysis::~ComparitiveAnalysis()
 {
+	delete m_dataDisplay;
 }
 
 void ComparitiveAnalysis::update(Time t_dt)
 {
-	//m_dataDisplay.update(t_dt);
+	if (m_dataDisplay->getButton()->getButtonState() == ButtonState::Clicked)
+	{
+		s_scene = Scene::MainMenu;
+		m_dataDisplay->getButton()->setButtonState(ButtonState::None);
+		delete m_dataDisplay;
+	}
 }
 
 void ComparitiveAnalysis::render(shared_ptr<RenderWindow> t_window)
 {
-	m_dataDisplay.render(t_window);
+	m_dataDisplay->render(t_window);
 }
 
 void ComparitiveAnalysis::handleKeyInput(Event& t_event)
@@ -26,12 +31,12 @@ void ComparitiveAnalysis::handleKeyInput(Event& t_event)
 
 void ComparitiveAnalysis::handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_window)
 {
-	m_dataDisplay.handleMouseInput(t_event, t_window);
+	m_dataDisplay->handleMouseInput(t_event, t_window);
 }
 
 void ComparitiveAnalysis::sceneSetup()
 {
-	/*string bspMessage;
+	string bspMessage;
 	initialiseBSP(bspMessage, "bsplarge", "Large");
 	initialiseBSP(bspMessage, "bspmed", "Medium");
 	initialiseBSP(bspMessage, "bspsmall", "Small");
@@ -41,8 +46,8 @@ void ComparitiveAnalysis::sceneSetup()
 	initialiseCA(caMessage, "camed", "Medium");
 	initialiseCA(caMessage, "casmall", "Small");
 
-	m_dataDisplay.setString(bspMessage);
-	m_dataDisplay.setString2(caMessage);*/
+	m_dataDisplay->setString(bspMessage);
+	m_dataDisplay->setString2(caMessage);
 }
 
 void ComparitiveAnalysis::initialiseCA(string& t_message, string t_fileName, string t_title)

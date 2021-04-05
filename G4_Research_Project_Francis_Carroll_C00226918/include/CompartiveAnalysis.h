@@ -20,10 +20,10 @@ public:
 	void render(shared_ptr<RenderWindow> t_window);
 	void handleKeyInput(Event& t_event);
 	void handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_window);
-private:
 	void sceneSetup();
+private:
 	void initialiseCA(string& t_message, string t_fileName, string t_title);
 	void initialiseBSP(string& t_message, string t_fileName, string t_title);
 
-	AnalyticDataDisplay m_dataDisplay;
+	AnalyticDataDisplay* m_dataDisplay;
 };

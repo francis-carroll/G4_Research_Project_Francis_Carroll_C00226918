@@ -20,25 +20,25 @@ public:
 
 	//getters 
 	int getIdentifier();
-	shared_ptr<BSPNode> getLeftNode();
-	shared_ptr<BSPNode> getRightNode();
-	shared_ptr<BSPNodeData> getNodeData();
+	BSPNode* getLeftNode();
+	BSPNode* getRightNode();
+	BSPNodeData* getNodeData();
 
 	//setters
 	void setIdentifier(int t_identifier);
 	void setNodeData(BSPNodeData t_nodeData);
-	void setLeftNode(shared_ptr<BSPNode> t_node);
-	void setRightNode(shared_ptr<BSPNode> t_node);
+	void setLeftNode(BSPNode* t_node);
+	void setRightNode(BSPNode* t_node);
 
 	void render(shared_ptr<RenderWindow> t_window);
 private:
 	int m_identifier;
-	shared_ptr<BSPNodeData> m_nodeData;
-	shared_ptr<BSPNode> m_leftNode;
-	shared_ptr<BSPNode> m_rightNode;
+	BSPNodeData* m_nodeData;
+	BSPNode* m_leftNode;
+	BSPNode* m_rightNode;
 
 	//Visalisation of BSP
-	RectangleShape m_shape;
+	RectangleShape* m_shape;
 
 	void setupShape();
 };

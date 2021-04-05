@@ -17,9 +17,9 @@ BSPTree::~BSPTree()
 /// <param name="t_graphSize"></param>
 /// <param name="t_graphDepth"></param>
 /// <returns>shared_ptr<BSPNode></returns>
-shared_ptr<BSPNode> BSPTree::bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth)
+BSPNode* BSPTree::bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth)
 {
-	return split(make_shared<BSPNodeData>(t_graphPosition, t_graphSize), t_graphDepth);
+	return split(new BSPNodeData(t_graphPosition, t_graphSize), t_graphDepth);
 }
 
 /// <summary>
@@ -28,11 +28,11 @@ shared_ptr<BSPNode> BSPTree::bsp(Vector2f t_graphPosition, Vector2f t_graphSize,
 /// <param name="t_node"></param>
 /// <param name="t_current"></param>
 /// <returns>shared_ptr<BSPNode></returns>
-shared_ptr<BSPNode> BSPTree::split(shared_ptr<BSPNodeData> t_node, int t_current)
+BSPNode* BSPTree::split(BSPNodeData* t_node, int t_current)
 {
-	shared_ptr<BSPNode> root = make_shared<BSPNode>(m_nodeCount, *t_node);
+	BSPNode* root = new BSPNode(m_nodeCount, *t_node);
 	m_nodeCount++;
-	shared_ptr<pair<BSPNodeData, BSPNodeData>> temp = nullptr;
+	pair<BSPNodeData, BSPNodeData>* temp = nullptr;
 
 	if (t_current > 0)
 	{
@@ -51,8 +51,8 @@ shared_ptr<BSPNode> BSPTree::split(shared_ptr<BSPNodeData> t_node, int t_current
 		//if the room wasnt split, dont split its neighbour
 		if (temp != nullptr)
 		{
-			root->setLeftNode(split(make_shared<BSPNodeData>(temp->first), t_current - 1));
-			root->setRightNode(split(make_shared<BSPNodeData>(temp->second), t_current - 1));
+			root->setLeftNode(split(new BSPNodeData(temp->first), t_current - 1));
+			root->setRightNode(split(new BSPNodeData(temp->second), t_current - 1));
 		}
 		return root;
 	}
@@ -65,7 +65,7 @@ shared_ptr<BSPNode> BSPTree::split(shared_ptr<BSPNodeData> t_node, int t_current
 /// <param name="t_node"></param>
 /// <param name="t_direction"></param>
 /// <returns></returns>
-shared_ptr<pair<BSPNodeData, BSPNodeData>> BSPTree::randomSplit(shared_ptr<BSPNodeData> t_node, int t_direction)
+pair<BSPNodeData, BSPNodeData>* BSPTree::randomSplit(BSPNodeData* t_node, int t_direction)
 {
 	BSPNodeData node1; BSPNodeData node2;
 	//horizontal
@@ -86,7 +86,7 @@ shared_ptr<pair<BSPNodeData, BSPNodeData>> BSPTree::randomSplit(shared_ptr<BSPNo
 		node2.setPosition(Vector2f(t_node->getPosition().x, t_node->getPosition().y + node1.getSize().y));
 		node2.setSize(Vector2f(t_node->getSize().x, t_node->getSize().y - node1.getSize().y));
 	}
-	return make_shared<pair<BSPNodeData, BSPNodeData>>(node1, node2);
+	return new pair<BSPNodeData, BSPNodeData>(node1, node2);
 }
 
 /// <summary>
@@ -94,7 +94,7 @@ shared_ptr<pair<BSPNodeData, BSPNodeData>> BSPTree::randomSplit(shared_ptr<BSPNo
 /// </summary>
 /// <param name="t_window"></param>
 /// <param name="t_node"></param>
-void BSPTree::renderLeafNodes(shared_ptr<RenderWindow> t_window, shared_ptr<BSPNode> t_node)
+void BSPTree::renderLeafNodes(shared_ptr<RenderWindow> t_window, BSPNode* t_node)
 {
 	if (t_node->getLeftNode() != nullptr && t_node->getRightNode() != nullptr)
 	{
@@ -111,7 +111,7 @@ void BSPTree::renderLeafNodes(shared_ptr<RenderWindow> t_window, shared_ptr<BSPN
 /// </summary>
 /// <param name="t_node"></param>
 /// <param name="t_container"></param>
-void BSPTree::getLeafNodes(shared_ptr<BSPNode> t_node, shared_ptr<vector<shared_ptr<BSPNode>>> t_container)
+void BSPTree::getLeafNodes(BSPNode* t_node, vector<BSPNode*>* t_container)
 {
 	if (t_node->getLeftNode() != nullptr && t_node->getRightNode() != nullptr)
 	{

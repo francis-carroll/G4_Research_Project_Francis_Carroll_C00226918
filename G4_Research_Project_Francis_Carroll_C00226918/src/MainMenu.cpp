@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-#include <CAScreen.h>
+#include <Game.h>
 
 MainMenu::MainMenu()
 {
@@ -10,25 +10,27 @@ MainMenu::~MainMenu()
 {
 }
 
-void MainMenu::update(Time t_dt, shared_ptr<CAScreen> t_caScreen)
+void MainMenu::update(Time t_dt, Game& t_game)
 {
 	if (m_buttons[(int)ButtonPressed::BSP]->getButtonState() == ButtonState::Clicked)
 	{
 		s_scene = Scene::BSP;
 		m_buttons[(int)ButtonPressed::BSP]->setButtonState(ButtonState::None);
+		t_game.getBSPScreen()->initScene();
 	}
 
 	if (m_buttons[(int)ButtonPressed::CA]->getButtonState() == ButtonState::Clicked)
 	{
 		s_scene = Scene::CA;
 		m_buttons[(int)ButtonPressed::CA]->setButtonState(ButtonState::None);
-		t_caScreen->initScene();
+		t_game.getCAScreen()->initScene();
 	}
 
 	if (m_buttons[(int)ButtonPressed::Comparitive]->getButtonState() == ButtonState::Clicked)
 	{
 		s_scene = Scene::ComparitiveAnalysis;
 		m_buttons[(int)ButtonPressed::Comparitive]->setButtonState(ButtonState::None);
+		t_game.getCompAScreen()->sceneSetup();
 	}
 }
 

@@ -25,7 +25,7 @@ public:
 	void addNeighbour(CACell* t_cell);
 
 	void setCellState(CellState t_state);
-	void setupColor();
+	void getColor();
 	void setupFloodColor(vector<Color>* t_colors);
 	void setFillType(int t_fillType);
 	void setMarked(bool t_marked);
@@ -35,6 +35,7 @@ public:
 	vector<CACell*>* getNeighbours();
 	int getFillType();
 	Vector2f getPosition();
+	Vector2f getSize();
 	bool getMarked();
 
 	float path;

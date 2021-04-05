@@ -87,6 +87,7 @@ void CAScreen::initScene()
 	m_caGrid = new CA(caData);
 	m_key = new Key(Vector2f(20.0f, 20.0f), Vector2f(220.0f, 120.0f), "Key:\nR - Display Processed CA\nK - Display Key\nE - Finish Execution");
 	m_dataDisplay = new AnalyticDataDisplay(Vector2f(10.0f, 10.0f));
+	m_analytics = false;
 }
 
 void CAScreen::instanciateCA(string& t_message, string t_filename, string t_size)

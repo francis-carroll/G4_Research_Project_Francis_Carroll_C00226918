@@ -14,7 +14,7 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size) :
 	previous(nullptr)
 {
 	setup();
-	setupColor();
+	getColor();
 }
 
 CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state) :
@@ -31,7 +31,7 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state
 	previous(nullptr)
 {
 	setup();
-	setupColor();
+	getColor();
 }
 
 CACell::~CACell()
@@ -80,6 +80,11 @@ Vector2f CACell::getPosition()
 	return m_position;
 }
 
+Vector2f CACell::getSize()
+{
+	return m_size;
+}
+
 bool CACell::getMarked()
 {
 	return m_marked;
@@ -91,9 +96,9 @@ void CACell::setup()
 	m_cell->setSize(m_size);
 }
 
-void CACell::setupColor()
+void CACell::getColor()
 {
-	if(m_cellState == CellState::Floor)
+	if (m_cellState == CellState::Floor)
 		m_cell->setFillColor(Color::White);
 	else
 		m_cell->setFillColor(Color::Black);

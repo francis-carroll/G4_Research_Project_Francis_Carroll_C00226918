@@ -49,7 +49,7 @@ void Game::update(Time t_deltaTime)
 		m_intro->update(t_deltaTime);
 		break;
 	case Scene::MainMenu:
-		m_menu->update(t_deltaTime, m_ca);
+		m_menu->update(t_deltaTime, *this);
 		break;
 	case Scene::Credits:
 		m_credits->update(t_deltaTime);
@@ -134,6 +134,21 @@ void Game::handleInput(Event& t_event)
 	{
 		mouseInput(t_event);
 	}
+}
+
+shared_ptr<CAScreen> Game::getCAScreen()
+{
+	return m_ca;
+}
+
+shared_ptr<BSPScreen> Game::getBSPScreen()
+{
+	return m_bsp;
+}
+
+shared_ptr<ComparitiveAnalysis> Game::getCompAScreen()
+{
+	return m_comparitive;
 }
 
 void Game::initialiseScenes()

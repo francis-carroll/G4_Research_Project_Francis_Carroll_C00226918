@@ -2,22 +2,28 @@
 
 BSPFloor::BSPFloor(BSPData* t_bspData) :
 	m_bspData(t_bspData),
-	m_bspHead(make_shared<BSPNode>(0,Vector2f(0.0f,0.0f), Vector2f(0.0f, 0.0f))), 
-	m_corridors(vector<VertexArray>())
+	m_bspHead(nullptr), 
+	m_corridors(new vector<VertexArray>()),
+	m_rooms(new vector<Room*>())
 {
-	/*loadData();
+	loadData();
 	generateBSP();
 	auto start = chrono::steady_clock::now();
 	setupRooms();
 	setupCorridors();
 	auto end = chrono::steady_clock::now();
 	auto seconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-	s_bsp_runtime_post = seconds.count() / 1000.0f;*/
+	s_bsp_runtime_post = seconds.count() / 1000.0f;
 }
 
 BSPFloor::~BSPFloor()
 {
 	delete m_bspData;
+	delete m_corridors;
+	for (Room* r : *m_rooms)
+		delete r;
+	delete m_rooms;
+	//delete bsp tree
 }
 
 /// <summary>
@@ -26,7 +32,7 @@ BSPFloor::~BSPFloor()
 /// <param name="t_door1"></param>
 /// <param name="t_door2"></param>
 /// <returns>true, if the door is in the correct location</returns>
-bool BSPFloor::checkRoomPosition(shared_ptr<Door> t_door1, shared_ptr<Door> t_door2)
+bool BSPFloor::checkRoomPosition(Door* t_door1, Door* t_door2)
 {
 	/*connected->getDirection() != DoorDirection::North || connected2->getDirection() != DoorDirection::North &&
 	connected->getDirection() != DoorDirection::South || connected2->getDirection() != DoorDirection::South &&
@@ -106,15 +112,15 @@ void BSPFloor::render(shared_ptr<RenderWindow> t_window)
 
 	if (m_renderRooms)
 	{
-		for (shared_ptr<Room> room : m_rooms)
+		for (Room* room : *m_rooms)
 		{
-			t_window->draw(room->getRoom());
+			t_window->draw(*room->getRoom());
 		}
 	}
 
 	if (m_renderCorridors)
 	{
-		for (VertexArray v : m_corridors)
+		for (VertexArray v : *m_corridors)
 		{
 			t_window->draw(v);
 		}
@@ -137,14 +143,14 @@ void BSPFloor::generateBSP()
 /// </summary>
 void BSPFloor::setupRooms()
 {
-	shared_ptr<vector<shared_ptr<BSPNode>>> leafNodes = make_shared<vector<shared_ptr<BSPNode>>>();
+	vector<BSPNode*>* leafNodes = new vector<BSPNode*>();
 	BSPTree::getLeafNodes(m_bspHead, leafNodes);
-	for (shared_ptr<BSPNode> node : *leafNodes)
+	for (BSPNode* node : *leafNodes)
 	{
 		Vector2f size = Vector2f(randomFloat(MIN_ROOM_SIZE.x, node->getNodeData()->getSize().x - ROOM_SIZE_PADDING), randomFloat(MIN_ROOM_SIZE.y, node->getNodeData()->getSize().y - ROOM_SIZE_PADDING));
 		Vector2f position = Vector2f(randomFloat(node->getNodeData()->getPosition().x + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().x + (node->getNodeData()->getSize().x - size.x) - ROOM_POSITION_PADDING),
 									 randomFloat(node->getNodeData()->getPosition().y + ROOM_POSITION_PADDING, node->getNodeData()->getPosition().y + (node->getNodeData()->getSize().y - size.y) - ROOM_POSITION_PADDING));
-		m_rooms.push_back(make_shared<Room>(node->getIdentifier(), position, size, Vector2f(0.0f,0.0f)));
+		m_rooms->push_back(new Room(node->getIdentifier(), position, size, Vector2f(0.0f,0.0f)));
 	}
 }
 
@@ -153,21 +159,21 @@ void BSPFloor::setupRooms()
 /// </summary>
 void BSPFloor::setupCorridors()
 {
-	shared_ptr<Room> bestRoom;
-	shared_ptr<Room> bestRoom2;
-	shared_ptr<Door> bestVec;
-	shared_ptr<Door> bestVec2;
+	Room* bestRoom = nullptr;
+	Room* bestRoom2 = nullptr;
+	Door* bestVec = nullptr;
+	Door* bestVec2 = nullptr;
 	float bestDistance = 1000000;
 
-	for (shared_ptr<Room> room : m_rooms)
+	for (Room* room : *m_rooms)
 	{
-		for (shared_ptr<Door> connected : room->getDoorNodes())
+		for (Door* connected : *room->getDoorNodes())
 		{
 			if(!connected->getMarked())
 			{ 
-				for (shared_ptr<Room> room2 : m_rooms)
+				for (Room* room2 : *m_rooms)
 				{
-					for (shared_ptr<Door> connected2 : room2->getDoorNodes())
+					for (Door* connected2 : *room2->getDoorNodes())
 					{
 						if (room != room2 && !connected2->getMarked())
 						{
@@ -197,12 +203,12 @@ void BSPFloor::setupCorridors()
 				{
 					bestVec->setMarked(true);
 					bestVec2->setMarked(true);
-					VertexArray line = VertexArray(LinesStrip, 2);
+					VertexArray line =  VertexArray(LinesStrip, 2);
 					line[0].position = bestVec->getPosition();
 					line[1].position = bestVec2->getPosition();
 					line[0].color = Color::Black;
 					line[1].color = Color::Blue;
-					m_corridors.push_back(line);
+					m_corridors->push_back(line);
 				}
 
 				bestDistance = 100000;

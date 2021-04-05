@@ -4,13 +4,11 @@ extern float s_bsp_runtime_core = 0.0f;
 extern float s_bsp_runtime_post = 0.0f;
 
 BSPScreen::BSPScreen() :
-	m_key(make_shared<Key>(Vector2f(20.0f, 20.0f), Vector2f(220.0f, 180.0f), "Key:\nB - Display BSP\nR - Display Rooms\nC - Display Connections\nK - Display Key\nE - Finish Execution")),
-	m_dataDisplay(make_shared<AnalyticDataDisplay>(Vector2f(10.0f, 10.0f))),
+	m_key(nullptr),
+	m_dataDisplay(nullptr),
+	m_bspFloor(nullptr),
 	m_analytics(false)
 {
-	BSPData* bspData = new BSPData();
-	LevelLoader::load("bspmed", bspData);
-	m_bspFloor = make_shared<BSPFloor>(bspData);
 }
 
 BSPScreen::~BSPScreen()
@@ -21,7 +19,14 @@ void BSPScreen::update(Time t_dt)
 {
 	if (m_analytics)
 	{
-		//m_dataDisplay->update(t_dt);
+		if (m_dataDisplay->getButton()->getButtonState() == ButtonState::Clicked)
+		{
+			s_scene = Scene::MainMenu;
+			m_dataDisplay->getButton()->setButtonState(ButtonState::None);
+			delete m_bspFloor;
+			delete m_key;
+			delete m_dataDisplay;
+		}
 	}
 }
 
@@ -67,6 +72,16 @@ void BSPScreen::handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_wind
 	{
 		m_dataDisplay->handleMouseInput(t_event, t_window);
 	}
+}
+
+void BSPScreen::initScene()
+{
+	BSPData* bspData = new BSPData();
+	LevelLoader::load("bspmed", bspData);
+	m_bspFloor = new BSPFloor(bspData);
+	m_key = new Key(Vector2f(20.0f, 20.0f), Vector2f(220.0f, 180.0f), "Key:\nB - Display BSP\nR - Display Rooms\nC - Display Connections\nK - Display Key\nE - Finish Execution");
+	m_dataDisplay = new AnalyticDataDisplay(Vector2f(10.0f, 10.0f));
+	m_analytics = false;
 }
 
 void BSPScreen::instanciateBSP(string& t_message, string t_filename, string t_size)

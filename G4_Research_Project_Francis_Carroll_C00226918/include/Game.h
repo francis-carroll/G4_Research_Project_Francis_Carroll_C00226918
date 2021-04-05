@@ -25,6 +25,9 @@ public:
 	void render();
 	void processEvents();
 	void handleInput(Event& t_event);
+	shared_ptr<CAScreen> getCAScreen();
+	shared_ptr<BSPScreen> getBSPScreen();
+	shared_ptr<ComparitiveAnalysis> getCompAScreen();
 private:
 	void initialiseScenes();
 	void keyInput(Event& t_event);
