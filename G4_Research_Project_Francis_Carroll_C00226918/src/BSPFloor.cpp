@@ -1,22 +1,23 @@
 #include "BSPFloor.h"
 
-BSPFloor::BSPFloor(shared_ptr<BSPData> t_bspData) :
+BSPFloor::BSPFloor(BSPData* t_bspData) :
 	m_bspData(t_bspData),
 	m_bspHead(make_shared<BSPNode>(0,Vector2f(0.0f,0.0f), Vector2f(0.0f, 0.0f))), 
 	m_corridors(vector<VertexArray>())
 {
-	loadData();
+	/*loadData();
 	generateBSP();
 	auto start = chrono::steady_clock::now();
 	setupRooms();
 	setupCorridors();
 	auto end = chrono::steady_clock::now();
 	auto seconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-	s_bsp_runtime_post = seconds.count() / 1000.0f;
+	s_bsp_runtime_post = seconds.count() / 1000.0f;*/
 }
 
 BSPFloor::~BSPFloor()
 {
+	delete m_bspData;
 }
 
 /// <summary>

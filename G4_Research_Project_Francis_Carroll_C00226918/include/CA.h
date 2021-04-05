@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include <queue>
 #include <chrono>
+#include <list>
 
 using namespace std;
 using namespace sf;
@@ -18,15 +19,16 @@ using namespace sf;
 struct CAPostProcess
 {
 public: 
-	CAPostProcess(shared_ptr<CACell> t_cell, int t_fill) : cell(t_cell), fill(t_fill) {}
-	shared_ptr<CACell> cell;
+	CAPostProcess(CACell* t_cell, int t_fill) : cell(t_cell), fill(t_fill) {}
+	~CAPostProcess() {};
+	CACell* cell;
 	int fill;
 };
 
 class CA
 {
 public:
-	CA(shared_ptr<CAData> t_caData);
+	CA(CAData* t_caData);
 	~CA();
 
 	void render(shared_ptr<RenderWindow> t_window);
@@ -35,18 +37,19 @@ private:
 	void loadConstants();
 	void initialIterate();
 	void iterate();
-	CellState applyRules(shared_ptr<CACell> t_current);
+	CellState applyRules(CACell* t_current);
 	void processCA();
-	void floodFill(shared_ptr<CACell> t_cell, int t_fillID, int t_depth);
-	shared_ptr<vector<shared_ptr<CACell>>> findLargestCavern();
+	void floodFill(CACell* t_cell, int t_fillID, int t_depth);
+	vector<CACell*>* findLargestCavern();
 	void removeSmallCaverns();
-	void astar(shared_ptr<CACell> t_origin, shared_ptr<CACell> t_destination);
+	vector<CACell*>* astar(CACell* t_origin, CACell* t_destination);
 	void connectCaverns();
-	int calculateHeuristicCost(shared_ptr<CACell> t_from, shared_ptr<CACell> t_to);
+	float calculateHeuristicCost(CACell* t_from, CACell* t_to);
 	void processQueue();
 	void generateColorsForCaves(int t_max);
 	void setupColors(bool t_bool);
 	void resetGrid();
+	vector<CACell*>* constructPath(CACell* t_goal);
 
 	int WALL_TO_FLOOR_CONVERSION;
 	int FLOOR_TO_WALL_CONVERSION;
@@ -57,12 +60,12 @@ private:
 
 	bool m_renderCavern;
 
-	shared_ptr<vector<CellState>> m_tempStates;
-	shared_ptr<CAGrid> m_caGrid;
-	shared_ptr<CAData> m_caData;
-	shared_ptr<vector<Color>> m_colors;
-	shared_ptr<vector<shared_ptr<vector<shared_ptr<CACell>>>>> m_caverns;
-	list<shared_ptr<CACell>> m_path;
-	queue<shared_ptr<CAPostProcess>> m_queue;
+	vector<CellState>* m_tempStates;
+	CAGrid* m_caGrid;
+	CAData* m_caData;
+	vector<Color>* m_colors;
+	vector<vector<CACell*>*>* m_caverns;
+	list<CACell*>* m_path;
+	queue<CAPostProcess*>* m_queue;
 };
 

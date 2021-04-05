@@ -8,7 +8,7 @@ CAScreen::CAScreen() :
 	m_dataDisplay(make_shared<AnalyticDataDisplay>(Vector2f(10.0f,10.0f))),
 	m_analytics(false)
 {
-	shared_ptr<CAData> caData = make_shared<CAData>();
+	CAData* caData = new CAData();
 	LevelLoader::load("camed", caData);
 	m_caGrid = make_shared<CA>(caData);
 }
@@ -72,7 +72,7 @@ void CAScreen::handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_windo
 void CAScreen::instanciateCA(string& t_message, string t_filename, string t_size)
 {
 	auto startSmall = chrono::steady_clock::now();
-	shared_ptr<CAData> caData = make_shared<CAData>();
+	CAData* caData = new CAData();
 	LevelLoader::load(t_filename, caData);
 	CA* temp = new CA(caData);
 	auto endSmall = chrono::steady_clock::now();

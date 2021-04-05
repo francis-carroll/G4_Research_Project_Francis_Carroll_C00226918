@@ -17,7 +17,7 @@ using namespace sf;
 class BSPFloor
 {
 public:
-	BSPFloor(shared_ptr<BSPData> t_bspData);
+	BSPFloor(BSPData* t_bspData);
 	~BSPFloor();
 
 	void keyInput(Event& t_event);
@@ -48,5 +48,5 @@ private:
 	bool m_renderRooms;
 	bool m_renderBSP;
 	bool m_renderCorridors;
-	shared_ptr<BSPData> m_bspData;
+	BSPData* m_bspData;
 };

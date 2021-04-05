@@ -31,7 +31,7 @@ void ComparitiveAnalysis::handleMouseInput(Event& t_event, shared_ptr<RenderWind
 
 void ComparitiveAnalysis::sceneSetup()
 {
-	string bspMessage;
+	/*string bspMessage;
 	initialiseBSP(bspMessage, "bsplarge", "Large");
 	initialiseBSP(bspMessage, "bspmed", "Medium");
 	initialiseBSP(bspMessage, "bspsmall", "Small");
@@ -42,13 +42,13 @@ void ComparitiveAnalysis::sceneSetup()
 	initialiseCA(caMessage, "casmall", "Small");
 
 	m_dataDisplay.setString(bspMessage);
-	m_dataDisplay.setString2(caMessage);
+	m_dataDisplay.setString2(caMessage);*/
 }
 
 void ComparitiveAnalysis::initialiseCA(string& t_message, string t_fileName, string t_title)
 {
 	auto startSmall = chrono::steady_clock::now();
-	shared_ptr<CAData> caData = make_shared<CAData>();
+	CAData* caData = new CAData();
 	LevelLoader::load(t_fileName, caData);
 	CA* temp = new CA(caData);
 	auto endSmall = chrono::steady_clock::now();
@@ -64,7 +64,7 @@ void ComparitiveAnalysis::initialiseCA(string& t_message, string t_fileName, str
 void ComparitiveAnalysis::initialiseBSP(string& t_message, string t_fileName, string t_title)
 {
 	auto startSmall = chrono::steady_clock::now();
-	shared_ptr<BSPData> bspData = make_shared<BSPData>();
+	BSPData* bspData = new BSPData();
 	LevelLoader::load(t_fileName, bspData);
 	BSPFloor* temp = new BSPFloor(bspData);
 	auto endSmall = chrono::steady_clock::now();

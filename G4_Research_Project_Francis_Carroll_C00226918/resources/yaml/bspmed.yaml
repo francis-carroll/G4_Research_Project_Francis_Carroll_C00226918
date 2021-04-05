@@ -1,15 +1,15 @@
 bsp:
     room_size_padding: 10 #padding on a rooms size when created, optimal value is 20
     room_position_padding: 1 #padding of tne position ing of a room within a bsp node, optimal value is 2
-    max_room_size: {x: 20, y: 20} # the max size of a romm within a node, this value is dependent on the paddings
-    min_room_size: {x: 5, y: 5} # the min size of a romm within a node, this value is dependent on the paddings
+    max_room_size: {x: 25, y: 25} # the max size of a romm within a node, this value is dependent on the paddings
+    min_room_size: {x: 15, y: 15} # the min size of a romm within a node, this value is dependent on the paddings
     bsp_starting_position: {x: 10, y: 10} #the starting potion of the visual graph, dependent on application window size 
     room_connection_offset: 7 #offset at which rooms are connected to each other, optimal value 5-10
     room_connection_offset_hw: 45 #the offset at which rooms are connected based on height and width, optimal value is 45
-    room_connection_distance: 25 #the largest distance at which two rooms will be connected, optimal value is 60-100
+    room_connection_distance: 45 #the largest distance at which two rooms will be connected, optimal value is 60-100
     bsp_area_size: {x : 800.0, y: 800.0} #the total size of the bsp visuals, dependent on application window size
     bsp_depth: 10 #the depth at which bsp runs, optimal value is 15-20
     render_rooms: true #if the rooms will be rendered during run
     render_bsp: false #if the bsp will be rendered during run
     render_corridors: true #if the coridor connections will be rendered during run
-    height_width_maximum: { hm: 15, hw: 15, wm: 15, ww: 15 } #the maximum size of a node, optimal value is 30 for all values
+    height_width_maximum: { hm: 20, hw: 20, wm: 20, ww: 20 } #the maximum size of a node, optimal value is 30 for all values

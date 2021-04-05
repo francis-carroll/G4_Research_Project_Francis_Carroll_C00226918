@@ -196,10 +196,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\yaml\bsp.yaml">
+    <None Include="resources\yaml\bsplarge.yaml">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="resources\yaml\ca.yaml">
+    <None Include="resources\yaml\bspmed.yaml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\yaml\bspsmall.yaml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\yaml\calarge.yaml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\yaml\camed.yaml">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\yaml\casmall.yaml">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

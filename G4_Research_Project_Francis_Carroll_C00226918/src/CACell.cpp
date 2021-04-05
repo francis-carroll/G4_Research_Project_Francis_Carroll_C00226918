@@ -1,32 +1,34 @@
 #include "CACell.h"
 
 CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size) :
-	m_cell(make_shared<RectangleShape>()),
+	m_cell(new RectangleShape()),
 	m_position(t_position),
 	m_size(t_size),
 	m_cellState(CellState(CellState::Floor)), 
 	m_id(t_id),
-	m_mooreNeighbours(make_shared<vector<shared_ptr<CACell>>>()),
-	m_vonNeumannNeighbours(make_shared<vector<shared_ptr<CACell>>>()),
+	m_neighbours(new vector<CACell*>()),
 	m_fillType(-1),
-	m_marked(false)
+	m_marked(false),
+	heuristic(100000),
+	path(100000),
+	previous(nullptr)
 {
 	setup();
 	setupColor();
 }
 
 CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state) :
-	m_cell(make_shared<RectangleShape>()),
+	m_cell(new RectangleShape()),
 	m_position(t_position),
 	m_size(t_size),
 	m_cellState(CellState(t_state)),
 	m_id(t_id),
-	m_mooreNeighbours(make_shared<vector<shared_ptr<CACell>>>()),
-	m_vonNeumannNeighbours(make_shared<vector<shared_ptr<CACell>>>()),
+	m_neighbours(new vector<CACell*>()),
 	m_fillType(-1),
 	m_marked(false),
-	path(100000.0f),
-	heuristic(100000.0f)
+	heuristic(100000),
+	path(100000),
+	previous(nullptr)
 {
 	setup();
 	setupColor();
@@ -34,6 +36,8 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state
 
 CACell::~CACell()
 {
+	delete m_cell;
+	delete m_neighbours;
 }
 
 void CACell::render(shared_ptr<RenderWindow> t_window)
@@ -41,14 +45,9 @@ void CACell::render(shared_ptr<RenderWindow> t_window)
 	t_window->draw(*m_cell);
 }
 
-void CACell::addNeighbour(shared_ptr<CACell> t_cell)
+void CACell::addNeighbour(CACell* t_cell)
 {
-	m_mooreNeighbours->push_back(t_cell);
-}
-
-void CACell::addVonNeighbour(shared_ptr<CACell> t_cell)
-{
-	m_vonNeumannNeighbours->push_back(t_cell);
+	m_neighbours->push_back(t_cell);
 }
 
 void CACell::setCellState(CellState t_state)
@@ -66,14 +65,9 @@ CellState CACell::getCellState()
 	return m_cellState;
 }
 
-shared_ptr<vector<shared_ptr<CACell>>> CACell::getNeighbours()
+vector<CACell*>* CACell::getNeighbours()
 {
-	return m_mooreNeighbours;
-}
-
-shared_ptr<vector<shared_ptr<CACell>>> CACell::getVonNeighbours()
-{
-	return m_vonNeumannNeighbours;
+	return m_neighbours;
 }
 
 int CACell::getFillType()
@@ -105,7 +99,7 @@ void CACell::setupColor()
 		m_cell->setFillColor(Color::Black);
 }
 
-void CACell::setupFloodColor(shared_ptr<vector<Color>> t_colors)
+void CACell::setupFloodColor(vector<Color>* t_colors)
 {
 	m_cell->setFillColor(t_colors->at(m_fillType));
 }

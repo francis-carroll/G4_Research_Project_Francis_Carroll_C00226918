@@ -1,6 +1,6 @@
 #include "BSPTree.h"
 
-BSPTree::BSPTree(shared_ptr<BSPData> t_bspData) : 
+BSPTree::BSPTree(BSPData* t_bspData) : 
 	m_bspData(t_bspData)
 {
 	loadData();

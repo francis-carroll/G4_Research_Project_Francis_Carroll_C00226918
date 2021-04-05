@@ -8,7 +8,7 @@ BSPScreen::BSPScreen() :
 	m_dataDisplay(make_shared<AnalyticDataDisplay>(Vector2f(10.0f, 10.0f))),
 	m_analytics(false)
 {
-	shared_ptr<BSPData> bspData = make_shared<BSPData>();
+	BSPData* bspData = new BSPData();
 	LevelLoader::load("bspmed", bspData);
 	m_bspFloor = make_shared<BSPFloor>(bspData);
 }
@@ -72,7 +72,7 @@ void BSPScreen::handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_wind
 void BSPScreen::instanciateBSP(string& t_message, string t_filename, string t_size)
 {
 	auto startSmall = chrono::steady_clock::now();
-	shared_ptr<BSPData> bspData = make_shared<BSPData>();
+	BSPData* bspData = new BSPData();
 	LevelLoader::load(t_filename, bspData);
 	BSPFloor* temp = new BSPFloor(bspData);
 	auto endSmall = chrono::steady_clock::now();

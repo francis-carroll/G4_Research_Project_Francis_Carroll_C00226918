@@ -1,6 +1,6 @@
 #include "LevelLoader.h"
 
-void operator >> (const YAML::Node& t_bspNode, shared_ptr<BSP> t_bsp)
+void operator >> (const YAML::Node& t_bspNode, BSP* t_bsp)
 {
 	t_bsp->m_roomPadding = t_bspNode["room_size_padding"].as<float>();
 
@@ -38,7 +38,7 @@ void operator >> (const YAML::Node& t_bspNode, shared_ptr<BSP> t_bsp)
 	t_bsp->m_widthConstraint.y = t_bspNode["height_width_maximum"]["ww"].as<float>();
 }
 
-void operator >> (const YAML::Node& t_caNode, shared_ptr<CAS> t_ca)
+void operator >> (const YAML::Node& t_caNode, CAS* t_ca)
 {
 	t_ca->m_chanceToBecomeWall = t_caNode["chance_to_become_wall"].as<float>();
 
@@ -62,17 +62,17 @@ void operator >> (const YAML::Node& t_caNode, shared_ptr<CAS> t_ca)
 	t_ca->m_recursiveDepth = t_caNode["recursive_depth"].as<int>();
 }
 
-void operator >> (const YAML::Node& levelNode, shared_ptr<BSPData> level)
+void operator >> (const YAML::Node& levelNode, BSPData* level)
 {
 	levelNode["bsp"] >> level->m_bsp;
 }
 
-void operator >> (const YAML::Node& levelNode, shared_ptr<CAData> level)
+void operator >> (const YAML::Node& levelNode, CAData* level)
 {
 	levelNode["ca"] >> level->m_ca;
 }
 
-void LevelLoader::load(string t_filename, shared_ptr<BSPData> t_data)
+void LevelLoader::load(string t_filename, BSPData* t_data)
 {
 	std::stringstream ss;
 	ss << ".\\resources\\yaml\\";
@@ -106,7 +106,7 @@ void LevelLoader::load(string t_filename, shared_ptr<BSPData> t_data)
 	}
 }
 
-void LevelLoader::load(string t_filename, shared_ptr<CAData> t_data)
+void LevelLoader::load(string t_filename, CAData* t_data)
 {
 	std::stringstream ss;
 	ss << ".\\resources\\yaml\\";

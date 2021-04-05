@@ -27,7 +27,8 @@ struct BSP
 
 struct BSPData
 {
-	shared_ptr<BSP> m_bsp = make_shared<BSP>();
+	~BSPData() { delete m_bsp; }
+	BSP* m_bsp = new BSP();
 };
 
 struct CAS
@@ -45,7 +46,12 @@ struct CAS
 
 struct CAData
 {
-	shared_ptr<CAS> m_ca = make_shared<CAS>();
+	~CAData() 
+	{ 
+		delete m_ca; 
+	}
+
+	CAS* m_ca = new CAS();
 };
 
 #endif

@@ -1,34 +1,35 @@
 #include "CAGrid.h"
 
-CAGrid::CAGrid(shared_ptr<CAData> t_caData, Vector2f t_position, Vector2f t_size, Vector2f t_gridRowColCount) :
-	m_cells(make_shared<vector<shared_ptr<CACell>>>()),
+CAGrid::CAGrid(CAData* t_caData, Vector2f t_position, Vector2f t_size, Vector2f t_gridRowColCount) :
+	m_cells(new vector<CACell*>()),
 	m_position(t_position),
 	m_size(t_size),
 	m_cellCount(t_gridRowColCount),
 	m_caData(t_caData),
-	m_bestDirection({ 3,5,1,7 })
+	m_bestDirection(new vector<int>({ 3,5,1,7 }))
 {
 	m_chanceToBecomeWall = m_caData->m_ca->m_chanceToBecomeWall;
 	splitGrid();
 	calculateMooreNeighbours();
-	calculateVonNeumannNeighbours();
+	//calculateVonNeumannNeighbours();
 }
 
 CAGrid::~CAGrid()
 {
+	for (CACell* c : *m_cells)
+	{
+		delete c;
+	}
+	delete m_cells;
+	delete m_bestDirection;
 }
 
 void CAGrid::render(shared_ptr<RenderWindow> t_window)
 {
-	for (shared_ptr<CACell> cell : *m_cells)
+	for (CACell* cell : *m_cells)
 	{
 		cell->render(t_window);
 	}
-}
-
-CellState CAGrid::calculateState(int t_index)
-{
-	return CellState();
 }
 
 int CAGrid::getIndex(int t_row, int t_col)
@@ -41,7 +42,7 @@ Vector2i CAGrid::getRowCol(int t_index)
 	return Vector2i(t_index / int(m_cellCount.y), t_index % int(m_cellCount.y));
 }
 
-shared_ptr<vector<shared_ptr<CACell>>> CAGrid::getCells()
+vector<CACell*>* CAGrid::getCells()
 {
 	return m_cells;
 }
@@ -56,16 +57,16 @@ void CAGrid::splitGrid()
 		for (int j = 0; j < m_cellCount.y; j++)
 		{
 			if(randomFloat(0, 1) < m_chanceToBecomeWall)
-				m_cells->push_back(make_shared<CACell>(getIndex(i, j) , Vector2f((i * col) + m_position.x, (j * row) + m_position.y), Vector2f(col, row), CellState::Wall));
+				m_cells->push_back(new CACell(getIndex(i, j) , Vector2f((i * col) + m_position.x, (j * row) + m_position.y), Vector2f(col, row), CellState::Wall));
 			else
-				m_cells->push_back(make_shared<CACell>(getIndex(i, j), Vector2f((i * col) + m_position.x, (j * row) + m_position.y), Vector2f(col, row), CellState::Floor));
+				m_cells->push_back(new CACell(getIndex(i, j), Vector2f((i * col) + m_position.x, (j * row) + m_position.y), Vector2f(col, row), CellState::Floor));
 		}
 	}
 }
 
 void CAGrid::calculateMooreNeighbours()
 {
-	for (shared_ptr<CACell> cell : *m_cells) {
+	for (CACell* cell : *m_cells) {
 		//for each direction of the node
 		for (int d = 0; d < 9; d++) {
 			//execpt 4, the current node
@@ -89,9 +90,9 @@ void CAGrid::calculateMooreNeighbours()
 
 void CAGrid::calculateVonNeumannNeighbours()
 {
-	for (shared_ptr<CACell> cell : *m_cells) {
+	for (CACell* cell : *m_cells) {
 		//for each direction of the node
-		for (int d : m_bestDirection) {
+		for (int d : *m_bestDirection) {
 
 			Vector2i temp = getRowCol(cell->getID());
 			int neighbourRow = temp.x + ((d % 3) - 1); //calculates neighbour rows
@@ -103,7 +104,7 @@ void CAGrid::calculateVonNeumannNeighbours()
 			{
 				int nodeIndex = getIndex(neighbourRow, neighbourCol);
 				//add the neighbour
-				cell->addVonNeighbour(m_cells->at(nodeIndex));
+				cell->addNeighbour(m_cells->at(nodeIndex));
 			}
 		}
 	}

@@ -69,8 +69,12 @@
     <ClInclude Include="include\Room.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\yaml\bsp.yaml" />
-    <None Include="resources\yaml\ca.yaml" />
+    <None Include="resources\yaml\bsplarge.yaml" />
+    <None Include="resources\yaml\bspmed.yaml" />
+    <None Include="resources\yaml\bspsmall.yaml" />
+    <None Include="resources\yaml\calarge.yaml" />
+    <None Include="resources\yaml\camed.yaml" />
+    <None Include="resources\yaml\casmall.yaml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

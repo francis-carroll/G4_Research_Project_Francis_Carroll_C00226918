@@ -12,16 +12,14 @@ using namespace sf;
 class CAGrid
 {
 public:
-	CAGrid(shared_ptr<CAData> t_caData, Vector2f t_position, Vector2f t_size, Vector2f t_gridRowColCount);
+	CAGrid(CAData* t_caData, Vector2f t_position, Vector2f t_size, Vector2f t_gridRowColCount);
 	~CAGrid();
 
 	void render(shared_ptr<RenderWindow> t_window);
 
-	CellState calculateState(int t_index);
-
 	int getIndex(int t_row, int t_col);
 	Vector2i getRowCol(int t_index);
-	shared_ptr<vector<shared_ptr<CACell>>> getCells();
+	vector<CACell*>* getCells();
 private:
 	void splitGrid();
 	void calculateMooreNeighbours();
@@ -33,8 +31,8 @@ private:
 
 	float m_chanceToBecomeWall;
 
-	shared_ptr<vector<shared_ptr<CACell>>> m_cells;
-	shared_ptr<CAData> m_caData;
-	vector<int> m_bestDirection;
+	vector<CACell*>* m_cells;
+	CAData* m_caData;
+	vector<int>* m_bestDirection;
 };
 

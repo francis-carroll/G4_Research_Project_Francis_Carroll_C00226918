@@ -16,32 +16,31 @@ enum class CellState
 class CACell
 {
 public:
-	CACell(int t_id, Vector2f t_position, Vector2f t_size);
+	CACell(int t_id = 0, Vector2f t_position = Vector2f(0.0f,0.0f), Vector2f t_size = Vector2f(0.0f,0.0f));
 	CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state);
 	~CACell();
 
 	void render(shared_ptr<RenderWindow> t_window);
 
-	void addNeighbour(shared_ptr<CACell> t_cell);
-	void addVonNeighbour(shared_ptr<CACell> t_cell);
+	void addNeighbour(CACell* t_cell);
 
 	void setCellState(CellState t_state);
 	void setupColor();
-	void setupFloodColor(shared_ptr<vector<Color>> t_colors);
+	void setupFloodColor(vector<Color>* t_colors);
 	void setFillType(int t_fillType);
 	void setMarked(bool t_marked);
 
 	int getID();
 	CellState getCellState();
-	shared_ptr<vector<shared_ptr<CACell>>> getNeighbours();
-	shared_ptr<vector<shared_ptr<CACell>>> getVonNeighbours();
+	vector<CACell*>* getNeighbours();
 	int getFillType();
 	Vector2f getPosition();
 	bool getMarked();
 
 	float path;
 	float heuristic;
-	shared_ptr<CACell> previous;
+	CACell* previous;
+	bool m_marked;
 private:
 	void setup();
 
@@ -49,10 +48,16 @@ private:
 	Vector2f m_size;
 	int m_id;
 	int m_fillType;
-	bool m_marked;
 
-	shared_ptr<RectangleShape> m_cell;
+	RectangleShape* m_cell;
 	CellState m_cellState;
-	shared_ptr<vector<shared_ptr<CACell>>> m_mooreNeighbours;
-	shared_ptr<vector<shared_ptr<CACell>>> m_vonNeumannNeighbours;
+	vector<CACell*>* m_neighbours;
+};
+
+struct CompareNodes
+{
+	float operator()(CACell* const node1, CACell* const node2)
+	{
+		return (node1->path + node1->heuristic) > (node2->path + node2->heuristic);
+	}
 };

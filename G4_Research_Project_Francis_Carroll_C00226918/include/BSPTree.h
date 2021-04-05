@@ -28,7 +28,7 @@ enum SplitDirection {
 class BSPTree
 {
 public:
-	BSPTree(shared_ptr<BSPData> t_bspData);
+	BSPTree(BSPData* t_bspData);
 	~BSPTree();
 
 	shared_ptr<BSPNode> bsp(Vector2f t_graphPosition, Vector2f t_graphSize, int t_graphDepth);
@@ -54,6 +54,6 @@ private:
 	Vector2f MIN_ROOM_SIZE;
 
 	int m_nodeCount = 0;
-	shared_ptr<BSPData> m_bspData;
+	BSPData* m_bspData;
 };
 
