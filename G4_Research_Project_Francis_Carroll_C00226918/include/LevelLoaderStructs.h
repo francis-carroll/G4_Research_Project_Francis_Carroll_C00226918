@@ -48,7 +48,8 @@ struct CAData
 {
 	~CAData() 
 	{ 
-		delete m_ca; 
+		if(m_ca != nullptr)
+			delete m_ca; 
 	}
 
 	CAS* m_ca = new CAS();

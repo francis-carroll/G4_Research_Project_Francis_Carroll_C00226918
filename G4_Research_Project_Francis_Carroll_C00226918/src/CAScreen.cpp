@@ -4,13 +4,11 @@ extern float s_ca_runtime_core = 0.0f;
 extern float s_ca_runtime_post = 0.0f;
 
 CAScreen::CAScreen() : 
-	m_key(make_shared<Key>(Vector2f(20.0f,20.0f), Vector2f(220.0f, 120.0f), "Key:\nR - Display Processed CA\nK - Display Key\nE - Finish Execution")),
-	m_dataDisplay(make_shared<AnalyticDataDisplay>(Vector2f(10.0f,10.0f))),
-	m_analytics(false)
+	m_key(nullptr),
+	m_dataDisplay(nullptr),
+	m_analytics(false),
+	m_caGrid(nullptr)
 {
-	CAData* caData = new CAData();
-	LevelLoader::load("camed", caData);
-	m_caGrid = make_shared<CA>(caData);
 }
 
 CAScreen::~CAScreen()
@@ -21,20 +19,30 @@ void CAScreen::update(Time t_dt)
 {
 	if (m_analytics)
 	{
-		m_dataDisplay->update(t_dt);
+		if (m_dataDisplay->getButton()->getButtonState() == ButtonState::Clicked)
+		{
+			s_scene = Scene::MainMenu;
+			m_dataDisplay->getButton()->setButtonState(ButtonState::None);
+			delete m_caGrid;
+			delete m_dataDisplay;
+			delete m_key;
+		}
 	}
 }
 
 void CAScreen::render(shared_ptr<RenderWindow> t_window)
 {
-	m_caGrid->render(t_window);
-	if (!m_analytics)
+	if (m_caGrid != nullptr)
 	{
-		m_key->render(t_window);
-	}
-	else
-	{
-		m_dataDisplay->render(t_window);
+		m_caGrid->render(t_window);
+		if (!m_analytics)
+		{
+			m_key->render(t_window);
+		}
+		else
+		{
+			m_dataDisplay->render(t_window);
+		}
 	}
 }
 
@@ -54,10 +62,13 @@ void CAScreen::handleKeyInput(Event& t_event)
 		m_dataDisplay->setString(message);
 	}
 
-	if (!m_analytics)
+	if (m_caGrid != nullptr)
 	{
-		m_caGrid->keyPresses(t_event);
-		m_key->keyPresses(t_event);
+		if (!m_analytics)
+		{
+			m_caGrid->keyPresses(t_event);
+			m_key->keyPresses(t_event);
+		}
 	}
 }
 
@@ -67,6 +78,15 @@ void CAScreen::handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_windo
 	{
 		m_dataDisplay->handleMouseInput(t_event, t_window);
 	}
+}
+
+void CAScreen::initScene()
+{
+	CAData* caData = new CAData();
+	LevelLoader::load("camed", caData);
+	m_caGrid = new CA(caData);
+	m_key = new Key(Vector2f(20.0f, 20.0f), Vector2f(220.0f, 120.0f), "Key:\nR - Display Processed CA\nK - Display Key\nE - Finish Execution");
+	m_dataDisplay = new AnalyticDataDisplay(Vector2f(10.0f, 10.0f));
 }
 
 void CAScreen::instanciateCA(string& t_message, string t_filename, string t_size)

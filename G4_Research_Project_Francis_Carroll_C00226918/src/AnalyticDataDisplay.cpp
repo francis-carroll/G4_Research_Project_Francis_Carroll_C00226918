@@ -2,13 +2,14 @@
 
 AnalyticDataDisplay::AnalyticDataDisplay(Vector2f t_position) : 
 	m_position(t_position),
-	m_button(Button(Vector2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT - 50.0f), "Main Menu"))
+	m_button(new Button(Vector2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT - 50.0f), "Main Menu"))
 {
 	setup();
 }
 
 AnalyticDataDisplay::~AnalyticDataDisplay()
 {
+	delete m_button;
 }
 
 void AnalyticDataDisplay::setString(string t_string)
@@ -28,21 +29,17 @@ void AnalyticDataDisplay::render(shared_ptr<RenderWindow> t_window)
 	t_window->draw(m_bg);
 	t_window->draw(m_text);
 	t_window->draw(m_text2);
-	m_button.render(t_window);
+	m_button->render(t_window);
 }
 
 void AnalyticDataDisplay::handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_window)
 {
-	m_button.handleMouseInput(t_event, t_window);
+	m_button->handleMouseInput(t_event, t_window);
 }
 
-void AnalyticDataDisplay::update(Time t_dt)
+Button* AnalyticDataDisplay::getButton()
 {
-	if (m_button.getButtonState() == ButtonState::Clicked)
-	{
-		s_scene = Scene::MainMenu;
-		m_button.setButtonState(ButtonState::None);
-	}
+	return m_button;
 }
 
 void AnalyticDataDisplay::setup()

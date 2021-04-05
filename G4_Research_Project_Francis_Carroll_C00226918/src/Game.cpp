@@ -49,7 +49,7 @@ void Game::update(Time t_deltaTime)
 		m_intro->update(t_deltaTime);
 		break;
 	case Scene::MainMenu:
-		m_menu->update(t_deltaTime);
+		m_menu->update(t_deltaTime, m_ca);
 		break;
 	case Scene::Credits:
 		m_credits->update(t_deltaTime);

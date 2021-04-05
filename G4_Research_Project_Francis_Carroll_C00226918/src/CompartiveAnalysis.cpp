@@ -12,7 +12,7 @@ ComparitiveAnalysis::~ComparitiveAnalysis()
 
 void ComparitiveAnalysis::update(Time t_dt)
 {
-	m_dataDisplay.update(t_dt);
+	//m_dataDisplay.update(t_dt);
 }
 
 void ComparitiveAnalysis::render(shared_ptr<RenderWindow> t_window)

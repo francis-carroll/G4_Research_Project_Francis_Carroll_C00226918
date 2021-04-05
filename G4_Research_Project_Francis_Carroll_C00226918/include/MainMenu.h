@@ -7,6 +7,8 @@
 using namespace std;
 using namespace sf;
 
+class CAScreen;
+
 enum class ButtonPressed
 {
 	BSP,
@@ -19,7 +21,7 @@ class MainMenu
 public:
 	MainMenu();
 	~MainMenu();
-	void update(Time t_dt);
+	void update(Time t_dt, shared_ptr<CAScreen> t_caScreen);
 	void render(shared_ptr<RenderWindow> t_window);
 	void handleKeyInput(Event& t_event);
 	void handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_window);

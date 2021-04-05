@@ -21,7 +21,7 @@ void BSPScreen::update(Time t_dt)
 {
 	if (m_analytics)
 	{
-		m_dataDisplay->update(t_dt);
+		//m_dataDisplay->update(t_dt);
 	}
 }
 

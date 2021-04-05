@@ -18,7 +18,7 @@ public:
 	void setString2(string t_string);
 	void render(shared_ptr<RenderWindow> t_window);
 	void handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_window);
-	void update(Time t_dt);
+	Button* getButton();
 private:
 	void setup();
 
@@ -29,5 +29,5 @@ private:
 	Font m_font;
 	string m_content;
 	string m_content2;
-	Button m_button;
+	Button* m_button;
 };
