@@ -42,6 +42,7 @@ public:
 	float heuristic;
 	CACell* previous;
 	bool m_marked;
+	bool m_processed;
 private:
 	void setup();
 

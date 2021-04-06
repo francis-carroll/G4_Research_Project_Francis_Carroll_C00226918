@@ -8,3 +8,5 @@ ca: #add comments on recommended values
     iterations: 10 #the amount of iterations CA executes, optimal value 10-15
     max_cave_size: 200 #the largest cave that will appear on the CA result, this is dependent on the ca_cell_count value.
     recursive_depth: 2000 #any number higher than 2500 and the application will crash due to stack overflow, optimal value 2000
+    async_start: { x: 0, y: 0 }
+    async_size: { x: 100, y: 100 }

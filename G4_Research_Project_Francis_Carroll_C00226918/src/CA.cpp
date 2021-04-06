@@ -11,9 +11,9 @@ CA::CA(CAData* t_caData) :
 	m_renderCavern(false)
 {
 	loadConstants();
+	setup();
 	initialIterate();
 	auto start = chrono::steady_clock::now();
-	processCA();
 	removeSmallCaverns();
 	//connectCaverns();
 	//processCA();
@@ -40,6 +40,7 @@ CA::~CA()
 void CA::render(shared_ptr<RenderWindow> t_window)
 {
 	m_caGrid->render(t_window);
+	t_window->draw(m_outline);
 }
 
 void CA::keyPresses(Event& t_event)
@@ -48,6 +49,45 @@ void CA::keyPresses(Event& t_event)
 	{
 		toggleBool(m_renderCavern);
 		setupColors(m_renderCavern);
+	}
+
+	if (t_event.key.code == Keyboard::Left)
+	{
+		if (m_asyncStart.x - m_asyncSize.x < 0)
+			m_asyncStart = Vector2f(0, m_asyncStart.y);
+		else
+			m_asyncStart += Vector2f(-m_asyncSize.x, 0.0f);
+
+		m_outline.setPosition(m_caData->m_ca->m_caStartingPosition + Vector2f(m_caGrid->getCells()->at(0)->getSize().x * (m_asyncStart.x), m_caGrid->getCells()->at(0)->getSize().y * (m_asyncStart.y)));
+
+		iterateInDirection();
+	}
+	else if (t_event.key.code == Keyboard::Up)
+	{
+		if (m_asyncStart.y - m_asyncSize.y < 0)
+			m_asyncStart = Vector2f(m_asyncStart.x, 0);
+		else
+			m_asyncStart += Vector2f(0.0f, -m_asyncSize.y);
+
+		iterateInDirection();
+	}
+	else if (t_event.key.code == Keyboard::Right)
+	{
+		if (m_asyncStart.x + m_asyncSize.x > m_caData->m_ca->m_cellCount.x - m_asyncSize.x)
+			m_asyncStart = Vector2f(m_caData->m_ca->m_cellCount.x - m_asyncSize.x, m_asyncStart.y);
+		else
+			m_asyncStart += Vector2f(m_asyncSize.x, 0.0f);
+
+		iterateInDirection();
+	}
+	else if (t_event.key.code == Keyboard::Down)
+	{
+		if (m_asyncStart.y + m_asyncSize.y > m_caData->m_ca->m_cellCount.y - m_asyncSize.y)
+			m_asyncStart = Vector2f(m_asyncStart.y - m_asyncSize.y, m_caData->m_ca->m_cellCount.y);
+		else
+			m_asyncStart += Vector2f(0.0f, m_asyncSize.y);
+
+		iterateInDirection();
 	}
 }
 
@@ -59,22 +99,26 @@ void CA::loadConstants()
 	m_recursiveDepth = m_caData->m_ca->m_recursiveDepth;
 	FLOOR_TO_WALL_CONVERSION = m_caData->m_ca->m_floorToWallConversion;
 	WALL_TO_FLOOR_CONVERSION = m_caData->m_ca->m_wallToFloorConversion;
+	m_asyncSize = m_caData->m_ca->m_asyncSize;
+	m_asyncStart = m_caData->m_ca->m_asyncPosition;
 }
 
 void CA::initialIterate()
 {
-	for (int i = 0; i < m_iterations; i++)
-	{
-		iterate();
-	}
+	iterateInDirection();
 }
 
-void CA::iterate()
+void CA::iterate(int t_x, int t_y, int t_width, int t_height)
 {
 	vector<CACell*>* grid = m_caGrid->getCells();
 	for (CACell* c : *grid)
 	{
-		m_tempStates->push_back(applyRules(c));
+		Vector2i rowCol = m_caGrid->getRowCol(c->getID());
+		if(rowCol.x >= t_x && rowCol.x <= t_width &&
+			rowCol.y >= t_y && rowCol.y <= t_height)
+			m_tempStates->push_back(applyRules(c));
+		else 
+			m_tempStates->push_back(c->getCellState());
 	}
 
 	for (CACell* c : *grid)
@@ -101,7 +145,7 @@ CellState CA::applyRules(CACell* t_current)
 			wall++;
 		}
 	}
-
+	t_current->m_processed = true;
 	if (wall < WALL_TO_FLOOR_CONVERSION && t_current->getCellState() == CellState::Wall) return CellState::Floor;
 	else if (wall > FLOOR_TO_WALL_CONVERSION && t_current->getCellState() == CellState::Floor) return CellState::Wall;
 	else return t_current->getCellState();
@@ -121,7 +165,7 @@ void CA::processCA()
 	vector<CACell*>* grid = m_caGrid->getCells();
 	for (CACell* c : *grid)
 	{
-		if (c->getCellState() == CellState::Floor && c->getFillType() == -1)
+		if (c->getCellState() == CellState::Floor && c->getFillType() == -1 && c->m_processed)
 		{
 			m_caverns->push_back(new vector<CACell*>());
 			floodFill(c, temp, m_recursiveDepth);
@@ -143,7 +187,7 @@ void CA::floodFill(CACell* t_cell, int t_fillID, int t_depth)
 		return;
 	}
 
-	if (t_cell->getCellState() != CellState::Floor || t_cell->getFillType() != -1)
+	if (t_cell->getCellState() != CellState::Floor || t_cell->getFillType() != -1 || !t_cell->m_processed)
 		return;
 
 	t_cell->setFillType(t_fillID);
@@ -270,7 +314,7 @@ void CA::processQueue()
 {
 	while (m_queue->size() != 0)
 	{
-		if (m_queue->front()->cell->getCellState() == CellState::Floor && m_queue->front()->cell->getFillType() == -1)
+		if (m_queue->front()->cell->getCellState() == CellState::Floor && m_queue->front()->cell->getFillType() == -1 && m_queue->front()->cell->m_processed)
 		{
 			floodFill(m_queue->front()->cell, m_queue->front()->fill, m_recursiveDepth);
 			delete m_queue->front();
@@ -348,4 +392,25 @@ vector<CACell*>* CA::constructPath(CACell* t_goal)
 	}
 	setupColors(false);
 	return path;
+}
+
+void CA::setup()
+{
+	m_outline.setPosition(m_caData->m_ca->m_caStartingPosition + Vector2f(m_caGrid->getCells()->at(0)->getSize().x * (m_asyncStart.x), m_caGrid->getCells()->at(0)->getSize().y * (m_asyncStart.y)));
+	m_outline.setSize(Vector2f(m_caGrid->getCells()->at(0)->getSize().x * m_asyncSize.x, m_caGrid->getCells()->at(0)->getSize().y * m_asyncSize.y));
+	m_outline.setOutlineThickness(2.0f);
+	m_outline.setOutlineColor(Color::Red);
+	m_outline.setFillColor(Color(0,0,0,0));
+}
+
+void CA::iterateInDirection()
+{
+	m_outline.setPosition(m_caData->m_ca->m_caStartingPosition + Vector2f(m_caGrid->getCells()->at(0)->getSize().x * (m_asyncStart.x), m_caGrid->getCells()->at(0)->getSize().y * (m_asyncStart.y)));
+
+	for (int i = 0; i < m_iterations; i++)
+	{
+		//iterate(m_asyncStart.x - (m_asyncSize.x / 2.0f), m_asyncStart.y - (m_asyncSize.y / 2.0f), m_asyncStart.x + m_asyncSize.x + (m_asyncSize.x / 2.0f), m_asyncStart.y + m_asyncSize.y + (m_asyncSize.y / 2.0f));
+		iterate(m_asyncStart.x, m_asyncStart.y, m_asyncStart.x + m_asyncSize.x, m_asyncStart.y + m_asyncSize.y);
+	}
+	processCA();
 }

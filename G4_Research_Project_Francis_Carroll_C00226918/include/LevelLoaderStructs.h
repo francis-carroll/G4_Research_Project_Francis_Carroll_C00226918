@@ -37,6 +37,8 @@ struct CAS
 	Vector2f m_caStartingPosition;
 	Vector2f m_caGridSize;
 	Vector2f m_cellCount;
+	Vector2f m_asyncSize;
+	Vector2f m_asyncPosition;
 	int m_floorToWallConversion;
 	int m_wallToFloorConversion;
 	int m_iterations;

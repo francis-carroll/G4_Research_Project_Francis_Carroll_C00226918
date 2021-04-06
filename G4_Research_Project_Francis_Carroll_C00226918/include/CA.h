@@ -36,7 +36,7 @@ public:
 private:
 	void loadConstants();
 	void initialIterate();
-	void iterate();
+	void iterate(int t_x = 0, int t_y = 0, int t_width = INT32_MAX, int t_height = INT32_MAX);
 	CellState applyRules(CACell* t_current);
 	void processCA();
 	void floodFill(CACell* t_cell, int t_fillID, int t_depth);
@@ -50,6 +50,8 @@ private:
 	void setupColors(bool t_bool);
 	void resetGrid();
 	vector<CACell*>* constructPath(CACell* t_goal);
+	void setup();
+	void iterateInDirection();
 
 	int WALL_TO_FLOOR_CONVERSION;
 	int FLOOR_TO_WALL_CONVERSION;
@@ -57,8 +59,11 @@ private:
 	int m_cavernCount;
 	int m_recursiveDepth;
 	int m_maxCaveSize;
+	Vector2f m_asyncStart;
+	Vector2f m_asyncSize;
 
 	bool m_renderCavern;
+	RectangleShape m_outline;
 
 	vector<CellState>* m_tempStates;
 	CAGrid* m_caGrid;

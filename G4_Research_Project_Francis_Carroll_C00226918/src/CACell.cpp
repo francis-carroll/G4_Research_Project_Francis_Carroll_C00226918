@@ -11,7 +11,8 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size) :
 	m_marked(false),
 	heuristic(100000),
 	path(100000),
-	previous(nullptr)
+	previous(nullptr),
+	m_processed(false)
 {
 	setup();
 	getColor();
@@ -28,7 +29,8 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state
 	m_marked(false),
 	heuristic(100000),
 	path(100000),
-	previous(nullptr)
+	previous(nullptr),
+	m_processed(false)
 {
 	setup();
 	getColor();

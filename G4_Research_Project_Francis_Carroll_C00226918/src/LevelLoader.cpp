@@ -51,6 +51,12 @@ void operator >> (const YAML::Node& t_caNode, CAS* t_ca)
 	t_ca->m_cellCount.x = t_caNode["ca_cell_count"]["row"].as<float>();
 	t_ca->m_cellCount.y = t_caNode["ca_cell_count"]["col"].as<float>();
 
+	t_ca->m_asyncSize.x = t_caNode["async_size"]["x"].as<float>();
+	t_ca->m_asyncSize.y = t_caNode["async_size"]["y"].as<float>();
+
+	t_ca->m_asyncPosition.x = t_caNode["async_start"]["x"].as<float>();
+	t_ca->m_asyncPosition.y = t_caNode["async_start"]["y"].as<float>();
+
 	t_ca->m_floorToWallConversion = t_caNode["floor_to_wall_conversion"].as<int>();
 
 	t_ca->m_wallToFloorConversion = t_caNode["wall_to_floor_conversion"].as<int>();
