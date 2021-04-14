@@ -4,7 +4,7 @@ bsp:
     max_room_size: {x: 100, y: 100} # the max size of a romm within a node, this value is dependent on the paddings
     min_room_size: {x: 50, y: 50} # the min size of a romm within a node, this value is dependent on the paddings
     bsp_starting_position: {x: 10, y: 10} #the starting potion of the visual graph, dependent on application window size 
-    room_connection_offset: 40 #offset at which rooms are connected to each other, optimal value 5-10
+    room_connection_offset: 20 #offset at which rooms are connected to each other, optimal value 5-10
     room_connection_offset_hw: 45 #the offset at which rooms are connected based on height and width, optimal value is 45
     room_connection_distance: 105 #the largest distance at which two rooms will be connected, optimal value is 60-100
     bsp_area_size: {x : 800.0, y: 800.0} #the total size of the bsp visuals, dependent on application window size

@@ -98,7 +98,7 @@ void BSPScreen::initScene()
 	BSPData* bspData = new BSPData();
 	LevelLoader::load("bspmed", bspData);
 	m_bspFloor = new BSPFloor(bspData);
-	m_key = new Key(Vector2f(20.0f, 20.0f), Vector2f(220.0f, 180.0f), "Key:\nB - Display BSP\nR - Display Rooms\nC - Display Connections\nK - Display Key\nE - Finish Execution");
+	m_key = new Key(Vector2f(20.0f, 20.0f), Vector2f(220.0f, 230.0f), "Key:\nB - Display BSP\nR - Display Rooms\nC - Display Connections\nK - Display Key\nE - Finish Execution\n1 - Small Grid\n2 - Medium Grid\n3 - Large Grid");
 	m_dataDisplay = new AnalyticDataDisplay(Vector2f(10.0f, 10.0f));
 	m_analytics = false;
 }
