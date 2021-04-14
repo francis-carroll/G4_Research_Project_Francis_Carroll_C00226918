@@ -62,6 +62,28 @@ void CAScreen::handleKeyInput(Event& t_event)
 		m_dataDisplay->setString(message);
 	}
 
+	if (t_event.key.code == Keyboard::Num1)
+	{
+		delete m_caGrid;
+		CAData* caData = new CAData();
+		LevelLoader::load("casmall", caData);
+		m_caGrid = new CA(caData);
+	}
+	if (t_event.key.code == Keyboard::Num2)
+	{
+		delete m_caGrid;
+		CAData* caData = new CAData();
+		LevelLoader::load("camed", caData);
+		m_caGrid = new CA(caData);
+	}
+	if (t_event.key.code == Keyboard::Num3)
+	{
+		delete m_caGrid;
+		CAData* caData = new CAData();
+		LevelLoader::load("calarge", caData);
+		m_caGrid = new CA(caData);
+	}
+
 	if (m_caGrid != nullptr)
 	{
 		if (!m_analytics)
@@ -99,9 +121,10 @@ void CAScreen::instanciateCA(string& t_message, string t_filename, string t_size
 	auto endSmall = chrono::steady_clock::now();
 	auto smallSeconds = std::chrono::duration_cast<std::chrono::milliseconds>(endSmall - startSmall);
 	s_ca_runtime_core = smallSeconds.count() / 1000.0f;
+	delete temp;
+
 	s_ca_runtime_core -= s_ca_runtime_post;
 	t_message += "CA " + t_size + "\nRuntime - " + to_string(s_ca_runtime_core + s_ca_runtime_post) +
 		" seconds\n	Core Runtime - \n		" + to_string(s_ca_runtime_core) +
-		" seconds\n	Post Processing Runtime - \n		" + to_string(s_ca_runtime_post) + " seconds\n\n";
-	delete temp;
+		" seconds\n	Post Processing Runtime - \n		" + to_string(s_ca_runtime_post) + " seconds\n";
 }

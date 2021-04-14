@@ -59,6 +59,25 @@ void BSPScreen::handleKeyInput(Event& t_event)
 		m_dataDisplay->setString(message);
 	}
 
+	if (t_event.key.code == Keyboard::Num1)
+	{
+		BSPData* bspData = new BSPData();
+		LevelLoader::load("bspsmall", bspData);
+		m_bspFloor = new BSPFloor(bspData);
+	}
+	if (t_event.key.code == Keyboard::Num2)
+	{
+		BSPData* bspData = new BSPData();
+		LevelLoader::load("bspmed", bspData);
+		m_bspFloor = new BSPFloor(bspData);
+	}
+	if (t_event.key.code == Keyboard::Num3)
+	{
+		BSPData* bspData = new BSPData();
+		LevelLoader::load("bsplarge", bspData);
+		m_bspFloor = new BSPFloor(bspData);
+	}
+
 	if (!m_analytics)
 	{
 		m_bspFloor->keyInput(t_event);
