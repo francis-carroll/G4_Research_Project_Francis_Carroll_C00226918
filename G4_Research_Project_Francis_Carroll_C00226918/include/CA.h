@@ -63,6 +63,7 @@ private:
 	Vector2f m_asyncSize;
 
 	bool m_renderCavern;
+	bool m_toggleAsyncBorder;
 	RectangleShape m_outline;
 
 	vector<CellState>* m_tempStates;

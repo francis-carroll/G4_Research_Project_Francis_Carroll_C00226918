@@ -8,15 +8,14 @@ CA::CA(CAData* t_caData) :
 	m_tempStates(new vector<CellState>()),
 	m_path(new list<CACell*>()),
 	m_queue(new queue<CAPostProcess*>()),
-	m_renderCavern(false)
+	m_renderCavern(false),
+	m_toggleAsyncBorder(false)
 {
 	loadConstants();
 	setup();
 	initialIterate();
 	auto start = chrono::steady_clock::now();
 	removeSmallCaverns();
-	//connectCaverns();
-	//processCA();
 	auto end = chrono::steady_clock::now();
 	auto seconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 	s_ca_runtime_post = seconds.count() / 1000.0f;
@@ -49,6 +48,11 @@ void CA::keyPresses(Event& t_event)
 	{
 		toggleBool(m_renderCavern);
 		setupColors(m_renderCavern);
+	}
+
+	if (t_event.key.code == Keyboard::A)
+	{
+		toggleBool(m_toggleAsyncBorder);
 	}
 
 	if (t_event.key.code == Keyboard::Left)
@@ -115,7 +119,8 @@ void CA::iterate(int t_x, int t_y, int t_width, int t_height)
 	{
 		Vector2i rowCol = m_caGrid->getRowCol(c->getID());
 		if(rowCol.x >= t_x && rowCol.x <= t_width &&
-			rowCol.y >= t_y && rowCol.y <= t_height)
+			rowCol.y >= t_y && rowCol.y <= t_height &&
+			!c->m_processed)
 			m_tempStates->push_back(applyRules(c));
 		else 
 			m_tempStates->push_back(c->getCellState());
@@ -268,8 +273,6 @@ vector<CACell*>* CA::astar(CACell* t_origin, CACell* t_destination)
 		vector<CACell*>* neighbours = current->getNeighbours();
 		for (CACell* neighbour : *neighbours)
 		{
-			//if (neighbour->getCellState() == CellState::Wall) continue;
-
 			float gCost = current->path + 1;
 			if (gCost < neighbour->path)
 			{
@@ -409,8 +412,15 @@ void CA::iterateInDirection()
 
 	for (int i = 0; i < m_iterations; i++)
 	{
-		//iterate(m_asyncStart.x - (m_asyncSize.x / 2.0f), m_asyncStart.y - (m_asyncSize.y / 2.0f), m_asyncStart.x + m_asyncSize.x + (m_asyncSize.x / 2.0f), m_asyncStart.y + m_asyncSize.y + (m_asyncSize.y / 2.0f));
-		iterate(m_asyncStart.x, m_asyncStart.y, m_asyncStart.x + m_asyncSize.x, m_asyncStart.y + m_asyncSize.y);
+		if (m_toggleAsyncBorder)
+		{
+			iterate(m_asyncStart.x - (m_asyncSize.x / 2.0f), m_asyncStart.y - (m_asyncSize.y / 2.0f), m_asyncStart.x + m_asyncSize.x + (m_asyncSize.x / 2.0f), m_asyncStart.y + m_asyncSize.y + (m_asyncSize.y / 2.0f));
+		}
+		else
+		{
+			iterate(m_asyncStart.x, m_asyncStart.y, m_asyncStart.x + m_asyncSize.x, m_asyncStart.y + m_asyncSize.y);
+		}
 	}
 	processCA();
+	removeSmallCaverns();
 }
