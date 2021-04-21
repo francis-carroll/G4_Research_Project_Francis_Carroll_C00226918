@@ -7,6 +7,8 @@
 #include <chrono>
 #include <Key.h>
 #include <AnalyticDataDisplay.h>
+#include <windows.h>
+#include <psapi.h>
 
 using namespace std;
 using namespace sf;
@@ -25,8 +27,10 @@ public:
 	BSPFloor* m_bspFloor;
 private:
 	void instanciateBSP(string& t_message, string t_filename, string t_size);
+	SIZE_T getMemUsed();
 
 	Key* m_key;
 	AnalyticDataDisplay* m_dataDisplay;
 	bool m_analytics;
+	PROCESS_MEMORY_COUNTERS_EX m_pmc;
 };

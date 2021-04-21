@@ -106,15 +106,31 @@ void BSPScreen::initScene()
 void BSPScreen::instanciateBSP(string& t_message, string t_filename, string t_size)
 {
 	auto startSmall = chrono::steady_clock::now();
+	auto startMem = getMemUsed();
+
 	BSPData* bspData = new BSPData();
 	LevelLoader::load(t_filename, bspData);
 	BSPFloor* temp = new BSPFloor(bspData);
+
 	auto endSmall = chrono::steady_clock::now();
+	auto endMem = getMemUsed();
+
 	auto smallSeconds = std::chrono::duration_cast<std::chrono::milliseconds>(endSmall - startSmall);
+	auto memUsed = endMem - startMem;
+
 	s_bsp_runtime_core = smallSeconds.count() / 1000.0f;
+	delete temp;
+
 	s_bsp_runtime_core -= s_bsp_runtime_post;
 	t_message += "BSP " + t_size + "\nRuntime - " + to_string(s_bsp_runtime_core + s_bsp_runtime_post) +
-		" seconds\n	Core Runtime - \n		" + to_string(s_bsp_runtime_core) +
-		" seconds\n	Post Processing Runtime - \n		" + to_string(s_bsp_runtime_post) + " seconds\n\n";
-	delete temp;
+		" seconds\nCore Runtime - \n		" + to_string(s_bsp_runtime_core) +
+		" seconds\nPost Processing Runtime - \n		" + to_string(s_bsp_runtime_post) +
+		" seconds\nMemory Used - \n		" + to_string(memUsed) + " MB\n\n";
+}
+
+SIZE_T BSPScreen::getMemUsed()
+{
+	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&m_pmc, sizeof(m_pmc));
+	SIZE_T s = m_pmc.PrivateUsage;
+	return s / 1024 / 1024; //mbs
 }

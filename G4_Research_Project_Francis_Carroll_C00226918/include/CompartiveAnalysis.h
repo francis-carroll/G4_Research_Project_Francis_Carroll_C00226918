@@ -5,6 +5,8 @@
 #include <CA.h>
 #include <BSPFloor.h>
 #include <AnalyticDataDisplay.h>
+#include <windows.h>
+#include <psapi.h>
 
 using namespace std;
 using namespace sf;
@@ -24,6 +26,8 @@ public:
 private:
 	void initialiseCA(string& t_message, string t_fileName, string t_title);
 	void initialiseBSP(string& t_message, string t_fileName, string t_title);
+	SIZE_T getMemUsed();
 
 	AnalyticDataDisplay* m_dataDisplay;
+	PROCESS_MEMORY_COUNTERS_EX m_pmc;
 };
