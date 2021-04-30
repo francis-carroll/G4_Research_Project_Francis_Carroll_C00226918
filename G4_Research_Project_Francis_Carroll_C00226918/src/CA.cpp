@@ -414,11 +414,15 @@ void CA::iterateInDirection()
 	{
 		if (m_toggleAsyncBorder)
 		{
-			iterate(m_asyncStart.x - (m_asyncSize.x / 2.0f), m_asyncStart.y - (m_asyncSize.y / 2.0f), m_asyncStart.x + m_asyncSize.x + (m_asyncSize.x / 2.0f), m_asyncStart.y + m_asyncSize.y + (m_asyncSize.y / 2.0f));
+			iterate((int)(m_asyncStart.x - (m_asyncSize.x / 2.0f)), 
+				    (int)(m_asyncStart.y - (m_asyncSize.y / 2.0f)),
+				    (int)(m_asyncStart.x + m_asyncSize.x + (m_asyncSize.x / 2.0f)),
+				    (int)(m_asyncStart.y + m_asyncSize.y + (m_asyncSize.y / 2.0f)));
 		}
 		else
 		{
-			iterate(m_asyncStart.x, m_asyncStart.y, m_asyncStart.x + m_asyncSize.x, m_asyncStart.y + m_asyncSize.y);
+			iterate((int)(m_asyncStart.x), (int)(m_asyncStart.y),
+				    (int)(m_asyncStart.x + m_asyncSize.x), (int)(m_asyncStart.y + m_asyncSize.y));
 		}
 	}
 	processCA();

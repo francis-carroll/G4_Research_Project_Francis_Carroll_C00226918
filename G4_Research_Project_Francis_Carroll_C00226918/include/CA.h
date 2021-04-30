@@ -53,14 +53,14 @@ private:
 	void setup();
 	void iterateInDirection();
 
-	int WALL_TO_FLOOR_CONVERSION;
-	int FLOOR_TO_WALL_CONVERSION;
-	int m_iterations;
-	int m_cavernCount;
-	int m_recursiveDepth;
-	int m_maxCaveSize;
-	Vector2f m_asyncStart;
-	Vector2f m_asyncSize;
+	int WALL_TO_FLOOR_CONVERSION = 0;
+	int FLOOR_TO_WALL_CONVERSION = 0;
+	int m_iterations = 0;
+	int m_cavernCount = 0;
+	int m_recursiveDepth = 0;
+	int m_maxCaveSize = 0;
+	Vector2f m_asyncStart = Vector2f(0.0f,0.0f);
+	Vector2f m_asyncSize = Vector2f(0.0f, 0.0f);
 
 	bool m_renderCavern;
 	bool m_toggleAsyncBorder;

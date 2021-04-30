@@ -8,21 +8,21 @@ using namespace sf;
 
 struct BSP
 {
-	float m_roomPadding;
-	float m_roomPositionPadding;
-	Vector2f m_maxRoomSize;
-	Vector2f m_minRoomSize;
-	Vector2f m_bspStartingPosition;
-	float m_roomConnectionDistance;
-	float m_roomConnectionOffset;
-	float m_roomConnectionOffsetHW;
-	int m_bspDepth;
-	Vector2f m_bspAreaSize;
-	bool m_renderRooms;
-	bool m_renderBSP;
-	bool m_renderCorridor;
-	Vector2f m_heightConstraint;
-	Vector2f m_widthConstraint;
+	float m_roomPadding = 0.0f;
+	float m_roomPositionPadding = 0.0f;
+	Vector2f m_maxRoomSize = Vector2f(0.0f,0.0f);
+	Vector2f m_minRoomSize = Vector2f(0.0f, 0.0f);
+	Vector2f m_bspStartingPosition = Vector2f(0.0f, 0.0f);
+	float m_roomConnectionDistance = 0.0f;
+	float m_roomConnectionOffset = 0.0f;
+	float m_roomConnectionOffsetHW = 0.0f;
+	int m_bspDepth = 0;
+	Vector2f m_bspAreaSize = Vector2f(0.0f, 0.0f);
+	bool m_renderRooms = false;
+	bool m_renderBSP = false;
+	bool m_renderCorridor = false;
+	Vector2f m_heightConstraint = Vector2f(0.0f, 0.0f);
+	Vector2f m_widthConstraint = Vector2f(0.0f, 0.0f);
 };
 
 struct BSPData
@@ -33,17 +33,17 @@ struct BSPData
 
 struct CAS
 {
-	float m_chanceToBecomeWall;
-	Vector2f m_caStartingPosition;
-	Vector2f m_caGridSize;
-	Vector2f m_cellCount;
-	Vector2f m_asyncSize;
-	Vector2f m_asyncPosition;
-	int m_floorToWallConversion;
-	int m_wallToFloorConversion;
-	int m_iterations;
-	int m_recursiveDepth;
-	int m_maxCaveSize;
+	float m_chanceToBecomeWall = 0.0f;
+	Vector2f m_caStartingPosition = Vector2f(0.0f, 0.0f);
+	Vector2f m_caGridSize = Vector2f(0.0f, 0.0f);
+	Vector2f m_cellCount = Vector2f(0.0f, 0.0f);
+	Vector2f m_asyncSize = Vector2f(0.0f, 0.0f);
+	Vector2f m_asyncPosition = Vector2f(0.0f, 0.0f);
+	int m_floorToWallConversion = 0;
+	int m_wallToFloorConversion = 0;
+	int m_iterations = 0;
+	int m_recursiveDepth = 0;
+	int m_maxCaveSize = 0;
 };
 
 struct CAData

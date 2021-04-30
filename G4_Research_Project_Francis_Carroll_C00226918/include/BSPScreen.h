@@ -32,5 +32,4 @@ private:
 	Key* m_key;
 	AnalyticDataDisplay* m_dataDisplay;
 	bool m_analytics;
-	PROCESS_MEMORY_COUNTERS_EX m_pmc;
 };

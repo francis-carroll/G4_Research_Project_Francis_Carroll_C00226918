@@ -103,7 +103,8 @@ void ComparitiveAnalysis::initialiseBSP(string& t_message, string t_fileName, st
 
 SIZE_T ComparitiveAnalysis::getMemUsed()
 {
-	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&m_pmc, sizeof(m_pmc));
-	SIZE_T s = m_pmc.PrivateUsage;
+	PROCESS_MEMORY_COUNTERS_EX pmc = PROCESS_MEMORY_COUNTERS_EX();
+	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+	SIZE_T s = pmc.PrivateUsage;
 	return s / 1024 / 1024; //mbs
 }

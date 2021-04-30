@@ -29,5 +29,4 @@ private:
 	SIZE_T getMemUsed();
 
 	AnalyticDataDisplay* m_dataDisplay;
-	PROCESS_MEMORY_COUNTERS_EX m_pmc;
 };
