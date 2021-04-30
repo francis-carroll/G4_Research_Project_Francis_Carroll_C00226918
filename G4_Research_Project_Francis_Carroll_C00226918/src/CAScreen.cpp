@@ -107,7 +107,7 @@ void CAScreen::initScene()
 	CAData* caData = new CAData();
 	LevelLoader::load("camed", caData);
 	m_caGrid = new CA(caData);
-	m_key = new Key(Vector2f(20.0f, 20.0f), Vector2f(220.0f, 180.0f), "Key:\nR - Display Processed CA\nK - Display Key\nE - Finish Execution\n1 - Small Grid\n2 - Medium Grid\n3 - Large Grid");
+	m_key = new Key(Vector2f(20.0f, 20.0f), Vector2f(220.0f, 250.0f), "Key:\nR - Display Processed CA\nK - Display Key\nE - Finish Execution\n1 - Small Grid\n2 - Medium Grid\n3 - Large Grid\nA - Toggle Async Border\nDirectional Keys -\n Process in a direction");
 	m_dataDisplay = new AnalyticDataDisplay(Vector2f(10.0f, 10.0f));
 	m_analytics = false;
 }

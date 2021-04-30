@@ -36,6 +36,8 @@ void ComparitiveAnalysis::handleMouseInput(Event& t_event, shared_ptr<RenderWind
 
 void ComparitiveAnalysis::sceneSetup()
 {
+	m_dataDisplay = new AnalyticDataDisplay(Vector2f(10.0f, 10.0f));
+
 	string bspMessage;
 	initialiseBSP(bspMessage, "bsplarge", "Large");
 	initialiseBSP(bspMessage, "bspmed", "Medium");

@@ -2,7 +2,9 @@
 
 AnalyticDataDisplay::AnalyticDataDisplay(Vector2f t_position) : 
 	m_position(t_position),
-	m_button(new Button(Vector2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT - 50.0f), "Main Menu"))
+	m_button(new Button(Vector2f(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT - 50.0f), "Main Menu")),
+	m_content(""),
+	m_content2("")
 {
 	setup();
 }
