@@ -87,7 +87,7 @@ void CA::keyPresses(Event& t_event)
 	else if (t_event.key.code == Keyboard::Down)
 	{
 		if (m_asyncStart.y + m_asyncSize.y > m_caData->m_ca->m_cellCount.y - m_asyncSize.y)
-			m_asyncStart = Vector2f(m_asyncStart.y - m_asyncSize.y, m_caData->m_ca->m_cellCount.y);
+			m_asyncStart = Vector2f(m_asyncStart.x, m_caData->m_ca->m_cellCount.y - m_asyncSize.y);
 		else
 			m_asyncStart += Vector2f(0.0f, m_asyncSize.y);
 
@@ -251,8 +251,8 @@ vector<CACell*>* CA::astar(CACell* t_origin, CACell* t_destination)
 	priority_queue<CACell*, vector<CACell*>, CompareNodes>* open = new priority_queue<CACell*, vector<CACell*>, CompareNodes>();
 	queue<CACell*>* closed = new queue<CACell*>();
 
-	t_origin->path = 0;
-	t_origin->heuristic = (float)calculateHeuristicCost(t_origin, t_destination);
+	t_origin->m_path = 0;
+	t_origin->m_heuristic = (float)calculateHeuristicCost(t_origin, t_destination);
 	open->push(t_origin);
 
 
@@ -273,12 +273,12 @@ vector<CACell*>* CA::astar(CACell* t_origin, CACell* t_destination)
 		vector<CACell*>* neighbours = current->getNeighbours();
 		for (CACell* neighbour : *neighbours)
 		{
-			float gCost = current->path + 1;
-			if (gCost < neighbour->path)
+			float gCost = current->m_path + 1;
+			if (gCost < neighbour->m_path)
 			{
-				neighbour->heuristic = (float)calculateHeuristicCost(neighbour, t_destination);
-				neighbour->path = gCost;
-				neighbour->previous = current;
+				neighbour->m_heuristic = (float)calculateHeuristicCost(neighbour, t_destination);
+				neighbour->m_path = gCost;
+				neighbour->m_previous = current;
 				if (!neighbour->m_marked)
 				{
 					neighbour->m_marked = true;
@@ -384,14 +384,14 @@ void CA::resetGrid()
 vector<CACell*>* CA::constructPath(CACell* t_goal)
 {
 	vector<CACell*>* path = new vector<CACell*>();
-	CACell* current = t_goal->previous;
+	CACell* current = t_goal->m_previous;
 
-	while (current->previous != nullptr)
+	while (current->m_previous != nullptr)
 	{
 		path->push_back(current);
 		if (current->getCellState() == CellState::Wall)
 			current->setCellState(CellState::Floor);
-		current = current->previous;
+		current = current->m_previous;
 	}
 	setupColors(false);
 	return path;

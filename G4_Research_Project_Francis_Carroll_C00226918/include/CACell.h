@@ -38,9 +38,9 @@ public:
 	Vector2f getSize();
 	bool getMarked();
 
-	float path;
-	float heuristic;
-	CACell* previous;
+	float m_path;
+	float m_heuristic;
+	CACell* m_previous;
 	bool m_marked;
 	bool m_processed;
 private:
@@ -60,6 +60,6 @@ struct CompareNodes
 {
 	float operator()(CACell* const node1, CACell* const node2)
 	{
-		return (node1->path + node1->heuristic) > (node2->path + node2->heuristic);
+		return (node1->m_path + node1->m_heuristic) > (node2->m_path + node2->m_heuristic);
 	}
 };

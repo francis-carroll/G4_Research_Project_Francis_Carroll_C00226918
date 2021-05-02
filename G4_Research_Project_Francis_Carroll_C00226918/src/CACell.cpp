@@ -9,9 +9,9 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size) :
 	m_neighbours(new vector<CACell*>()),
 	m_fillType(-1),
 	m_marked(false),
-	heuristic(100000),
-	path(100000),
-	previous(nullptr),
+	m_heuristic(100000),
+	m_path(100000),
+	m_previous(nullptr),
 	m_processed(false)
 {
 	setup();
@@ -27,9 +27,9 @@ CACell::CACell(int t_id, Vector2f t_position, Vector2f t_size, CellState t_state
 	m_neighbours(new vector<CACell*>()),
 	m_fillType(-1),
 	m_marked(false),
-	heuristic(100000),
-	path(100000),
-	previous(nullptr),
+	m_heuristic(100000),
+	m_path(100000),
+	m_previous(nullptr),
 	m_processed(false)
 {
 	setup();
