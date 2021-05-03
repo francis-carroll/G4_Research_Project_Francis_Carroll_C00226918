@@ -206,8 +206,8 @@ void BSPFloor::setupCorridors()
 					VertexArray line =  VertexArray(LinesStrip, 2);
 					line[0].position = bestVec->getPosition();
 					line[1].position = bestVec2->getPosition();
-					line[0].color = Color::Black;
-					line[1].color = Color::Blue;
+					line[0].color = Color::Red;
+					line[1].color = Color::Red;
 					m_corridors->push_back(line);
 				}
 
