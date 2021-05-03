@@ -73,7 +73,7 @@ void Game::update(Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	m_window->clear(Color::White);
+	m_window->clear(Color::Black);
 
 	switch (s_scene)
 	{
@@ -149,6 +149,11 @@ shared_ptr<BSPScreen> Game::getBSPScreen()
 shared_ptr<ComparitiveAnalysis> Game::getCompAScreen()
 {
 	return m_comparitive;
+}
+
+shared_ptr<Credits> Game::getCreditsScreen()
+{
+	return m_credits;
 }
 
 void Game::initialiseScenes()

@@ -13,7 +13,8 @@ enum class ButtonPressed
 {
 	BSP,
 	CA,
-	Comparitive
+	Comparitive,
+	Credits
 };
 
 class MainMenu

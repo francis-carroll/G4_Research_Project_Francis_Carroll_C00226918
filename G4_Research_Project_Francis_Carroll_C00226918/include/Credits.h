@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <Globals.h>
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -15,4 +16,9 @@ public:
 	void render(shared_ptr<RenderWindow> t_window);
 	void handleKeyInput(Event& t_event);
 	void handleMouseInput(Event& t_event);
+	void sceneSetup();
+private:
+	Text m_credits;
+	Font m_font;
+	Vector2f m_position;
 };

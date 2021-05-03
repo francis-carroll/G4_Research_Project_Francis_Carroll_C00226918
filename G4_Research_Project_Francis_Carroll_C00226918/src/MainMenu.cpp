@@ -32,6 +32,13 @@ void MainMenu::update(Time t_dt, Game& t_game)
 		m_buttons[(int)ButtonPressed::Comparitive]->setButtonState(ButtonState::None);
 		t_game.getCompAScreen()->sceneSetup();
 	}
+
+	if (m_buttons[(int)ButtonPressed::Credits]->getButtonState() == ButtonState::Clicked)
+	{
+		s_scene = Scene::Credits;
+		m_buttons[(int)ButtonPressed::Credits]->setButtonState(ButtonState::None);
+		t_game.getCreditsScreen()->sceneSetup();
+	}
 }
 
 void MainMenu::render(shared_ptr<RenderWindow> t_window)
@@ -56,7 +63,8 @@ void MainMenu::handleMouseInput(Event& t_event, shared_ptr<RenderWindow> t_windo
 
 void MainMenu::sceneSetup()
 {
-	m_buttons.push_back(make_shared<Button>(Vector2f(300.0f, 100.0f), "BSP"));
-	m_buttons.push_back(make_shared<Button>(Vector2f(300.0f, 200.0f), "CA"));
-	m_buttons.push_back(make_shared<Button>(Vector2f(300.0f, 300.0f), "Comparitive Analysis"));
+	m_buttons.push_back(make_shared<Button>(Vector2f(300.0f, 300.0f), "BSP"));
+	m_buttons.push_back(make_shared<Button>(Vector2f(500.0f, 300.0f), "CA"));
+	m_buttons.push_back(make_shared<Button>(Vector2f(400.0f, 400.0f), "Comparitive Analysis"));
+	m_buttons.push_back(make_shared<Button>(Vector2f(400.0f, 500.0f), "Credits"));
 }

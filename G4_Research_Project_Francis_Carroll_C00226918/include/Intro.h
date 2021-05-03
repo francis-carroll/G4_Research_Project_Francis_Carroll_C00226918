@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <Globals.h>
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -15,4 +16,10 @@ public:
 	void render(shared_ptr<RenderWindow> t_window);
 	void handleKeyInput(Event& t_event);
 	void handleMouseInput(Event& t_event);
+private:
+	void setup();
+
+	Text m_introText;
+	Font m_font;
+	Time m_timer;
 };
