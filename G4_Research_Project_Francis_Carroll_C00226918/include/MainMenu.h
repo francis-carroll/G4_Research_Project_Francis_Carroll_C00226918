@@ -9,6 +9,9 @@ using namespace sf;
 
 class Game;
 
+/// <summary>
+/// The current buttons on the main screen
+/// </summary>
 enum class ButtonPressed
 {
 	BSP,
@@ -17,6 +20,9 @@ enum class ButtonPressed
 	Credits
 };
 
+/// <summary>
+/// The main menu screen used for naigating the project
+/// </summary>
 class MainMenu
 {
 public:

@@ -8,6 +8,9 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// Displays the analytical data for each screen.
+/// </summary>
 class AnalyticDataDisplay
 {
 public:

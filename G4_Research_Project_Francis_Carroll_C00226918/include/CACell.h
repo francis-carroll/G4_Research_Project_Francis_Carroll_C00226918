@@ -7,12 +7,18 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// The current state of a node at any one stage
+/// </summary>
 enum class CellState
 {
 	Floor, 
 	Wall
 };
 
+/// <summary>
+/// A singular cell
+/// </summary>
 class CACell
 {
 public:
@@ -56,6 +62,9 @@ private:
 	vector<CACell*>* m_neighbours;
 };
 
+/// <summary>
+/// Overload struct for the A* algorithm.
+/// </summary>
 struct CompareNodes
 {
 	float operator()(CACell* const node1, CACell* const node2)

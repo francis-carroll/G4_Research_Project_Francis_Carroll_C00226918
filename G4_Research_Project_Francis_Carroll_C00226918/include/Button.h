@@ -6,12 +6,18 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// The current state of a button
+/// </summary>
 enum class ButtonState
 {
 	None,
 	Clicked
 };
 
+/// <summary>
+/// Interactible button
+/// </summary>
 class Button
 {
 public:

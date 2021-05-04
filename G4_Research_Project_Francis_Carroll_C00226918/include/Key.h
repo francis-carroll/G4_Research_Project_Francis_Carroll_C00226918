@@ -8,6 +8,9 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// Toggeable key used for siplaying input commands
+/// </summary>
 class Key
 {
 public:

@@ -6,6 +6,10 @@
 using namespace std;
 using namespace sf;
 
+
+/// <summary>
+/// Data loaded into project for the BSP algorithm
+/// </summary>
 struct BSP
 {
 	float m_roomPadding = 0.0f;
@@ -31,6 +35,10 @@ struct BSPData
 	BSP* m_bsp = new BSP();
 };
 
+
+/// <summary>
+/// Data loaded into project for the CA Algorithm
+/// </summary>
 struct CAS
 {
 	float m_chanceToBecomeWall = 0.0f;

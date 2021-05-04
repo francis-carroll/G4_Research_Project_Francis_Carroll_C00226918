@@ -7,6 +7,9 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// Screen that displays information
+/// </summary>
 class Intro
 {
 public:

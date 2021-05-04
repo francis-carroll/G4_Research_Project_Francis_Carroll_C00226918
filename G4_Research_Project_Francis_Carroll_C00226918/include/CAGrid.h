@@ -9,6 +9,9 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// The grid that contains all the nodes in the grid
+/// </summary>
 class CAGrid
 {
 public:

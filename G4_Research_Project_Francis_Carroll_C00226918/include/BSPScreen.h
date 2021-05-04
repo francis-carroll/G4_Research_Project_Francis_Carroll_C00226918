@@ -13,6 +13,9 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// Screen for the BSP algorithm
+/// </summary>
 class BSPScreen
 {
 public:

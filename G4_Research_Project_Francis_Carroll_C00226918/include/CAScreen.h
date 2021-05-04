@@ -14,6 +14,9 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// Screen for the CA algorithm
+/// </summary>
 class CAScreen
 {
 public:

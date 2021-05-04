@@ -11,7 +11,9 @@
 using namespace std;
 using namespace sf;
 
-
+/// <summary>
+/// Screen that displays information for the comparitative analysis
+/// </summary>
 class ComparitiveAnalysis
 {
 public:

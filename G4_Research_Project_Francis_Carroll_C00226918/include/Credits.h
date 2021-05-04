@@ -7,6 +7,9 @@
 using namespace std;
 using namespace sf;
 
+/// <summary>
+/// Screen that displays information about project.
+/// </summary>
 class Credits
 {
 public:
